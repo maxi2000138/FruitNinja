@@ -1,13 +1,16 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class SpawnAreaDrawer
 {
+    public SpawnAreaData SpawnAreaData => _spawnAreaData;
+    
     [SerializeField] private Color32 _lineColor;
     [SerializeField, Range(0.05f, 0.5f)] private float _angleLineLength;
-    [field: SerializeField] public SpawnAreaData SpawnAreaData { get; private set; }
-    
+    [SerializeField ,FormerlySerializedAs("SpawnAreaData")] private SpawnAreaData _spawnAreaData;
+
     private Vector2 _cameraStartPoint;
     private Vector2 _leftPoint;
     private Vector2 _rightPoint;
@@ -19,19 +22,19 @@ public class SpawnAreaDrawer
     
     public void Validate()
     {
-        if (SpawnAreaData.ShootMaxAngle < SpawnAreaData.ShootMinAngle)
-            SpawnAreaData.ShootMaxAngle = SpawnAreaData.ShootMinAngle;
+        if (_spawnAreaData.ShootMaxAngle < _spawnAreaData.ShootMinAngle)
+            _spawnAreaData.ShootMaxAngle = _spawnAreaData.ShootMinAngle;
         
         _cameraStartPoint = Camera.main.ScreenToWorldPoint(Vector2.zero);
         _cameraHeight = Camera.main.orthographicSize * 2;
         _cameraWidth = _cameraHeight * Camera.main.aspect;
-        _point = new Vector2(_cameraStartPoint.x + (_cameraWidth * SpawnAreaData.ViewportPositionX), _cameraStartPoint.y + (_cameraHeight * SpawnAreaData.ViewportPositionY));
-        float deltaX = -_cameraWidth * (float)Mathf.Sin(SpawnAreaData.LineAngle * Mathf.PI/180) * SpawnAreaData.LineLength;  
-        float deltaY = _cameraWidth * (float)Mathf.Cos(SpawnAreaData.LineAngle * Mathf.PI/180) * SpawnAreaData.LineLength;  
-        float deltaX1 = -_cameraWidth * (float)Mathf.Sin((SpawnAreaData.LineAngle + SpawnAreaData.ShootMinAngle) * Mathf.PI/180) * _angleLineLength;  
-        float deltaX2 = -_cameraWidth * (float)Mathf.Sin((SpawnAreaData.LineAngle + SpawnAreaData.ShootMaxAngle) * Mathf.PI/180) * _angleLineLength;  
-        float deltaY1 = _cameraWidth * (float)Mathf.Cos((SpawnAreaData.LineAngle + SpawnAreaData.ShootMinAngle) * Mathf.PI/180)  * _angleLineLength;  
-        float deltaY2 = _cameraWidth * (float)Mathf.Cos((SpawnAreaData.LineAngle + SpawnAreaData.ShootMaxAngle) * Mathf.PI/180)  * _angleLineLength;
+        _point = new Vector2(_cameraStartPoint.x + (_cameraWidth * _spawnAreaData.ViewportPositionX), _cameraStartPoint.y + (_cameraHeight * _spawnAreaData.ViewportPositionY));
+        float deltaY = _cameraWidth * (float)Mathf.Sin(_spawnAreaData.LineAngle * Mathf.PI/180) * _spawnAreaData.LineLength;  
+        float deltaX = _cameraWidth * (float)Mathf.Cos(_spawnAreaData.LineAngle * Mathf.PI/180) * _spawnAreaData.LineLength;  
+        float deltaY1 = _cameraWidth * (float)Mathf.Sin((_spawnAreaData.LineAngle + _spawnAreaData.ShootMinAngle) * Mathf.Deg2Rad) * _angleLineLength;  
+        float deltaY2 = _cameraWidth * (float)Mathf.Sin((_spawnAreaData.LineAngle + _spawnAreaData.ShootMaxAngle) * Mathf.Deg2Rad) * _angleLineLength;  
+        float deltaX1 = _cameraWidth * (float)Mathf.Cos((_spawnAreaData.LineAngle + _spawnAreaData.ShootMinAngle) * Mathf.Deg2Rad)  * _angleLineLength;  
+        float deltaX2 = _cameraWidth * (float)Mathf.Cos((_spawnAreaData.LineAngle + _spawnAreaData.ShootMaxAngle) * Mathf.Deg2Rad)  * _angleLineLength;
         _leftPoint = new Vector2(_point.x - deltaX, _point.y - deltaY); 
         _rightPoint = new Vector2(_point.x + deltaX, _point.y + deltaY); 
         MinAnglePoint = new Vector2(_point.x + deltaX1, _point.y + deltaY1); 

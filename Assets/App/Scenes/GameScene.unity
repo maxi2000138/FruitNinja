@@ -123,6 +123,66 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &76596668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 76596670}
+  - component: {fileID: 76596669}
+  - component: {fileID: 76596671}
+  m_Layer: 0
+  m_Name: '[ENTRY_POINT]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &76596669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76596668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8352a1104908e488eeddd96c08289d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initializer: {fileID: 76596671}
+  _compositionOrder: {fileID: 366945620}
+--- !u!4 &76596670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76596668}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0456952, y: 0.21809042, z: -10.082856}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 366945618}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &76596671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76596668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab1368edaa020649a6e05c3d132c638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &366945617
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,9 +192,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 366945618}
+  - component: {fileID: 366945620}
   - component: {fileID: 366945619}
   m_Layer: 0
-  m_Name: '[ENTRY_POINT]'
+  m_Name: CompositeRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,12 +208,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 366945617}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.40221944, y: 0.9418115, z: -0.11433191}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.4479146, y: 0.7237211, z: 9.968524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 76596670}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &366945619
@@ -164,9 +225,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 366945617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee8352a1104908e488eeddd96c08289d, type: 3}
+  m_Script: {fileID: 11500000, guid: 674f13294c659cd4daad599b33af4061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 519420031}
+  _projectileShooter: {fileID: 400386532}
+  _initializer: {fileID: 76596671}
+--- !u!114 &366945620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366945617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0638e8a15416b543bf21b40d68bf843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _order:
+  - {fileID: 366945619}
 --- !u!1 &400386530
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,27 +433,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62aabd73c3e737547a764ca30f9e044e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnAreaDatas:
+  _spawnAreaDrawers:
   - _lineColor:
       serializedVersion: 2
-      rgba: 4278255412
-    _lineAngle: 180
-    _shootMinAngle: 43
-    _shootMaxAngle: 77
-    _viewportPositionX: 0
-    _viewportPositionY: 0.48
-    _length: 0.1
-    _angleLineLength: 0.1
+      rgba: 4279571950
+    _angleLineLength: 0.131
+    _spawnAreaData:
+      ViewportPositionX: 1
+      ViewportPositionY: 0.439
+      LineLength: 0.133
+      LineAngle: 0
+      ShootMinAngle: 30
+      ShootMaxAngle: 51
   - _lineColor:
       serializedVersion: 2
-      rgba: 4281672158
-    _lineAngle: 0
-    _shootMinAngle: 73
-    _shootMaxAngle: 109
-    _viewportPositionX: 1
-    _viewportPositionY: 0
-    _length: 0.07
-    _angleLineLength: 0.1
+      rgba: 4280745728
+    _angleLineLength: 0.121
+    _spawnAreaData:
+      ViewportPositionX: 0
+      ViewportPositionY: 0
+      LineLength: 0
+      LineAngle: 0
+      ShootMinAngle: 0
+      ShootMaxAngle: 0
 --- !u!1 &1112240055
 GameObject:
   m_ObjectHideFlags: 0
