@@ -1,26 +1,27 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpawnAreasSetuper : MonoBehaviour
 {
-    [SerializeField] private List<SpawnAreaData> _spawnAreaDatas;
+    [SerializeField] private List<SpawnAreaDrawer> _spawnAreaDrawers;
 
-    public IReadOnlyList<SpawnAreaData> SpawnAreaDatas =>
-        _spawnAreaDatas;
+    public List<SpawnAreaData> SpawnAreaDatas =>
+        _spawnAreaDrawers.Select(drawer => drawer.SpawnAreaData).ToList();
 
     private void OnValidate()
     {
-        foreach (SpawnAreaData data in _spawnAreaDatas)
+        foreach (SpawnAreaDrawer drawer in _spawnAreaDrawers)
         {
-            data.Validate();
+            drawer.Validate();
         }
     }
 
     private void OnDrawGizmos()
     {
-        foreach (SpawnAreaData data in _spawnAreaDatas)
+        foreach (SpawnAreaDrawer drawer in _spawnAreaDrawers)
         {
-            data.DrawGizmos();
+            drawer.DrawGizmos();
         }
     }
 }

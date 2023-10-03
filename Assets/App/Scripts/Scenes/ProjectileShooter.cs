@@ -14,10 +14,10 @@ public class ProjectileShooter : MonoBehaviour
         if (timer <= 0)
         {
             SpawnAreaData areaData = _spawnAreasSetuper.SpawnAreaDatas[0];
-            GameObject fruit = _projectileFactory.CreateFruit(areaData.Point);
+            //GameObject fruit = _projectileFactory.CreateFruit(areaData.Point);
             Vector3 moveVector = Vector3.up;
             
-            fruit.GetComponent<ShootApplier>().Shoot(areaData.MinAnglePoint.normalized);
+            //fruit.GetComponent<ShootApplier>().Shoot(areaData.MinAnglePoint.normalized);
             timer = Random.Range(3f, 8f);
         }
     }
