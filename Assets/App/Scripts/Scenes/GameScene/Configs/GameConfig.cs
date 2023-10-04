@@ -11,5 +11,5 @@ public class GameConfig : ScriptableObject
     [Header("DestroyLine Settings")]
     public float DestroyLineYOffset = 2f;
     [Header("Shooting Settings")]
-    public float ShootForce = 1f;
+    public float ShootVelocity = 1f;
 }

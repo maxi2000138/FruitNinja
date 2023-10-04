@@ -35,6 +35,7 @@ public class ServicesCompositeRoot : CompositeRoot
         _projectileShooter = new ProjectileShooter(_projectileFactory, _spawnAreasContainer, _cameraFeaturesProvider, _gameConfig,_shootPolicy);
         _entryPoint.Construct(_projectileShooter);
         
+        monoBehaviourSimulator.AddInitializable(_projectileShooter);
         monoBehaviourSimulator.AddInitializable(_destroyLine);
         monoBehaviourSimulator.AddUpdatable(_destroyLine);
     }
