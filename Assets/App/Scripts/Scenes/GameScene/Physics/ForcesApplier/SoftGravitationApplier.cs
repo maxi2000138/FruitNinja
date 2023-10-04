@@ -14,7 +14,7 @@ public class SoftGravitationApplier : MonoBehaviour, IMover
     {
         float gravConst = _gameConfig.UpGravitationalConstant;
 
-        if (lastMovementVector.y <= _gameConfig.BoundaryVelocity) 
+        if (lastMovementVector.y <= 0) 
             gravConst = _gameConfig.DownGravitationalConstant;
 
         _velocity += gravConst * fixedDeltaTime;

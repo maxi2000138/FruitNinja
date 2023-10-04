@@ -6,10 +6,10 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] 
     private CompositionOrder _compositionOrder;
 
-    private ProjectileShooter _projectileShooter;
+    private IProjectileShooter _projectileShooter;
     private readonly MonoBehaviourSimulator _monoBehaviourSimulator = new();
 
-    public void Construct(ProjectileShooter projectileShooter)
+    public void Construct(IProjectileShooter projectileShooter)
     {
         _projectileShooter = projectileShooter;
     }

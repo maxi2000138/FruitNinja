@@ -18,7 +18,7 @@ public class ServicesCompositeRoot : CompositeRoot
     [SerializeField]
     private CoroutineRunner _coroutineRunner;
 
-    private CameraFeaturesProvider _cameraFeaturesProvider;
+    private ScreenSettingsProvider _screenSettingsProvider;
     private ProjectileDestroyer _projectileDestroyer;
     private DestroyLine _destroyLine;
     private ProjectileFactory _projectileFactory;
@@ -27,12 +27,12 @@ public class ServicesCompositeRoot : CompositeRoot
 
     public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
     {
-        _cameraFeaturesProvider = new CameraFeaturesProvider(_camera);
+        _screenSettingsProvider = new ScreenSettingsProvider(_camera);
         _projectileDestroyer = new ProjectileDestroyer();
-        _destroyLine = new DestroyLine(_cameraFeaturesProvider, _projectileDestroyer, _gameConfig);
+        _destroyLine = new DestroyLine(_screenSettingsProvider, _projectileDestroyer, _gameConfig);
         _projectileFactory = new ProjectileFactory(_destroyLine, _projectileContainer);
         _shootPolicy = new BichShootPolicy(_coroutineRunner);
-        _projectileShooter = new ProjectileShooter(_projectileFactory, _spawnAreasContainer, _cameraFeaturesProvider, _gameConfig,_shootPolicy);
+        _projectileShooter = new ProjectileShooter(_projectileFactory, _spawnAreasContainer, _screenSettingsProvider, _gameConfig,_shootPolicy);
         _entryPoint.Construct(_projectileShooter);
         
         monoBehaviourSimulator.AddInitializable(_projectileShooter);

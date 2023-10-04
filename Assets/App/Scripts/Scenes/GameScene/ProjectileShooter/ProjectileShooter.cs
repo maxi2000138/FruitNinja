@@ -1,27 +1,27 @@
 using UnityEngine;
 
-public class ProjectileShooter : IInitializable
+public class ProjectileShooter : IProjectileShooter, IInitializable
 {
     private float _highestYValue;
     private readonly SpawnAreasContainer _spawnAreasContainer;
-    private readonly CameraFeaturesProvider _cameraFeaturesProvider;
-    private readonly ProjectileFactory _projectileFactory;
+    private readonly IScreenSettingsProvider _screenSettingsProvider;
+    private readonly IProjectileFactory _projectileFactory;
     private readonly GameConfig _gameConfig;
     private readonly IShootPolicy _shootPolicy;
 
-    public ProjectileShooter(ProjectileFactory projectileFactory, SpawnAreasContainer spawnAreasContainer
-        , CameraFeaturesProvider cameraFeaturesProvider, GameConfig gameConfig, IShootPolicy shootPolicy)
+    public ProjectileShooter(IProjectileFactory projectileFactory, SpawnAreasContainer spawnAreasContainer
+        , IScreenSettingsProvider screenSettingsProvider, GameConfig gameConfig, IShootPolicy shootPolicy)
     {
         _projectileFactory = projectileFactory;
         _spawnAreasContainer = spawnAreasContainer;
-        _cameraFeaturesProvider = cameraFeaturesProvider;
+        _screenSettingsProvider = screenSettingsProvider;
         _gameConfig = gameConfig;
         _shootPolicy = shootPolicy;
     }
 
     public void Initialize()
     {
-        _highestYValue = _cameraFeaturesProvider.ViewportToWorldPosition(new Vector2(0, 1)).y;
+        _highestYValue = _screenSettingsProvider.ViewportToWorldPosition(new Vector2(0, 1)).y;
     }
 
     public void StartShooting()
@@ -36,7 +36,7 @@ public class ProjectileShooter : IInitializable
         _shootPolicy.StopWorking();
     }
 
-    private void Shoot()
+    public void Shoot()
     {
         SpawnAreaData areaData = _spawnAreasContainer.SpawnAreaHandlers.GetRandomItemByProbability(data => data.Probability);
         float angle = (areaData.ShootMinAngle, areaData.ShootMaxAngle).GetRandomFloatBetween();
@@ -45,10 +45,10 @@ public class ProjectileShooter : IInitializable
 
     private void SpawnFruitAndShootByAngle(SpawnAreaData areaData, float angle)
     {
-        Vector2 position = _cameraFeaturesProvider
+        Vector2 position = _screenSettingsProvider
                 .ViewportToWorldPosition((areaData.ViewportLeftPosition, areaData.ViewportRightPosition)
                 .GetRandomPointBetween());
-        GameObject fruit = _projectileFactory.CreateFruit(position);
+        GameObject fruit = _projectileFactory.CreateDemoFruit(position);
         Vector2 moveVector = GetMovementVector(areaData, angle);
         moveVector = ConstrainSpeed(fruit.transform.position.y, moveVector);
         fruit.GetComponent<ShootApplier>().Shoot(moveVector);

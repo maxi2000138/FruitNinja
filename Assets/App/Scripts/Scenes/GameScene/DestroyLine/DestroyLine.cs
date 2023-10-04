@@ -4,15 +4,15 @@ using UnityEngine;
 public class DestroyLine : IInitializable, IUpdatable, IDestroyLine
 {
     private float _yDestroyValue = 0f;
-    private readonly CameraFeaturesProvider _cameraFeaturesProvider;
-    private readonly ProjectileDestroyer _projectileDestroyer;
+    private readonly IScreenSettingsProvider _screenSettingsProvider;
+    private readonly IProjectileDestroyer _projectileDestroyer;
     private readonly GameConfig _gameConfig;
     private readonly List<Transform> _destroyListeners = new ();
 
 
-    public DestroyLine(CameraFeaturesProvider cameraFeaturesProvider, ProjectileDestroyer projectileDestroyer, GameConfig gameConfig)
+    public DestroyLine(IScreenSettingsProvider screenSettingsProvider, IProjectileDestroyer projectileDestroyer, GameConfig gameConfig)
     {
-        _cameraFeaturesProvider = cameraFeaturesProvider;
+        _screenSettingsProvider = screenSettingsProvider;
         _projectileDestroyer = projectileDestroyer;
         _gameConfig = gameConfig;
     }
@@ -25,7 +25,7 @@ public class DestroyLine : IInitializable, IUpdatable, IDestroyLine
 
     public void Initialize()
     {
-        Vector2 zeroCameraPoint = _cameraFeaturesProvider.ViewportToWorldPosition(Vector2.zero);
+        Vector2 zeroCameraPoint = _screenSettingsProvider.ViewportToWorldPosition(Vector2.zero);
         _yDestroyValue = zeroCameraPoint.y + _gameConfig.DestroyLineYOffset;
     }
 

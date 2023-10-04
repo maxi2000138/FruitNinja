@@ -486,13 +486,13 @@ MonoBehaviour:
     _angleLineLength: 0.105
     _spawnAreaData:
       ViewportPositionX: 1
-      ViewportPositionY: 0.018
-      ViewportLeftPosition: {x: 1, y: -0.17755556}
-      ViewportRightPosition: {x: 1, y: 0.21355557}
+      ViewportPositionY: 0.257
+      ViewportLeftPosition: {x: 1, y: 0.06144443}
+      ViewportRightPosition: {x: 1, y: 0.45255557}
       LineLength: 0.088
       LineAngle: 90
-      ShootMinAngle: 15
-      ShootMaxAngle: 29
+      ShootMinAngle: 33
+      ShootMaxAngle: 50
       Probability: 0.16
   - _lineColor:
       serializedVersion: 2
@@ -500,10 +500,10 @@ MonoBehaviour:
     _angleLineLength: 0.086
     _spawnAreaData:
       ViewportPositionX: 0
-      ViewportPositionY: 0.079
-      ViewportLeftPosition: {x: 0, y: 0.23677778}
-      ViewportRightPosition: {x: 0, y: -0.07877779}
-      LineLength: 0.071
+      ViewportPositionY: 0.309
+      ViewportLeftPosition: {x: 0, y: 0.4867778}
+      ViewportRightPosition: {x: 0, y: 0.13122219}
+      LineLength: 0.08
       LineAngle: 270
       ShootMinAngle: 156
       ShootMaxAngle: 168
