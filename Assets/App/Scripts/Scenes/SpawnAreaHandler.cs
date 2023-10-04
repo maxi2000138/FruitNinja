@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 [Serializable]
-public class SpawnAreaDrawer
+public class SpawnAreaHandler
 {
     public SpawnAreaData SpawnAreaData => _spawnAreaData;
     
@@ -36,7 +36,9 @@ public class SpawnAreaDrawer
         float deltaX1 = _cameraWidth * (float)Mathf.Cos((_spawnAreaData.LineAngle + _spawnAreaData.ShootMinAngle) * Mathf.Deg2Rad)  * _angleLineLength;  
         float deltaX2 = _cameraWidth * (float)Mathf.Cos((_spawnAreaData.LineAngle + _spawnAreaData.ShootMaxAngle) * Mathf.Deg2Rad)  * _angleLineLength;
         _leftPoint = new Vector2(_point.x - deltaX, _point.y - deltaY); 
-        _rightPoint = new Vector2(_point.x + deltaX, _point.y + deltaY); 
+        _rightPoint = new Vector2(_point.x + deltaX, _point.y + deltaY);
+        _spawnAreaData.ViewportLeftPosition = Camera.main.WorldToViewportPoint(_leftPoint);
+        _spawnAreaData.ViewportRightPosition = Camera.main.WorldToViewportPoint(_rightPoint);
         MinAnglePoint = new Vector2(_point.x + deltaX1, _point.y + deltaY1); 
         MaxAnglePoint = new Vector2(_point.x + deltaX2, _point.y + deltaY2); 
     }

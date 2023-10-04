@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SpawnAreasSetuper : MonoBehaviour
 {
-    [SerializeField] private List<SpawnAreaDrawer> _spawnAreaDrawers;
+    [SerializeField] private List<SpawnAreaHandler> _spawnAreaHandlers;
 
-    public List<SpawnAreaData> SpawnAreaDatas =>
-        _spawnAreaDrawers.Select(drawer => drawer.SpawnAreaData).ToList();
+    public List<SpawnAreaData> SpawnAreaHandlers =>
+        _spawnAreaHandlers.Select(drawer => drawer.SpawnAreaData).ToList();
 
     private void OnValidate()
     {
-        foreach (SpawnAreaDrawer drawer in _spawnAreaDrawers)
+        foreach (SpawnAreaHandler drawer in _spawnAreaHandlers)
         {
             drawer.Validate();
         }
@@ -19,7 +19,7 @@ public class SpawnAreasSetuper : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        foreach (SpawnAreaDrawer drawer in _spawnAreaDrawers)
+        foreach (SpawnAreaHandler drawer in _spawnAreaHandlers)
         {
             drawer.DrawGizmos();
         }

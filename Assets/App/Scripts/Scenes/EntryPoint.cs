@@ -1,15 +1,21 @@
+using System;
 using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
 {
     [SerializeField] 
-    private Initializer _initializer;
-    [SerializeField] 
     private CompositionOrder _compositionOrder;
- 
-    public void Start()
+
+    private readonly MonoBehaviourSimulator _monoBehaviourSimulator = new();
+
+    public void Awake()
     {
-        _compositionOrder.CompositeAll();
-        _initializer.Initialize();
+        _compositionOrder.CompositeAll(_monoBehaviourSimulator);
+        _monoBehaviourSimulator.InitializeAll();
+    }
+
+    private void Update()
+    {
+        _monoBehaviourSimulator.UpdateAll(Time.deltaTime);
     }
 }

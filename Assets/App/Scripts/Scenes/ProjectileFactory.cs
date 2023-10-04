@@ -1,12 +1,10 @@
 using UnityEngine;
 
-public class ProjectileFactory : MonoBehaviour
+public class ProjectileFactory
 {
-    [SerializeField] private GameObject _fruit;
-    
-    public GameObject CreateFruit(Vector3 position)
+    public GameObject CreateFruit(Vector2 position)
     {
-        GameObject fruit = GameObject.Instantiate(_fruit);
+        GameObject fruit = GameObject.Instantiate((GameObject)Resources.Load(ResourcePathes.BaseFruitPath));
         fruit.transform.position = position;
         return fruit;
     }

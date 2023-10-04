@@ -1,36 +1,37 @@
 using UnityEngine;
 
-public class ProjectileShooter : MonoBehaviour
+public class ProjectileShooter : IUpdatable
 {
-    [SerializeField] 
-    private SpawnAreasSetuper _spawnAreasSetuper;
-    [SerializeField] 
-    private ProjectileFactory _projectileFactory;
-
-    private CameraProvider _cameraProvider;
+    private readonly SpawnAreasSetuper _spawnAreasSetuper;
+    private readonly CameraFeaturesProvider _cameraFeaturesProvider;
+    private readonly ProjectileFactory _projectileFactory;
     private float timer = 0;
 
-    public void Construct(CameraProvider cameraProvider)
+    public ProjectileShooter(ProjectileFactory projectileFactory, SpawnAreasSetuper spawnAreasSetuper, CameraFeaturesProvider cameraFeaturesProvider)
     {
-        _cameraProvider = cameraProvider;
+        _projectileFactory = projectileFactory;
+        _spawnAreasSetuper = spawnAreasSetuper;
+        _cameraFeaturesProvider = cameraFeaturesProvider;
     }
-
-    private void Update()
+    
+    public void Update(float deltaTime)
     {
-        timer -= Time.deltaTime;
+        timer -= deltaTime;
 
         if (timer <= 0)
         {
-            SpawnAreaData areaData = _spawnAreasSetuper.SpawnAreaDatas[0];
-            Vector2 worldPosition = _cameraProvider.ViewportToWorldPosition(areaData.ViewportPositionX,
-                areaData.ViewportPositionY);
-            GameObject fruit = _projectileFactory.CreateFruit(worldPosition);
+            SpawnAreaData areaData = _spawnAreasSetuper.SpawnAreaHandlers.GetRandomItemByProbability(data => data.Probability);
+            float angle = (areaData.ShootMinAngle, areaData.ShootMaxAngle).GetRandomFloatBetween();
+
+            Vector2 worldPosition = new Vector2(areaData.ViewportPositionX, areaData.ViewportPositionY);
+            Vector2 lineDelta = new Vector2(1, 1);
+            Vector2 position = _cameraFeaturesProvider.ViewportToWorldPosition((areaData.ViewportLeftPosition, areaData.ViewportRightPosition).GetRandomPointBetween());
+            GameObject fruit = _projectileFactory.CreateFruit(position);
             Vector2 moveVector = new Vector2(1,1);
-            moveVector.x *= Mathf.Cos(Mathf.Deg2Rad * (areaData.LineAngle + areaData.ShootMinAngle));
-            moveVector.y *= Mathf.Sin(Mathf.Deg2Rad * (areaData.LineAngle + areaData.ShootMinAngle));
-            
+            moveVector.x *= Mathf.Cos(Mathf.Deg2Rad * (areaData.LineAngle + angle));
+            moveVector.y *= Mathf.Sin(Mathf.Deg2Rad * (areaData.LineAngle + angle));
             fruit.GetComponent<ShootApplier>().Shoot(moveVector);
-            timer = Random.Range(3f, 8f);
+            timer = Random.Range(0.1f, 0.5f);
         }
     }
 }

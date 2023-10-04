@@ -5,15 +5,15 @@ public class ServicesCompositeRoot : CompositeRoot
     [SerializeField] 
     private Camera _camera;
     [SerializeField] 
-    private ProjectileShooter _projectileShooter;
+    private SpawnAreasSetuper _spawnAreasSetuper;
     [SerializeField] 
-    private Initializer _initializer;
+    private MonoBehaviourSimulator _namemonoBehaviourSimulator;
 
-    public override void Compose()
+    public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
     {
-        CameraProvider cameraProvider = new CameraProvider(_camera);
-        _projectileShooter.Construct(cameraProvider);
-        
-        //_initializer.AddInitializable();
+        CameraFeaturesProvider cameraFeaturesProvider = new CameraFeaturesProvider(_camera);
+        ProjectileFactory projectileFactory = new ProjectileFactory();
+        ProjectileShooter projectileShooter = new ProjectileShooter(projectileFactory, _spawnAreasSetuper, cameraFeaturesProvider);
+        monoBehaviourSimulator.AddUpdatable(projectileShooter);
     }
 }
