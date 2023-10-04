@@ -7,8 +7,11 @@ public class ServicesCompositeRoot : CompositeRoot
     private Camera _camera;
     [SerializeField] 
     private GameConfig _gameConfig;
-    [Header("MonoBehaviourServices")]
-    [SerializeField] 
+
+    [Header("MonoBehaviourServices")] 
+    [SerializeField]
+    private EntryPoint _entryPoint;
+    [SerializeField]
     private SpawnAreasContainer _spawnAreasContainer;
     [SerializeField] 
     private ProjectileContainer _projectileContainer;
@@ -22,6 +25,7 @@ public class ServicesCompositeRoot : CompositeRoot
         DestroyLine destroyLine = new DestroyLine(cameraFeaturesProvider, projectileDestroyer, _gameConfig);
         ProjectileFactory projectileFactory = new ProjectileFactory(destroyLine, _projectileContainer);
         ProjectileShooter projectileShooter = new ProjectileShooter(projectileFactory, _spawnAreasContainer, cameraFeaturesProvider,_coroutineRunner, _gameConfig);
+        _entryPoint.Construct(projectileShooter);
         
         monoBehaviourSimulator.AddInitializable(destroyLine);
         monoBehaviourSimulator.AddUpdatable(destroyLine);

@@ -260,9 +260,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 519420031}
-  _spawnAreasContainer: {fileID: 938910096}
   _gameConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
-  _projectileContainer: {fileID: 610487078}
+  _entryPoint: {fileID: 76596669}
+  _spawnAreasContainer: {fileID: 938910096}
+  _projectileContainer: {fileID: 610487079}
   _coroutineRunner: {fileID: 296955170}
 --- !u!114 &366945620
 MonoBehaviour:
