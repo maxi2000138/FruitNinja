@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf7fff751fa1f24798e5a8d3327f8cc, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  GravitationalConstant: -9
+  UpGravitationalConstant: -9
+  DownGravitationalConstant: -5
+  BoundaryVelocity: 0
   DestroyLineYOffset: -2
-  ShootForce: 1.6
+  ShootForce: 1.4

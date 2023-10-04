@@ -459,8 +459,8 @@ MonoBehaviour:
     _spawnAreaData:
       ViewportPositionX: 0.195
       ViewportPositionY: 0
-      ViewportLeftPosition: {x: 0.040021118, y: 0}
-      ViewportRightPosition: {x: 0.35018435, y: 0}
+      ViewportLeftPosition: {x: 0.03999999, y: 0}
+      ViewportRightPosition: {x: 0.35000002, y: 0}
       LineLength: 0.155
       LineAngle: 0
       ShootMinAngle: 68
@@ -473,8 +473,8 @@ MonoBehaviour:
     _spawnAreaData:
       ViewportPositionX: 0.703
       ViewportPositionY: 0
-      ViewportLeftPosition: {x: 0.51327014, y: 0}
-      ViewportRightPosition: {x: 0.8934703, y: 0}
+      ViewportLeftPosition: {x: 0.513, y: 0}
+      ViewportRightPosition: {x: 0.893, y: 0}
       LineLength: 0.19
       LineAngle: 0
       ShootMinAngle: 88
@@ -483,16 +483,16 @@ MonoBehaviour:
   - _lineColor:
       serializedVersion: 2
       rgba: 4278190330
-    _angleLineLength: 0.12
+    _angleLineLength: 0.105
     _spawnAreaData:
       ViewportPositionX: 1
-      ViewportPositionY: 0.648
-      ViewportLeftPosition: {x: 1.0005267, y: 0.4272536}
-      ViewportRightPosition: {x: 1.0005267, y: 0.8678915}
+      ViewportPositionY: 0.018
+      ViewportLeftPosition: {x: 1, y: -0.17755556}
+      ViewportRightPosition: {x: 1, y: 0.21355557}
       LineLength: 0.088
       LineAngle: 90
-      ShootMinAngle: 67
-      ShootMaxAngle: 85
+      ShootMinAngle: 15
+      ShootMaxAngle: 29
       Probability: 0.16
   - _lineColor:
       serializedVersion: 2
@@ -500,13 +500,13 @@ MonoBehaviour:
     _angleLineLength: 0.086
     _spawnAreaData:
       ViewportPositionX: 0
-      ViewportPositionY: 0.694
-      ViewportLeftPosition: {x: 0.00000002981802, y: 0.848767}
-      ViewportRightPosition: {x: 0.00000002981802, y: 0.5383175}
-      LineLength: 0.062
+      ViewportPositionY: 0.079
+      ViewportLeftPosition: {x: 0, y: 0.23677778}
+      ViewportRightPosition: {x: 0, y: -0.07877779}
+      LineLength: 0.071
       LineAngle: 270
-      ShootMinAngle: 97
-      ShootMaxAngle: 125
+      ShootMinAngle: 156
+      ShootMaxAngle: 168
       Probability: 0.16
 --- !u!1 &1112240055
 GameObject:
