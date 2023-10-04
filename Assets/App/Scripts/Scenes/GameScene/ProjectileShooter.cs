@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class ProjectileShooter : IUpdatable
 {
-    private readonly SpawnAreasSetuper _spawnAreasSetuper;
+    private readonly SpawnAreasContainer _spawnAreasContainer;
     private readonly CameraFeaturesProvider _cameraFeaturesProvider;
     private readonly ProjectileFactory _projectileFactory;
     private float timer = 0;
 
-    public ProjectileShooter(ProjectileFactory projectileFactory, SpawnAreasSetuper spawnAreasSetuper, CameraFeaturesProvider cameraFeaturesProvider)
+    public ProjectileShooter(ProjectileFactory projectileFactory, SpawnAreasContainer spawnAreasContainer, CameraFeaturesProvider cameraFeaturesProvider)
     {
         _projectileFactory = projectileFactory;
-        _spawnAreasSetuper = spawnAreasSetuper;
+        _spawnAreasContainer = spawnAreasContainer;
         _cameraFeaturesProvider = cameraFeaturesProvider;
     }
     
@@ -20,7 +20,7 @@ public class ProjectileShooter : IUpdatable
 
         if (timer <= 0)
         {
-            SpawnAreaData areaData = _spawnAreasSetuper.SpawnAreaHandlers.GetRandomItemByProbability(data => data.Probability);
+            SpawnAreaData areaData = _spawnAreasContainer.SpawnAreaHandlers.GetRandomItemByProbability(data => data.Probability);
             float angle = (areaData.ShootMinAngle, areaData.ShootMaxAngle).GetRandomFloatBetween();
 
             Vector2 worldPosition = new Vector2(areaData.ViewportPositionX, areaData.ViewportPositionY);

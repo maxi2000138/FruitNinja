@@ -215,7 +215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 519420031}
-  _spawnAreasSetuper: {fileID: 938910096}
+  _spawnAreasContainer: {fileID: 938910096}
+  _gameConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
+  _projectileContainer: {fileID: 610487078}
 --- !u!114 &366945620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,13 +309,57 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.40221944, y: -0.9418115, z: -9.885668}
+  m_LocalPosition: {x: 0, y: 0, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1112240056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &610487077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 610487078}
+  - component: {fileID: 610487079}
+  m_Layer: 0
+  m_Name: ProjectileContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &610487078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610487077}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.644098, y: -7.377223, z: 1.8888161}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2010714977}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &610487079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610487077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd469e32065c864b8a50473c2374ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &938910094
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +371,7 @@ GameObject:
   - component: {fileID: 938910095}
   - component: {fileID: 938910096}
   m_Layer: 0
-  m_Name: ZoneSetuper
+  m_Name: SpawnZoneSetuper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,31 +404,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62aabd73c3e737547a764ca30f9e044e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnAreaDrawers:
+  _spawnAreaHandlers:
   - _lineColor:
       serializedVersion: 2
-      rgba: 4279571950
-    _angleLineLength: 0.083
+      rgba: 4283555096
+    _angleLineLength: 0.158
+    _spawnAreaData:
+      ViewportPositionX: 0.31
+      ViewportPositionY: 0
+      ViewportLeftPosition: {x: 0.04702474, y: 0}
+      ViewportRightPosition: {x: 0.5733018, y: 0}
+      LineLength: 0.263
+      LineAngle: 0
+      ShootMinAngle: 68
+      ShootMaxAngle: 90
+      Probability: 0.223
+  - _lineColor:
+      serializedVersion: 2
+      rgba: 4278190330
+    _angleLineLength: 0.12
     _spawnAreaData:
       ViewportPositionX: 1
-      ViewportPositionY: 0
-      LineLength: 0.144
+      ViewportPositionY: 0.348
+      ViewportLeftPosition: {x: 1.0005267, y: -0.04279501}
+      ViewportRightPosition: {x: 1.0005267, y: 0.738336}
+      LineLength: 0.156
       LineAngle: 90
-      ShootMinAngle: 30
-      ShootMaxAngle: 51
-      Probability: 0.32
-  - _lineColor:
-      serializedVersion: 2
-      rgba: 4280745728
-    _angleLineLength: 0.05
-    _spawnAreaData:
-      ViewportPositionX: 0.257
-      ViewportPositionY: 0
-      LineLength: 0.095
-      LineAngle: 0
-      ShootMinAngle: 38
-      ShootMaxAngle: 63
-      Probability: 0.68
+      ShootMinAngle: 67
+      ShootMaxAngle: 85
+      Probability: 0.571
 --- !u!1 &1112240055
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +465,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1876780702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1876780703}
+  - component: {fileID: 1876780704}
+  m_Layer: 0
+  m_Name: DestroyLineDrawer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1876780703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876780702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2010714977}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1876780704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876780702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b783ea815e0e15439cb6401e8b16db2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
 --- !u!1 &2010714976
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +539,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 938910095}
+  - {fileID: 1876780703}
+  - {fileID: 610487078}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

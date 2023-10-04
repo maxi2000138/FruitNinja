@@ -17,9 +17,7 @@ public class Mover : MonoBehaviour
         {
             movementVector += mover.Move(Time.fixedDeltaTime);
         }
-
-        Vector2 position = transform.position;
-        position += movementVector;
-        transform.position = position;
+        
+        transform.Translate(movementVector);
     }
 }

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   GravitationalConstant: -9.81
+  DestroyLineYOffset: -2

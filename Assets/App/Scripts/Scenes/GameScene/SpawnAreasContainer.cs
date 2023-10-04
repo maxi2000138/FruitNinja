@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SpawnAreasSetuper : MonoBehaviour
+public class SpawnAreasContainer : MonoBehaviour
 {
     [SerializeField] private List<SpawnAreaHandler> _spawnAreaHandlers;
 
