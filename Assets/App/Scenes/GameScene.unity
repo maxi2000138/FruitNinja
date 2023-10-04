@@ -166,8 +166,53 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 366945618}
+  - {fileID: 296955171}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &296955169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 296955171}
+  - component: {fileID: 296955170}
+  m_Layer: 0
+  m_Name: CoroutineRunner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &296955170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296955169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571bc0b175e7c434aa3c972c17a929d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &296955171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296955169}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 76596670}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &366945617
 GameObject:
@@ -218,6 +263,7 @@ MonoBehaviour:
   _spawnAreasContainer: {fileID: 938910096}
   _gameConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
   _projectileContainer: {fileID: 610487078}
+  _coroutineRunner: {fileID: 296955170}
 --- !u!114 &366945620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,31 +454,59 @@ MonoBehaviour:
   - _lineColor:
       serializedVersion: 2
       rgba: 4283555096
-    _angleLineLength: 0.158
+    _angleLineLength: 0.106
     _spawnAreaData:
-      ViewportPositionX: 0.31
+      ViewportPositionX: 0.195
       ViewportPositionY: 0
-      ViewportLeftPosition: {x: 0.04702474, y: 0}
-      ViewportRightPosition: {x: 0.5733018, y: 0}
-      LineLength: 0.263
+      ViewportLeftPosition: {x: 0.040021118, y: 0}
+      ViewportRightPosition: {x: 0.35018435, y: 0}
+      LineLength: 0.155
       LineAngle: 0
       ShootMinAngle: 68
       ShootMaxAngle: 90
-      Probability: 0.223
+      Probability: 0.293
+  - _lineColor:
+      serializedVersion: 2
+      rgba: 4294963968
+    _angleLineLength: 0.108
+    _spawnAreaData:
+      ViewportPositionX: 0.703
+      ViewportPositionY: 0
+      ViewportLeftPosition: {x: 0.51327014, y: 0}
+      ViewportRightPosition: {x: 0.8934703, y: 0}
+      LineLength: 0.19
+      LineAngle: 0
+      ShootMinAngle: 88
+      ShootMaxAngle: 119
+      Probability: 0.301
   - _lineColor:
       serializedVersion: 2
       rgba: 4278190330
     _angleLineLength: 0.12
     _spawnAreaData:
       ViewportPositionX: 1
-      ViewportPositionY: 0.348
-      ViewportLeftPosition: {x: 1.0005267, y: -0.04279501}
-      ViewportRightPosition: {x: 1.0005267, y: 0.738336}
-      LineLength: 0.156
+      ViewportPositionY: 0.648
+      ViewportLeftPosition: {x: 1.0005267, y: 0.4272536}
+      ViewportRightPosition: {x: 1.0005267, y: 0.8678915}
+      LineLength: 0.088
       LineAngle: 90
       ShootMinAngle: 67
       ShootMaxAngle: 85
-      Probability: 0.571
+      Probability: 0.16
+  - _lineColor:
+      serializedVersion: 2
+      rgba: 4294901953
+    _angleLineLength: 0.086
+    _spawnAreaData:
+      ViewportPositionX: 0
+      ViewportPositionY: 0.694
+      ViewportLeftPosition: {x: 0.00000002981802, y: 0.848767}
+      ViewportRightPosition: {x: 0.00000002981802, y: 0.5383175}
+      LineLength: 0.062
+      LineAngle: 270
+      ShootMinAngle: 97
+      ShootMaxAngle: 125
+      Probability: 0.16
 --- !u!1 &1112240055
 GameObject:
   m_ObjectHideFlags: 0

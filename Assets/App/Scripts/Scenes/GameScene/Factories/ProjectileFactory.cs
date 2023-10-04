@@ -13,8 +13,7 @@ public class ProjectileFactory
 
     public GameObject CreateFruit(Vector2 position)
     {
-        GameObject fruit = GameObject.Instantiate((GameObject)Resources.Load(ResourcePathes.BaseFruitPath));
-        fruit.transform.SetParent(_projectileContainer.transform);
+        GameObject fruit = GameObject.Instantiate((GameObject)Resources.Load(ResourcePathes.BaseFruitPath), _projectileContainer.transform, true);
         fruit.transform.position = position;
         _destroyLine.AddLineDestroyListener(fruit.transform);
         return fruit;

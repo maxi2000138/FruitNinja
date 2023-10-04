@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class ServicesCompositeRoot : CompositeRoot
 {
+    [Header("SceneObjects")]
     [SerializeField] 
     private Camera _camera;
     [SerializeField] 
+    private GameConfig _gameConfig;
+    [Header("MonoBehaviourServices")]
+    [SerializeField] 
     private SpawnAreasContainer _spawnAreasContainer;
     [SerializeField] 
-    private GameConfig _gameConfig;
-    [SerializeField] 
     private ProjectileContainer _projectileContainer;
+    [SerializeField]
+    private CoroutineRunner _coroutineRunner;
 
     public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
     {
@@ -17,10 +21,9 @@ public class ServicesCompositeRoot : CompositeRoot
         ProjectileDestroyer projectileDestroyer = new ProjectileDestroyer();
         DestroyLine destroyLine = new DestroyLine(cameraFeaturesProvider, projectileDestroyer, _gameConfig);
         ProjectileFactory projectileFactory = new ProjectileFactory(destroyLine, _projectileContainer);
-        ProjectileShooter projectileShooter = new ProjectileShooter(projectileFactory, _spawnAreasContainer, cameraFeaturesProvider);
+        ProjectileShooter projectileShooter = new ProjectileShooter(projectileFactory, _spawnAreasContainer, cameraFeaturesProvider,_coroutineRunner, _gameConfig);
         
         monoBehaviourSimulator.AddInitializable(destroyLine);
-        monoBehaviourSimulator.AddUpdatable(projectileShooter);
         monoBehaviourSimulator.AddUpdatable(destroyLine);
     }
 }
