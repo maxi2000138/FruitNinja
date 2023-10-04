@@ -4,6 +4,7 @@ using UnityEngine;
 public class Mover : MonoBehaviour
 {
     private List<IMover> _movers = new();
+    private Vector2 _lastMovementVector = Vector2.zero;
 
     private void Awake()
     {
@@ -15,9 +16,10 @@ public class Mover : MonoBehaviour
         Vector2 movementVector = Vector2.zero;
         foreach (IMover mover in _movers)
         {
-            movementVector += mover.Move(Time.fixedDeltaTime);
+            movementVector += mover.Move(Time.fixedDeltaTime, _lastMovementVector);
         }
-        
-        transform.Translate(movementVector);
+
+        _lastMovementVector = movementVector;
+        transform.Translate(_lastMovementVector);
     }
 }
