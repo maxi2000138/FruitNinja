@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2764fb58ed91b4449882983723951a58, type: 3}
+  m_Name: FruitConfig
+  m_EditorClassIdentifier: 
+  FruitDatas:
+  - FruitType: 0
+    Sprite: {fileID: 21300000, guid: 1a14fc92e1c728d4181e68f409dc8aa3, type: 3}
+  - FruitType: 1
+    Sprite: {fileID: 21300000, guid: a2c687eced05d4841b9efc790b7d6442, type: 3}
+  - FruitType: 2
+    Sprite: {fileID: 21300000, guid: 9a85729e5dcf9bd40b27d8bea086887b, type: 3}
+  - FruitType: 3
+    Sprite: {fileID: 21300000, guid: edf1fcd08094255459c8c15fb5b7b5ff, type: 3}
+  - FruitType: 4
+    Sprite: {fileID: 21300000, guid: 6ca9f5e660f952545a61486b06d9c01a, type: 3}
+  - FruitType: 5
+    Sprite: {fileID: 21300000, guid: e761b4b586a9e6c4b99e519e1fa15ca4, type: 3}
+  - FruitType: 6
+    Sprite: {fileID: 21300000, guid: ae39af56c9af8f046b42c34ef58ba242, type: 3}
+  - FruitType: 7
+    Sprite: {fileID: 21300000, guid: 3bf1f5c7af5f1b44f9638dda81ad1fcc, type: 3}

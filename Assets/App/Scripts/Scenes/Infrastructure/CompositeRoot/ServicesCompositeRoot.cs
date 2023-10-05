@@ -5,9 +5,11 @@ public class ServicesCompositeRoot : CompositeRoot
     [Header("SceneObjects")]
     [SerializeField] 
     private Camera _camera;
+    [Header("Configs")]
     [SerializeField] 
     private GameConfig _gameConfig;
-
+    [SerializeField] 
+    private FruitConfig _fruitConfig;
     [Header("MonoBehaviourServices")] 
     [SerializeField]
     private EntryPoint _entryPoint;
