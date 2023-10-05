@@ -10,7 +10,7 @@ public class ServicesCompositeRoot : CompositeRoot
     private GameConfig _gameConfig;
     [SerializeField] 
     private FruitConfig _fruitConfig;
-    [Header("MonoBehaviourServices")] 
+    [Header("MonoBehaviourScripts")] 
     [SerializeField]
     private EntryPoint _entryPoint;
     [SerializeField]
@@ -32,7 +32,7 @@ public class ServicesCompositeRoot : CompositeRoot
         _screenSettingsProvider = new ScreenSettingsProvider(_camera);
         _projectileDestroyer = new ProjectileDestroyer();
         _destroyLine = new DestroyLine(_screenSettingsProvider, _projectileDestroyer, _gameConfig);
-        _projectileFactory = new ProjectileFactory(_destroyLine, _projectileContainer);
+        _projectileFactory = new ProjectileFactory(_destroyLine, _projectileContainer, _fruitConfig);
         _shootPolicy = new BichShootPolicy(_coroutineRunner);
         _projectileShooter = new ProjectileShooter(_projectileFactory, _spawnAreasContainer, _screenSettingsProvider, _gameConfig,_shootPolicy);
         _entryPoint.Construct(_projectileShooter);

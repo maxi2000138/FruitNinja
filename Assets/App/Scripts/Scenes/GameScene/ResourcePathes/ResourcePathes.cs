@@ -1,4 +1,4 @@
 public static class ResourcePathes
 {
-    public const string BaseFruitPath = "Prefabs/Projectile";
+    public const string FruitPath = "Prefabs/Fruits/Fruit";
 }

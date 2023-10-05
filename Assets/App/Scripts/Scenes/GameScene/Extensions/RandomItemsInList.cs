@@ -36,6 +36,12 @@ public static class RandomItemInList
         return randomIndex;
     }
     
+    public static int GetRandomIntBetween(this (int, int) items)
+    {
+        var randomIndex = Random.Range(items.Item1, items.Item2);
+        return randomIndex;
+    }
+    
     public static Vector2 GetRandomPointBetween(this (Vector2, Vector2) items)
     {
         var randomIndex = Random.Range(0f,1f);

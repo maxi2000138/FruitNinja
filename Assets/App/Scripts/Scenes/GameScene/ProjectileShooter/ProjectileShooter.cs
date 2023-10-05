@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ProjectileShooter : IProjectileShooter, IInitializable
@@ -45,13 +46,24 @@ public class ProjectileShooter : IProjectileShooter, IInitializable
 
     private void SpawnFruitAndShootByAngle(SpawnAreaData areaData, float angle)
     {
-        Vector2 position = _screenSettingsProvider
-                .ViewportToWorldPosition((areaData.ViewportLeftPosition, areaData.ViewportRightPosition)
-                .GetRandomPointBetween());
-        GameObject fruit = _projectileFactory.CreateDemoFruit(position);
+        GetRandomTypeAndPosition(areaData, out var position, out var type);
+        GameObject fruit = _projectileFactory.CreateFruitByType(position, type);
         Vector2 moveVector = GetMovementVector(areaData, angle);
         moveVector = ConstrainSpeed(fruit.transform.position.y, moveVector);
+        ShootFruit(fruit, moveVector);
+    }
+
+    private void ShootFruit(GameObject fruit, Vector2 moveVector)
+    {
         fruit.GetComponent<ShootApplier>().Shoot(moveVector);
+    }
+
+    private void GetRandomTypeAndPosition(SpawnAreaData areaData, out Vector2 position, out FruitType type)
+    {
+        position = _screenSettingsProvider
+            .ViewportToWorldPosition((areaData.ViewportLeftPosition, areaData.ViewportRightPosition)
+                .GetRandomPointBetween());
+        type = (FruitType)((0, Enum.GetNames(typeof(FruitType)).Length).GetRandomIntBetween());
     }
 
     private Vector2 GetMovementVector(SpawnAreaData areaData, float angle)

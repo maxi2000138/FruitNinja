@@ -261,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 519420031}
   _gameConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
+  _fruitConfig: {fileID: 11400000, guid: fbdaac5f59f6e0945be96859e0eaf2ef, type: 2}
   _entryPoint: {fileID: 76596669}
   _spawnAreasContainer: {fileID: 938910096}
   _projectileContainer: {fileID: 610487079}
