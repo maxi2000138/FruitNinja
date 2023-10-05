@@ -8,6 +8,4 @@ public class GameConfig : ScriptableObject
     public float DownGravitationalConstant = -6f;
     [Header("DestroyLine Settings")]
     public float DestroyLineYOffset = 2f;
-    [Header("Shooting Settings")]
-    public float ShootVelocity = 1f;
 }

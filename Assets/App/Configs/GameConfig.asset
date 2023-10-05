@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   UpGravitationalConstant: -12
-  DownGravitationalConstant: -5
+  DownGravitationalConstant: -7
   DestroyLineYOffset: -2
-  ShootVelocity: 14
