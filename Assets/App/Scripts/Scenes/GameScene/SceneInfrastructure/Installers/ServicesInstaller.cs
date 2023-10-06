@@ -1,22 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ServicesInstaller : CompositeRoot
+public class ServicesInstaller : Installer
 {
-    [Header("SceneObjects")]
-    [SerializeField] 
-    private Camera _camera;
-    [Header("Configs")]
-    [SerializeField] 
-    private GameConfig _gameConfig;
-    [SerializeField] 
-    private FruitConfig _fruitConfig;
-    [SerializeField] 
-    private ResourcesConfig _resourcesConfig;
-    [SerializeField] 
-    private ProjectileConfig _projectileConfig;
+    [Header("Installers")] 
+    [SerializeField]
+    private ConfigsInstaller _configsInstaller;
     [Header("MonoBehaviourScripts")] 
     [SerializeField]
     private EntryPoint _entryPoint;
+    [SerializeField]
+    private ScreenSettingsProvider _screenSettingsProvider;
     [SerializeField]
     private SpawnAreasContainer _spawnAreasContainer;
     [SerializeField] 
@@ -24,27 +18,26 @@ public class ServicesInstaller : CompositeRoot
     [SerializeField]
     private CoroutineRunner _coroutineRunner;
 
-    private ResourceObjectsProvider _resourceObjectsProvider;
-    private ScreenSettingsProvider _screenSettingsProvider;
-    private ProjectileDestroyer _projectileDestroyer;
-    private ProjectileFactory _projectileFactory;
-    private ProjectileShooter _projectileShooter;
-    private IShootPolicy _shootPolicy;
-    private DestroyTrigger _destroyTrigger;
+    public ResourceObjectsProvider ResourceObjectsProvider { get; private set; }
+    public ProjectileDestroyer ProjectileDestroyer { get; private set; }
+    public ProjectileFactory ProjectileFactory { get; private set; }
+    public ProjectileShooter ProjectileShooter { get; private set; }
+    public IShootPolicy ShootPolicy { get; private set; }
+    public DestroyTrigger DestroyTrigger { get; private set; }
 
     public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
     {
-        _screenSettingsProvider = new ScreenSettingsProvider(_camera);
-        _resourceObjectsProvider = new ResourceObjectsProvider();
-        _projectileDestroyer = new ProjectileDestroyer();
-        _destroyTrigger = new DestroyTrigger(_screenSettingsProvider, _projectileDestroyer, _gameConfig);
-        _projectileFactory = new ProjectileFactory(_destroyTrigger, _projectileContainer, _resourceObjectsProvider, _fruitConfig, _resourcesConfig);
-        _shootPolicy = new BichShootPolicy(_coroutineRunner);
-        _projectileShooter = new ProjectileShooter(_projectileFactory, _spawnAreasContainer, _screenSettingsProvider,_projectileConfig, _gameConfig,_shootPolicy);
-        _entryPoint.Construct(_projectileShooter);
-        
-        monoBehaviourSimulator.AddInitializable(_projectileShooter);
-        monoBehaviourSimulator.AddInitializable(_destroyTrigger);
-        monoBehaviourSimulator.AddUpdatable(_destroyTrigger);
+        ResourceObjectsProvider = new ResourceObjectsProvider();
+        ProjectileDestroyer = new ProjectileDestroyer();
+        DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsInstaller.GameConfig);
+        ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, ResourceObjectsProvider, _configsInstaller.FruitConfig, _configsInstaller.ResourcesConfig);
+        ShootPolicy = new BichShootPolicy(_coroutineRunner);
+        ProjectileShooter = new ProjectileShooter(ProjectileFactory, _spawnAreasContainer, _screenSettingsProvider,_configsInstaller.ProjectileConfig, _configsInstaller.GameConfig,ShootPolicy);
+        _entryPoint.Construct(ProjectileShooter);
+        List<ProjectileConfig> listik = new();
+
+        monoBehaviourSimulator.AddInitializable(ProjectileShooter);
+        monoBehaviourSimulator.AddInitializable(DestroyTrigger);
+        monoBehaviourSimulator.AddUpdatable(DestroyTrigger);
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 class CompositionOrder : MonoBehaviour
 {
     [SerializeField] 
-    private List<CompositeRoot> _order;
+    private List<Installer> _order;
 
     public void CompositeAll(MonoBehaviourSimulator monoBehaviourSimulator)
     {

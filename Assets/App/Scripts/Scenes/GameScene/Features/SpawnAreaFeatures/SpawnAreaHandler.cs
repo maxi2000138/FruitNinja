@@ -14,6 +14,7 @@ public class SpawnAreaHandler
     [SerializeField ,FormerlySerializedAs("SpawnAreaData")] 
     private SpawnAreaData _spawnAreaData;
 
+    private ScreenSettingsProvider _screenSettingsProvider;
     private Vector2 _cameraStartPoint;
     private Vector2 _leftPoint;
     private Vector2 _rightPoint;
@@ -22,6 +23,11 @@ public class SpawnAreaHandler
     private float _cameraWidth;
     private float _cameraHeight;
     private Vector2 _point;
+    
+    public void Construct(ScreenSettingsProvider screenSettingsProvider)
+    {
+        _screenSettingsProvider = screenSettingsProvider;
+    }
     
     public void Validate()
     {
@@ -44,9 +50,9 @@ public class SpawnAreaHandler
 
     private void GetScreenCharacteristics()
     {
-        _cameraStartPoint = Camera.main.ScreenToWorldPoint(Vector2.zero);
-        _cameraHeight = Camera.main.orthographicSize * 2;
-        _cameraWidth = _cameraHeight * Camera.main.aspect;
+        _cameraStartPoint = _screenSettingsProvider.CameraStartPoint;
+        _cameraHeight = _screenSettingsProvider.CameraHeight;
+        _cameraWidth = _screenSettingsProvider.CameraWidth;
     }
 
     private void ValidateMinMaxAngle()
@@ -73,8 +79,8 @@ public class SpawnAreaHandler
 
     private void WriteToDataLeftRightPoints()
     {
-        _spawnAreaData.ViewportLeftPosition = Camera.main.WorldToViewportPoint(_leftPoint);
-        _spawnAreaData.ViewportRightPosition = Camera.main.WorldToViewportPoint(_rightPoint);
+        _spawnAreaData.ViewportLeftPosition = _screenSettingsProvider.WorldToViewportPosition(_leftPoint);
+        _spawnAreaData.ViewportRightPosition = _screenSettingsProvider.WorldToViewportPosition(_rightPoint);
     }
 
     private void SetLeftRightPoints()

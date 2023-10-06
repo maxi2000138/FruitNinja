@@ -6,8 +6,6 @@ using Random = UnityEngine.Random;
 
 public static class RandomItemInList
 {
-    private const int MinRandomIndex = 0;
-    
     public static T GetRandomItemByProbability<T>(this IEnumerable<T> list, Func<T, float> item)
     {
         var sum = list.Sum(item);
@@ -32,26 +30,26 @@ public static class RandomItemInList
 
     public static float GetRandomFloatBetween(this (float, float) items)
     {
-        var randomIndex = Random.Range(items.Item1, items.Item2);
+        var randomIndex = Random.value * (items.Item2 - items.Item1) + items.Item1;
         return randomIndex;
     }
 
     public static float GetRandomFloatBetween(this Vector2 vector2)
     {
-        var randomIndex = Random.Range(vector2.x, vector2.y);
+        var randomIndex = Random.value * (vector2.y - vector2.x) + vector2.x;
         return randomIndex;
     }
 
     public static int GetRandomIntBetween(this (int, int) items)
     {
-        var randomIndex = Random.Range(items.Item1, items.Item2);
+        int randomIndex = (int)(Random.value * (items.Item2 - items.Item1) + items.Item1);
         return randomIndex;
     }
 
     public static Vector2 GetRandomPointBetween(this (Vector2, Vector2) items)
     {
-        var randomIndex = Random.Range(0f,1f);
-        Vector2 randomPoint = items.Item1 + (items.Item2 - items.Item1) * randomIndex;
+        float randomIndex = Random.value;
+        Vector2 randomPoint = (items.Item2 - items.Item1) * randomIndex + items.Item1;
         return randomPoint;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnAreasContainer : MonoBehaviour
 {
+    [SerializeField] private ScreenSettingsProvider _screenSettingsProvider;
     [SerializeField] private List<SpawnAreaHandler> _spawnAreaHandlers;
 
     public List<SpawnAreaData> SpawnAreaHandlers =>
@@ -13,6 +14,7 @@ public class SpawnAreasContainer : MonoBehaviour
     {
         foreach (SpawnAreaHandler drawer in _spawnAreaHandlers)
         {
+            drawer.Construct(_screenSettingsProvider);
             drawer.Validate();
         }
     }

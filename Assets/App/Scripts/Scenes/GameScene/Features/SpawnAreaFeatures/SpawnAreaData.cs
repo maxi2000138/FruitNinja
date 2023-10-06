@@ -24,6 +24,6 @@ public class SpawnAreaData
     [Range(0,180)] 
     public float ShootMaxAngle;
     [Header("Probability")]
-    [Range(0, 1)] 
+    [Range(0, 100000f)] 
     public float Probability;
 }

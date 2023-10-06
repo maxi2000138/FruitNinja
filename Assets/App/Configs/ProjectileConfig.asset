@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: ProjectileConfig
   m_EditorClassIdentifier: 
   ShootVelocity: {x: 12.199008, y: 17.510622}
-  TorqueVelocity: {x: -361.54395, y: 314.8017}
+  TorqueVelocity: {x: -193.34268, y: 196.17569}
+  ShadowDistance: 1

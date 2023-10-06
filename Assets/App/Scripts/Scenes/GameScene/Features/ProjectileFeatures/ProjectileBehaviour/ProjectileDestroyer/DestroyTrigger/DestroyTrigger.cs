@@ -34,17 +34,14 @@ public class DestroyTrigger : IInitializable, IUpdatable, IDestroyTrigger
         for (int i = 0; i < _destroyListeners.Count; i++)
         {
             Transform destroyListener = _destroyListeners[i];
-            if (destroyListener == null)
-            {
-                _destroyListeners.Remove(destroyListener);
-                i--;
-                continue;
-            }
-            
-            if (destroyListener.position.y <= _yDestroyValue)
+            if (destroyListener != null && destroyListener.position.y <= _yDestroyValue)
             {
                 _destroyListeners.Remove(destroyListener);
                 _projectileDestroyer.DestroyProjectile(destroyListener.gameObject);   
+            }
+            else if (destroyListener == null)
+            {
+                _destroyListeners.Remove(destroyListener);
             }
         }
     }
