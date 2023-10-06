@@ -1,42 +1,28 @@
 using System;
 using UnityEngine;
 
-public class ProjectileShooter : IProjectileShooter, IInitializable
+public class Shooter : IShooter, IInitializable
 {
     private float _highestYValue;
     private readonly IScreenSettingsProvider _screenSettingsProvider;
     private readonly SpawnAreasContainer _spawnAreasContainer;
     private readonly IProjectileFactory _projectileFactory;
     private readonly ProjectileConfig _projectileConfig;
-    private readonly IShootPolicy _shootPolicy;
-    private readonly GameConfig _gameConfig;
+    private readonly GravitationConfig _gravitationConfig;
 
-    public ProjectileShooter(IProjectileFactory projectileFactory, SpawnAreasContainer spawnAreasContainer
-        , IScreenSettingsProvider screenSettingsProvider, ProjectileConfig projectileConfig, GameConfig gameConfig, IShootPolicy shootPolicy)
+    public Shooter(IProjectileFactory projectileFactory, SpawnAreasContainer spawnAreasContainer
+        , IScreenSettingsProvider screenSettingsProvider, ProjectileConfig projectileConfig, GravitationConfig gravitationConfig)
     {
         _projectileFactory = projectileFactory;
         _spawnAreasContainer = spawnAreasContainer;
         _screenSettingsProvider = screenSettingsProvider;
         _projectileConfig = projectileConfig;
-        _gameConfig = gameConfig;
-        _shootPolicy = shootPolicy;
+        _gravitationConfig = gravitationConfig;
     }
 
     public void Initialize()
     {
         _highestYValue = _screenSettingsProvider.ViewportToWorldPosition(new Vector2(0, 1)).y;
-    }
-
-    public void StartShooting()
-    {
-        _shootPolicy.NeedShoot += Shoot;
-        _shootPolicy.StartWorking();
-    }
-
-    public void StopShooting()
-    {
-        _shootPolicy.NeedShoot -= Shoot;
-        _shootPolicy.StopWorking();
     }
 
     public void Shoot()
@@ -64,12 +50,14 @@ public class ProjectileShooter : IProjectileShooter, IInitializable
 
     private void ShootFruit(GameObject fruit, Vector2 moveVector)
     {
-        fruit.GetComponent<ShootApplier>().Shoot(moveVector);
+        ShootApplier shootApplier = fruit.GetComponentInChildren<ShootApplier>();
+        shootApplier.Shoot(moveVector);
     }
 
     private void RotateFruit(Fruit fruit)
     {
-        fruit.GetComponent<TorqueApplier>().AddTorque(_projectileConfig.TorqueVelocity.GetRandomFloatBetween());
+        TorqueApplier torqueApplier = fruit.GetComponentInChildren<TorqueApplier>();
+        torqueApplier.AddTorque(_projectileConfig.TorqueVelocityRange.GetRandomFloatBetween());
     }
 
     private void GetRandomTypeAndPosition(SpawnAreaData areaData, out Vector2 position, out FruitType type)
@@ -85,19 +73,19 @@ public class ProjectileShooter : IProjectileShooter, IInitializable
         Vector2 moveVector = new Vector2(1, 1);
         moveVector.x *= Mathf.Cos(Mathf.Deg2Rad * (areaData.LineAngle + angle));
         moveVector.y *= Mathf.Sin(Mathf.Deg2Rad * (areaData.LineAngle + angle));
-        moveVector *= _projectileConfig.ShootVelocity.GetRandomFloatBetween();
+        moveVector *= _projectileConfig.ShootVelocityRange.GetRandomFloatBetween();
         return moveVector;
     }
 
     private Vector3 GetRotationVector()
     {
-        return new Vector3(0f, 0f, _projectileConfig.TorqueVelocity.GetRandomFloatBetween());
+        return new Vector3(0f, 0f, _projectileConfig.TorqueVelocityRange.GetRandomFloatBetween());
     }
 
     private Vector2 ConstrainSpeed(float positionY, Vector2 moveVector)
     {
         float maxHeight = _highestYValue - positionY;
-        float maxVelocity = Mathf.Sqrt(2 * Mathf.Abs(_gameConfig.UpGravitationalConstant * maxHeight));
+        float maxVelocity = Mathf.Sqrt(2 * Mathf.Abs(_gravitationConfig.StartGravityValue * maxHeight));
         float coef = moveVector.y / maxVelocity;
         if (coef > 1)
         {

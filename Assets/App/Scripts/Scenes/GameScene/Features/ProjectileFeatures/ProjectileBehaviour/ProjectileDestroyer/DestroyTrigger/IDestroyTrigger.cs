@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IDestroyTrigger
 {
-    void AddLineDestroyListener(Transform objectTransform);
+    void AddDestroyTriggerListeners(params Transform[] objectTransform);
 }

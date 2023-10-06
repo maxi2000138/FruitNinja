@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rotater : MonoBehaviour
+public class Rotater : PhysicsBehaviour
 {
     private List<IRotater> _rotaters = new();
 
@@ -9,8 +9,8 @@ public class Rotater : MonoBehaviour
     {
         _rotaters.AddRange(GetComponents<IRotater>());
     }
-
-    private void FixedUpdate()
+    
+    public override void ExecuteOperation(GameObject physicsObject)
     {
         Vector3 rotationVector = Vector3.zero;
         foreach (IRotater mover in _rotaters)
@@ -18,6 +18,6 @@ public class Rotater : MonoBehaviour
             rotationVector += mover.Rotate(Time.fixedDeltaTime);
         }
 
-        transform.Rotate(rotationVector);
+        physicsObject.transform.Rotate(rotationVector);
     }
 }

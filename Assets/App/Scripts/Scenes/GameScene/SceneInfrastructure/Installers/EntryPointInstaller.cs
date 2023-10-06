@@ -10,6 +10,6 @@ public class EntryPointInstaller : Installer
     
     public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
     {
-                       
+        _entryPoint.Construct(_servicesInstaller.ShootSystem);
     }
 }

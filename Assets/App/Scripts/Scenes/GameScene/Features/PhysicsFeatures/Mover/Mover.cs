@@ -1,25 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mover : MonoBehaviour
+public class Mover : PhysicsBehaviour
 {
+    public Vector2 MovementVector { get; private set; }
     private List<IMover> _movers = new();
-    private Vector2 _lastMovementVector = Vector2.zero;
 
     private void Awake()
     {
         _movers.AddRange(GetComponents<IMover>());
     }
-
-    private void FixedUpdate()
+    
+    public override void ExecuteOperation(GameObject physicsObject)
     {
         Vector2 movementVector = Vector2.zero;
         foreach (IMover mover in _movers)
         {
-            movementVector += mover.Move(Time.fixedDeltaTime, _lastMovementVector);
+            movementVector += mover.Move(Time.fixedDeltaTime);
         }
 
-        _lastMovementVector = movementVector;
-        transform.Translate(_lastMovementVector, Space.World);
+        MovementVector = movementVector;
+        physicsObject.transform.Translate(MovementVector, Space.World);
     }
 }

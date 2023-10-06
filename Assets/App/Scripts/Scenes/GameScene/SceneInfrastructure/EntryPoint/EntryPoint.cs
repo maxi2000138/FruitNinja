@@ -6,12 +6,12 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] 
     private CompositionOrder _compositionOrder;
 
-    private IProjectileShooter _projectileShooter;
     private readonly MonoBehaviourSimulator _monoBehaviourSimulator = new();
+    private ShootSystem _shootSystem;
 
-    public void Construct(IProjectileShooter projectileShooter)
+    public void Construct(ShootSystem shootSystem)
     {
-        _projectileShooter = projectileShooter;
+        _shootSystem = shootSystem;
     }
 
     public void Awake()
@@ -19,7 +19,7 @@ public class EntryPoint : MonoBehaviour
         _compositionOrder.CompositeAll(_monoBehaviourSimulator);
         _monoBehaviourSimulator.InitializeAll();
         
-        _projectileShooter.StartShooting();
+        _shootSystem.StartShooting();
     }
 
     private void Update()

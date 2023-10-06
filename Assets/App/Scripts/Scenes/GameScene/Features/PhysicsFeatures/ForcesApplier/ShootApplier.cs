@@ -9,7 +9,7 @@ public class ShootApplier : MonoBehaviour, IMover
         _shootVector = shootVector;
     }
 
-    public Vector2 Move(float fixedDeltaTime, Vector2 lastMovementVector)
+    public Vector2 Move(float fixedDeltaTime)
     {
         return _shootVector * fixedDeltaTime;
     }

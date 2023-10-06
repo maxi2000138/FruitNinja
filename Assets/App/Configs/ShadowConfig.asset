@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32b5915d3de762f498f2c41245aac09e, type: 3}
-  m_Name: ProjectileConfig
+  m_Script: {fileID: 11500000, guid: be98255499861a148b05f7737ce0697f, type: 3}
+  m_Name: ShadowConfig
   m_EditorClassIdentifier: 
-  ShootVelocityRange: {x: 8.813624, y: 16.12875}
-  TorqueVelocityRange: {x: -558.78687, y: 1}
-  DestroyTriggerOffset: -2
+  ShadowDirectionX: 0
+  ShadowDirectionY: -0.43
+  ShadowScaleRange: {x: 0.7781524, y: 1.239227}
