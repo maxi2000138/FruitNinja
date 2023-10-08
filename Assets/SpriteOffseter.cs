@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,9 +13,9 @@ public class SpriteOffseter
         _coroutineRunner = coroutineRunner;
     }
 
-    public void StartOffseter(Vector2 offset, Vector2 distanceRange, float flyTime)
+    public void StartOffseter(Vector2 offset, float finalOffset, float flyTime)
     {
-        _offsetCoroutine = _coroutineRunner.StartCoroutine(SpriteOffsetCoroutine(offset, distanceRange, flyTime));
+        _offsetCoroutine = _coroutineRunner.StartCoroutine(SpriteOffsetCoroutine(offset, finalOffset, flyTime));
     }
 
     public void StopOffseter()
@@ -30,11 +29,11 @@ public class SpriteOffseter
         _spriteRenderer.transform.localPosition =position;
     }
 
-    private IEnumerator SpriteOffsetCoroutine(Vector2 offsetVector, Vector2 distanceRange, float flyTime)
+    private IEnumerator SpriteOffsetCoroutine(Vector2 offsetVector, float finalOffset, float flyTime)
     {
         Vector2 currentOffset = Vector2.zero;
-        Vector2 startOffset = offsetVector * distanceRange.x;
-        Vector2 maxOffset = offsetVector * distanceRange.y;
+        Vector2 startOffset = offsetVector * _spriteRenderer.transform.localScale;
+        Vector2 maxOffset = offsetVector * finalOffset;
         float time = 0f;
 
         while (true)

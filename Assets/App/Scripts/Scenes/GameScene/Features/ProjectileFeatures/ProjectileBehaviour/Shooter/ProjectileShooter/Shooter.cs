@@ -46,11 +46,10 @@ public class Shooter : IShooter, IInitializable
         moveVector = ConstrainSpeed(FruitSpriteHeight(fruit), moveVector);
         float scaleDistance = GetScaleDistance(fruit.SpriteScale, _fruitConfig.FruitScaleRange);
         float flyTime = GetFlyTimeFromYPosition(position.y);
-        fruit.StartChangingFruitSpriteScale(fruit.transform.localScale.x + (scaleDistance), flyTime);
-        fruit.StartChangingShadowSpriteScale(fruit.Shadow.transform.localScale.x+(scaleDistance * _shadowConfig.ShadowScaleScaler),flyTime);
-        fruit.StartChangingShadowOffset(new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY).normalized * -1f,
-            new Vector2(fruit.Shadow.transform.localScale.x
-                ,Mathf.Clamp(scaleDistance * _shadowConfig.ShadowOffsetScaler, 0, float.MaxValue)) ,flyTime);
+        fruit.StartChangingFruitSpriteScale(scaleDistance, flyTime);
+        fruit.StartChangingShadowSpriteScale(scaleDistance * _shadowConfig.ShadowScaleScaler, flyTime);
+        fruit.StartChangingShadowOffset(new Vector2(-_shadowConfig.ShadowDirectionX, -_shadowConfig.ShadowDirectionY).normalized,
+            Mathf.Clamp(scaleDistance * _shadowConfig.ShadowOffsetScaler, 0, float.MaxValue) ,flyTime);
         RotateFruit(fruit);
         ShootFruit(fruit.gameObject, moveVector);
     }

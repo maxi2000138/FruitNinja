@@ -20,5 +20,10 @@ public class ScreenSettingsProvider : MonoBehaviour, IScreenSettingsProvider
         Vector2 point = _camera.WorldToViewportPoint(worldPosition);
         return point;
     }
-
+    
+    public Vector2 ScreenToWorldPosition(Vector2 worldPosition)
+    {
+        Vector2 point = _camera.ScreenToWorldPoint(worldPosition);
+        return point;
+    }
 }   

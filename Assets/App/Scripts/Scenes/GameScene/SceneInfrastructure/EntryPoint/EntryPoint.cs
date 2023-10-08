@@ -16,6 +16,8 @@ public class EntryPoint : MonoBehaviour
 
     public void Awake()
     {
+        SetGameSettings();
+        
         _compositionOrder.CompositeAll(_monoBehaviourSimulator);
         _monoBehaviourSimulator.InitializeAll();
         
@@ -25,5 +27,11 @@ public class EntryPoint : MonoBehaviour
     private void Update()
     {
         _monoBehaviourSimulator.UpdateAll(Time.deltaTime);
+    }
+
+    private static void SetGameSettings()
+    {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
     }
 }

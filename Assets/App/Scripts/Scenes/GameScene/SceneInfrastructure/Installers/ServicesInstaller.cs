@@ -12,11 +12,15 @@ public class ServicesInstaller : Installer
     private SpawnAreasContainer _spawnAreasContainer;
     [SerializeField] 
     private ProjectileContainer _projectileContainer;
+    [SerializeField]
+    private SliceDrawer _sliceDrawer;
     [SerializeField] 
     private ShadowContainer _shadowContainer;
     [SerializeField]
     private CoroutineRunner _coroutineRunner;
 
+
+    public InputReader InputReader { get; private set; }
     public ResourceObjectsProvider ResourceObjectsProvider { get; private set; }
     public ProjectileDestroyer ProjectileDestroyer { get; private set; }
     public ProjectileFactory ProjectileFactory { get; private set; }
@@ -27,6 +31,8 @@ public class ServicesInstaller : Installer
 
     public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
     {
+        InputReader = new InputReader();
+        _sliceDrawer.Construct(InputReader, _screenSettingsProvider, _coroutineRunner);
         ResourceObjectsProvider = new ResourceObjectsProvider();
         ProjectileDestroyer = new ProjectileDestroyer();
         DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsInstaller.ProjectileConfig);

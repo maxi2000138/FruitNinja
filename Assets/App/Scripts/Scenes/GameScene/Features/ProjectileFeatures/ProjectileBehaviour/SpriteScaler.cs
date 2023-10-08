@@ -13,9 +13,9 @@ public class SpriteScaler
         _coroutineRunner = coroutineRunner;
     }
 
-    public void StartScaling(float maxScale, float flyTime)
+    public void StartScaling(float deltaScale, float flyTime)
     {
-        _scaleCoroutine = _coroutineRunner.StartCoroutine(SpriteScaleCoroutine(maxScale, flyTime));
+        _scaleCoroutine = _coroutineRunner.StartCoroutine(SpriteScaleCoroutine(deltaScale, flyTime));
     }
 
     public void StopScaling()
@@ -29,9 +29,11 @@ public class SpriteScaler
         _spriteRenderer.transform.localScale = localScale;
     }
 
-    private IEnumerator SpriteScaleCoroutine(float finalScale, float flyTime)
+    private IEnumerator SpriteScaleCoroutine(float deltaScale, float flyTime)
     {
         float startScale = _spriteRenderer.transform.localScale.x;
+        float finalScale = _spriteRenderer.transform.localScale.x + deltaScale;
+        
         Vector2 currentScale = _spriteRenderer.transform.localScale;
         float time = 0f;
         while (true)
