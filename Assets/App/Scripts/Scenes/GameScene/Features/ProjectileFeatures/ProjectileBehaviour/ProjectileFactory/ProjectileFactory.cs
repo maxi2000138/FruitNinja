@@ -56,10 +56,6 @@ public class ProjectileFactory : IProjectileFactory
     private void SetShadowAndFruitSprites(Fruit fruit, FruitData fruitData, Shadow shadow)
     {
         fruit.SetShadow(shadow);
-        /*
-        fruit.SetSprite(fruitData.Sprite, fruitData.SpriteScale);
-        shadow.SetSpriteWithOffset(fruitData.Sprite, fruitData.SpriteScale, 0.2f);
-        */
         float randomFloatBetween = _fruitConfig.FruitScaleRange.GetRandomFloatBetween();
         Vector2 randVector = new Vector2(randomFloatBetween, randomFloatBetween);
         fruit.SetSprite(fruitData.Sprite, randVector);

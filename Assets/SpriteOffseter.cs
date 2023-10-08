@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class SpriteOffseter
 {
@@ -41,8 +43,8 @@ public class SpriteOffseter
             currentOffset.x = Mathf.Lerp(startOffset.x, maxOffset.x, time / flyTime);
             currentOffset.y = Mathf.Lerp(startOffset.y, maxOffset.y, time / flyTime);
             SetSpriteOffset(currentOffset);
-            yield return new WaitForSeconds(Time.fixedDeltaTime);
-            time += Time.fixedDeltaTime;
+            time += Time.deltaTime;
+            yield return null;
         }
     }
     

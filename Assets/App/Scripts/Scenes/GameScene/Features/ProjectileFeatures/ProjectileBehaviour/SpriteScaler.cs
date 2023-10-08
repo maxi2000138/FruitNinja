@@ -13,9 +13,9 @@ public class SpriteScaler
         _coroutineRunner = coroutineRunner;
     }
 
-    public void StartScaling(float deltaScale, float flyTime)
+    public void StartScaling(float maxScale, float flyTime)
     {
-        _scaleCoroutine = _coroutineRunner.StartCoroutine(SpriteScaleCoroutine(deltaScale, flyTime));
+        _scaleCoroutine = _coroutineRunner.StartCoroutine(SpriteScaleCoroutine(maxScale, flyTime));
     }
 
     public void StopScaling()
@@ -29,11 +29,9 @@ public class SpriteScaler
         _spriteRenderer.transform.localScale = localScale;
     }
 
-    private IEnumerator SpriteScaleCoroutine(float deltaScale, float flyTime)
+    private IEnumerator SpriteScaleCoroutine(float finalScale, float flyTime)
     {
         float startScale = _spriteRenderer.transform.localScale.x;
-        float finalScale = _spriteRenderer.transform.localScale.x + deltaScale;
-        
         Vector2 currentScale = _spriteRenderer.transform.localScale;
         float time = 0f;
         while (true)
@@ -41,8 +39,8 @@ public class SpriteScaler
             currentScale.x = Mathf.Lerp(startScale, finalScale, time/flyTime);
             currentScale.y = Mathf.Lerp(startScale, finalScale, time/flyTime);
             SetSpriteScale(currentScale);
-            yield return new WaitForSeconds(Time.fixedDeltaTime);
-            time += Time.fixedDeltaTime;
+            time += Time.deltaTime;
+            yield return null;
         }
     }
 }
