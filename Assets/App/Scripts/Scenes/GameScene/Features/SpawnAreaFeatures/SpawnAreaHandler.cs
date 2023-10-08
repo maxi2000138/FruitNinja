@@ -63,7 +63,7 @@ public class SpawnAreaHandler
 
     private Vector2 SetMiddlePoint()
     {
-        return _point = new Vector2(_cameraStartPoint.x + (_cameraWidth * _spawnAreaData.ViewportPositionX), _cameraStartPoint.y + (_cameraHeight * _spawnAreaData.ViewportPositionY));
+        return _point = new Vector2(_cameraStartPoint.x + (_cameraWidth * _spawnAreaData.ViewportPositionX) + _spawnAreaData.OffsetPositionX, _cameraStartPoint.y + (_cameraHeight * _spawnAreaData.ViewportPositionY) + _spawnAreaData.OffsetPositionY);
     }
 
     private void SetMinMaxAnglePoint()

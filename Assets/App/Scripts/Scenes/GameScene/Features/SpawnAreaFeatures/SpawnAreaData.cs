@@ -9,6 +9,10 @@ public class SpawnAreaData
     public float ViewportPositionX;
     [Range(0,1)]
     public float ViewportPositionY;
+    [Range(-10f,10f)]
+    public float OffsetPositionX;
+    [Range(-10f,10f)]
+    public float OffsetPositionY;
     [HideInInspector] 
     public Vector2 ViewportLeftPosition;
     [HideInInspector] 

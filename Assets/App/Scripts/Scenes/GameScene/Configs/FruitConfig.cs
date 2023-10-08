@@ -16,5 +16,4 @@ public class FruitData
 {
     [Header("Sprite Settings")]
     public Sprite Sprite;
-    public Vector2 SpriteScale = new(1,1);
 }
