@@ -39,19 +39,26 @@ public class Shooter : IShooter, IInitializable
     private void SpawnFruitAndShootByAngle(SpawnAreaData areaData, float angle)
     {
         GetRandomTypeAndPosition(areaData, out var position, out var type);
-        float scale = 1f;
-        Fruit fruit = _projectileFactory.CreateFruitByType(position, type, scale);
+        Fruit fruit = _projectileFactory.CreateFruitByType(position, type);
+        SetScalingAndOffseting(fruit, GetScaleDistance(fruit.SpriteScale, _fruitConfig.FruitScaleRange), GetFlyTimeFromYPosition(position.y));
+        SetRotateAndShoot(areaData, angle, fruit);
+    }
+
+    private void SetRotateAndShoot(SpawnAreaData areaData, float angle, Fruit fruit)
+    {
         Vector2 moveVector = GetMovementVector(areaData, angle);
-        Vector3 rotationVector = GetRotationVector();
         moveVector = ConstrainSpeed(FruitSpriteHeight(fruit), moveVector);
-        float scaleDistance = GetScaleDistance(fruit.SpriteScale, _fruitConfig.FruitScaleRange);
-        float flyTime = GetFlyTimeFromYPosition(position.y);
-        fruit.StartChangingFruitSpriteScale(fruit.SpriteScale + scaleDistance, flyTime);
-        fruit.StartChangingShadowSpriteScale(fruit.Shadow.SpriteRenderer.transform.localScale.x + scaleDistance * _shadowConfig.ShadowScaleScaler, flyTime);
-        fruit.StartChangingShadowOffset(new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY).normalized,
-            Mathf.Clamp(scaleDistance * _shadowConfig.ShadowOffsetScaler, 0, float.MaxValue) ,flyTime);
         RotateFruit(fruit);
         ShootFruit(fruit.gameObject, moveVector);
+    }
+
+    private void SetScalingAndOffseting(Fruit fruit, float scaleDistance, float flyTime)
+    {
+        fruit.StartChangingFruitSpriteScale(fruit.SpriteScale + scaleDistance, flyTime);
+        fruit.StartChangingShadowSpriteScale(fruit.Shadow.SpriteRenderer.transform.localScale.x + scaleDistance * _shadowConfig.ShadowScaleScaler, flyTime);
+        fruit.StartChangingShadowOffset(
+            new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY).normalized
+            ,Mathf.Clamp(scaleDistance * _shadowConfig.ShadowOffsetScaler, 0, float.MaxValue), flyTime);
     }
 
     private float FruitSpriteHeight(Fruit fruit)
@@ -87,12 +94,7 @@ public class Shooter : IShooter, IInitializable
         moveVector *= _projectileConfig.ShootVelocityRange.GetRandomFloatBetween();
         return moveVector;
     }
-
-    private Vector3 GetRotationVector()
-    {
-        return new Vector3(0f, 0f, _projectileConfig.TorqueVelocityRange.GetRandomFloatBetween());
-    }
-
+    
     private Vector2 ConstrainSpeed(float positionY, Vector2 moveVector)
     {
         float maxHeight = GetPathHeight(positionY);
@@ -112,8 +114,7 @@ public class Shooter : IShooter, IInitializable
         float upScaleDistance = Mathf.Abs(scaleRange.y - currentScale);
         return downScaleDistance > upScaleDistance ? scaleRange.x - currentScale : scaleRange.y - currentScale;
     }
-
-
+    
     private float GetFlyTimeFromYPosition(float yPosition) =>
         GetFlyTimeFromVelocity(GetNeededYVelocityForHeight(GetPathHeight(yPosition)));
 

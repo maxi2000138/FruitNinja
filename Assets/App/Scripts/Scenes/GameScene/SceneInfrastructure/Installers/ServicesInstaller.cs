@@ -38,7 +38,7 @@ public class ServicesInstaller : Installer
         DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsInstaller.ProjectileConfig);
         ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, _coroutineRunner, ResourceObjectsProvider
             , _configsInstaller.FruitConfig, _configsInstaller.ResourcesConfig, _configsInstaller.ShadowConfig);
-        ShootPolicy = new NormSpawnPolicy(_coroutineRunner, _configsInstaller.SpawnConfig);
+        ShootPolicy = new WavesSpawnPolicy(_coroutineRunner, _configsInstaller.SpawnConfig);
         Shooter = new Shooter(ProjectileFactory, _spawnAreasContainer, _screenSettingsProvider,_configsInstaller.ProjectileConfig
             ,_configsInstaller.ShadowConfig , _configsInstaller.FruitConfig, _configsInstaller.GravitationConfig);
         ShootSystem = new ShootSystem(Shooter, ShootPolicy);

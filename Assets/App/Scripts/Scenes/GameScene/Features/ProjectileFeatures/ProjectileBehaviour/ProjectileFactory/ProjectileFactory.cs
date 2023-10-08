@@ -24,7 +24,7 @@ public class ProjectileFactory : IProjectileFactory
         _shadowConfig = shadowConfig;
     }
 
-    public Fruit CreateFruitByType(Vector2 position, FruitType fruitType, float scale)
+    public Fruit CreateFruitByType(Vector2 position, FruitType fruitType)
     {
         Fruit fruit = SpawnFruitAndConstruct(position);
         Shadow shadow = SetShadowAndConstruct(position);

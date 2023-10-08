@@ -10,5 +10,7 @@ public class SpawnConfig : ScriptableObject
     public Vector2 GroupSpawnDelayRange;
     [MinMaxSlider(0f,2f)]
     public Vector2 FruitsInGroupSpawnDelayRange;
+    [Range(2,100)]
+    public int AverageAmountSpawnGroups;
 
 }

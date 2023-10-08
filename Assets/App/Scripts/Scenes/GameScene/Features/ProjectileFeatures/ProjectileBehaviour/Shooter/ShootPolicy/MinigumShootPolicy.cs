@@ -3,13 +3,13 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BichShootPolicy : IShootPolicy
+public class MinigumShootPolicy : IShootPolicy
 {
     public event Action NeedShoot;
     private Coroutine _shootCoroutine;
     private readonly ICoroutineRunner _coroutineRunner;
 
-    public BichShootPolicy(ICoroutineRunner coroutineRunner)
+    public MinigumShootPolicy(ICoroutineRunner coroutineRunner)
     {
         _coroutineRunner = coroutineRunner;
     }
