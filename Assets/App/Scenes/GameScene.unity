@@ -556,6 +556,7 @@ MonoBehaviour:
   <ProjectileConfig>k__BackingField: {fileID: 11400000, guid: 3c3be518458482d41a8eb79aee7551bf, type: 2}
   <ResourcesConfig>k__BackingField: {fileID: 11400000, guid: 85c09d42a2ac05c42a5d5dce811ec051, type: 2}
   <ShadowConfig>k__BackingField: {fileID: 11400000, guid: 88f21b2fd2fad1648998f0b5b985fe41, type: 2}
+  <SpawnConfig>k__BackingField: {fileID: 11400000, guid: c07383a3ab06ede4fa11d15d2ff38db0, type: 2}
 --- !u!1 &879768325
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,8 +655,8 @@ MonoBehaviour:
     _spawnAreaData:
       ViewportPositionX: 0.195
       ViewportPositionY: 0
-      ViewportLeftPosition: {x: 0.03999999, y: 0}
-      ViewportRightPosition: {x: 0.35000002, y: 0}
+      ViewportLeftPosition: {x: 0.03999996, y: 0}
+      ViewportRightPosition: {x: 0.35, y: 0}
       LineLength: 0.155
       LineAngle: 0
       ShootMinAngle: 68
@@ -904,7 +905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632389564}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

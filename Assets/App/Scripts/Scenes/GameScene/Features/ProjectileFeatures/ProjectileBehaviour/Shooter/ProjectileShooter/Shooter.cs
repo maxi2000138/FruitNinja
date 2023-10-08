@@ -7,16 +7,20 @@ public class Shooter : IShooter, IInitializable
     private readonly IScreenSettingsProvider _screenSettingsProvider;
     private readonly SpawnAreasContainer _spawnAreasContainer;
     private readonly IProjectileFactory _projectileFactory;
-    private readonly ProjectileConfig _projectileConfig;
     private readonly GravitationConfig _gravitationConfig;
+    private readonly ProjectileConfig _projectileConfig;
+    private readonly ShadowConfig _shadowConfig;
+    private readonly FruitConfig _fruitConfig;
 
     public Shooter(IProjectileFactory projectileFactory, SpawnAreasContainer spawnAreasContainer
-        , IScreenSettingsProvider screenSettingsProvider, ProjectileConfig projectileConfig, GravitationConfig gravitationConfig)
+        , IScreenSettingsProvider screenSettingsProvider, ProjectileConfig projectileConfig, ShadowConfig shadowConfig, FruitConfig fruitConfig, GravitationConfig gravitationConfig)
     {
         _projectileFactory = projectileFactory;
         _spawnAreasContainer = spawnAreasContainer;
         _screenSettingsProvider = screenSettingsProvider;
         _projectileConfig = projectileConfig;
+        _shadowConfig = shadowConfig;
+        _fruitConfig = fruitConfig;
         _gravitationConfig = gravitationConfig;
     }
 
@@ -35,10 +39,18 @@ public class Shooter : IShooter, IInitializable
     private void SpawnFruitAndShootByAngle(SpawnAreaData areaData, float angle)
     {
         GetRandomTypeAndPosition(areaData, out var position, out var type);
-        Fruit fruit = _projectileFactory.CreateFruitByType(position, type);
+        float scale = 1f;
+        Fruit fruit = _projectileFactory.CreateFruitByType(position, type, scale);
         Vector2 moveVector = GetMovementVector(areaData, angle);
         Vector3 rotationVector = GetRotationVector();
         moveVector = ConstrainSpeed(FruitSpriteHeight(fruit), moveVector);
+        float scaleDistance = GetScaleDistance(fruit.SpriteScale, _fruitConfig.FruitScaleRange);
+        float flyTime = GetFlyTimeFromYPosition(position.y);
+        fruit.StartChangingFruitSpriteScale(fruit.transform.localScale.x + (scaleDistance), flyTime);
+        fruit.StartChangingShadowSpriteScale(fruit.Shadow.transform.localScale.x+(scaleDistance * _shadowConfig.ShadowScaleScaler),flyTime);
+        fruit.StartChangingShadowOffset(new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY).normalized * -1f,
+            new Vector2(fruit.Shadow.transform.localScale.x
+                ,Mathf.Clamp(scaleDistance * _shadowConfig.ShadowOffsetScaler, 0, float.MaxValue)) ,flyTime);
         RotateFruit(fruit);
         ShootFruit(fruit.gameObject, moveVector);
     }
@@ -84,9 +96,9 @@ public class Shooter : IShooter, IInitializable
 
     private Vector2 ConstrainSpeed(float positionY, Vector2 moveVector)
     {
-        float maxHeight = _highestYValue - positionY;
-        float maxVelocity = Mathf.Sqrt(2 * Mathf.Abs(_gravitationConfig.StartGravityValue * maxHeight));
-        float coef = moveVector.y / maxVelocity;
+        float maxHeight = GetPathHeight(positionY);
+        float neededYVelocity = GetNeededYVelocityForHeight(maxHeight);
+        float coef = moveVector.y / neededYVelocity;
         if (coef > 1)
         {
             moveVector /= coef;
@@ -94,4 +106,25 @@ public class Shooter : IShooter, IInitializable
 
         return moveVector;
     }
+
+    private float GetScaleDistance(float currentScale, Vector2 scaleRange)
+    {
+        float downScaleDistance = Mathf.Abs(scaleRange.x - currentScale);
+        float upScaleDistance = Mathf.Abs(scaleRange.y - currentScale);
+        return downScaleDistance > upScaleDistance ? scaleRange.x - currentScale : scaleRange.y - currentScale;
+    }
+
+
+    private float GetFlyTimeFromYPosition(float yPosition) =>
+        GetFlyTimeFromVelocity(GetNeededYVelocityForHeight(GetPathHeight(yPosition)));
+
+    private float GetFlyTimeFromVelocity(float yVelocity) => 
+        yVelocity * 2 / Mathf.Abs(_gravitationConfig.StartGravityValue);
+
+    private float GetPathHeight(float positionY) => 
+        _highestYValue - positionY;
+
+    private float GetNeededYVelocityForHeight(float maxHeight) => 
+        Mathf.Sqrt(2 * Mathf.Abs(_gravitationConfig.StartGravityValue * maxHeight));
+
 }

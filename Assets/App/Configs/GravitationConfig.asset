@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf7fff751fa1f24798e5a8d3327f8cc, type: 3}
   m_Name: GravitationConfig
   m_EditorClassIdentifier: 
-  UpGravitationalConstant: -12
-  DownGravitationalConstant: -7
-  DestroyLineYOffset: -2
+  StartGravityValue: -7

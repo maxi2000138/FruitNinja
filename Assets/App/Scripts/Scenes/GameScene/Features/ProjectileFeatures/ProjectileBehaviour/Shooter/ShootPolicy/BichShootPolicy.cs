@@ -31,7 +31,7 @@ public class BichShootPolicy : IShootPolicy
         while (true)
         {
             NeedShoot?.Invoke();
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.6f));
+            yield return new WaitForSeconds(Random.Range(1f, 1.5f));
         }
     }
 }

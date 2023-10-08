@@ -9,5 +9,4 @@ public enum FruitType
     Watermelon,
     Peach,
     StarFruit,
-    Banana,
 }

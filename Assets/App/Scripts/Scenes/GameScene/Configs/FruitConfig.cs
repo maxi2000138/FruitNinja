@@ -7,6 +7,8 @@ using UnityEngine;
 public class FruitConfig : SerializedScriptableObject
 {
     public Dictionary<FruitType, FruitData> FruitDictionary;
+    [MinMaxSlider(0f, 2f)]
+    public Vector2 FruitScaleRange;
 }
 
 [Serializable]

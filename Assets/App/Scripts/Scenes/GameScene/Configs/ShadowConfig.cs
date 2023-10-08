@@ -8,6 +8,9 @@ public class ShadowConfig : ScriptableObject
     public float ShadowDirectionX;
     [Range(-1f,1f)]
     public float ShadowDirectionY;
-    [MinMaxSlider(0f,2f)]
-    public Vector2 ShadowScaleRange;
+    [Range(0f,10f)]
+    public float ShadowOffsetScaler;
+    [Range(0f,10f)]
+    public float ShadowScaleScaler;
+
 }

@@ -12,10 +12,12 @@ public class ConfigsInstaller : Installer
     public ResourcesConfig ResourcesConfig { get; private set; }
     [field: SerializeField] 
     public ShadowConfig ShadowConfig { get; private set; }
+    [field: SerializeField] 
+    public SpawnConfig SpawnConfig { get; private set; }
 
 
     public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
     {
-        
+           
     }
 }

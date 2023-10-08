@@ -39,6 +39,12 @@ public static class RandomItemInList
         var randomIndex = Random.value * (vector2.y - vector2.x) + vector2.x;
         return randomIndex;
     }
+    
+    public static int GetRandomIntBetween(this Vector2Int vector2)
+    {
+        int randomIndex = (int)(Random.value * (vector2.y - vector2.x) + vector2.x);
+        return randomIndex;
+    }
 
     public static int GetRandomIntBetween(this (int, int) items)
     {

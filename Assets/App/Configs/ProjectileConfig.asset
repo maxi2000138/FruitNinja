@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ProjectileConfig
   m_EditorClassIdentifier: 
   ShootVelocityRange: {x: 8.813624, y: 16.12875}
-  TorqueVelocityRange: {x: -558.78687, y: 1}
-  DestroyTriggerOffset: -2
+  TorqueVelocityRange: {x: -206.97678, y: 211.62784}
+  DestroyTriggerOffset: -8

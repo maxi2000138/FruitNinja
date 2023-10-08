@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be98255499861a148b05f7737ce0697f, type: 3}
-  m_Name: ShadowConfig
+  m_Script: {fileID: 11500000, guid: a5ac882ef615dbf42a5217b855c857ff, type: 3}
+  m_Name: SpawnConfig
   m_EditorClassIdentifier: 
-  ShadowDirectionX: 0
-  ShadowDirectionY: 0.01
-  ShadowOffsetScaler: 1.25
-  ShadowScaleScaler: 1.25
+  FruitsAmountRange: {x: 3, y: 7}
+  GroupSpawnDelayRange: {x: 4.411628, y: 6.2953486}
