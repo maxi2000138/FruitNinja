@@ -162,4 +162,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <SpriteGameObject>k__BackingField: {fileID: 4220116565327702142}
-  SpriteRenderer: {fileID: 8988167893080911641}
+  <SpriteRenderer>k__BackingField: {fileID: 8988167893080911641}

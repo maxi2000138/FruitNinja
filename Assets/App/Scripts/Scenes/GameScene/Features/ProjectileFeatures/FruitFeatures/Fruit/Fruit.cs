@@ -46,19 +46,19 @@ public class Fruit : MonoBehaviour
         _shadowSpriteOffseter = new SpriteOffseter(Shadow.SpriteRenderer, _coroutineRunner);
     }
 
-    public void StartChangingFruitSpriteScale(float deltaScale, float flyTime)
+    public void StartChangingFruitSpriteScale(float finalScale, float flyTime)
     {
-        _fruitSpriteScaler.StartScaling(deltaScale, flyTime);
+        _fruitSpriteScaler.StartScaling(finalScale, flyTime);
     }
     
-    public void StartChangingShadowSpriteScale(float deltaScale, float flyTime)
+    public void StartChangingShadowSpriteScale(float finalScale, float flyTime)
     {
-        _shadowSpriteScaler.StartScaling(deltaScale, flyTime);
+        _shadowSpriteScaler.StartScaling(finalScale, flyTime);
     }
 
-    public void StartChangingShadowOffset(Vector2 shadowOffset, float finalOffset, float flyTime)
+    public void StartChangingShadowOffset(Vector2 shadowOffset, float deltaOffset, float flyTime)
     {
-        _shadowSpriteOffseter.StartOffseter(shadowOffset, finalOffset, flyTime);   
+        _shadowSpriteOffseter.StartOffseter(shadowOffset, deltaOffset, flyTime);   
     }
 
     private void ChangeSpriteScale(Vector2 spriteScale)

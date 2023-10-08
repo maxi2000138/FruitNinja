@@ -55,7 +55,9 @@ public class Shooter : IShooter, IInitializable
     private void SetScalingAndOffseting(Fruit fruit, float scaleDistance, float flyTime)
     {
         fruit.StartChangingFruitSpriteScale(fruit.SpriteScale + scaleDistance, flyTime);
-        fruit.StartChangingShadowSpriteScale(fruit.Shadow.SpriteRenderer.transform.localScale.x + scaleDistance * _shadowConfig.ShadowScaleScaler, flyTime);
+        float deltaScale = fruit.Shadow.SpriteRenderer.transform.localScale.x + scaleDistance * _shadowConfig.ShadowScaleScaler;
+        deltaScale = Mathf.Clamp(deltaScale, 1f, float.MaxValue);
+        fruit.StartChangingShadowSpriteScale(deltaScale, flyTime);
         fruit.StartChangingShadowOffset(
             new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY).normalized
             ,Mathf.Clamp(scaleDistance * _shadowConfig.ShadowOffsetScaler, 0, float.MaxValue), flyTime);

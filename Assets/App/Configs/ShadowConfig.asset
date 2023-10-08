@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be98255499861a148b05f7737ce0697f, type: 3}
   m_Name: ShadowConfig
   m_EditorClassIdentifier: 
-  ShadowDirectionX: -1
-  ShadowDirectionY: 1
-  ShadowOffsetScaler: 1.12
-  ShadowScaleScaler: 1.6
+  ShadowDirectionX: -0.711
+  ShadowDirectionY: 0.434
+  ShadowOffsetScaler: 1.28
+  ShadowScaleScaler: 2.04

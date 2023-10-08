@@ -20,7 +20,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 6ca9f5e660f952545a61486b06d9c01a, type: 3}
     - {fileID: 21300000, guid: 79b853f3e8a8c784db7003825097b667, type: 3}
     - {fileID: 21300000, guid: 2acd3f0e6e7b3a248b5569ae35b89fc2, type: 3}
-    - {fileID: 21300000, guid: 76a86f55d3ab9894585e3152398d759d, type: 3}
+    - {fileID: 21300000, guid: 7bd1efb702066ad4abb70d75c320506d, type: 3}
     - {fileID: 21300000, guid: ae39af56c9af8f046b42c34ef58ba242, type: 3}
     - {fileID: 21300000, guid: 3bf1f5c7af5f1b44f9638dda81ad1fcc, type: 3}
     - {fileID: 21300000, guid: eb4ddfcac0bf2344d981099f989e2a5d, type: 3}
@@ -63,18 +63,6 @@ MonoBehaviour:
     - Name: Sprite
       Entry: 10
       Data: 0
-    - Name: SpriteScale
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -93,18 +81,6 @@ MonoBehaviour:
     - Name: Sprite
       Entry: 10
       Data: 1
-    - Name: SpriteScale
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -123,18 +99,6 @@ MonoBehaviour:
     - Name: Sprite
       Entry: 10
       Data: 2
-    - Name: SpriteScale
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.1
-    - Name: 
-      Entry: 4
-      Data: 1.1
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -153,18 +117,6 @@ MonoBehaviour:
     - Name: Sprite
       Entry: 10
       Data: 3
-    - Name: SpriteScale
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -183,18 +135,6 @@ MonoBehaviour:
     - Name: Sprite
       Entry: 10
       Data: 4
-    - Name: SpriteScale
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1.2
-    - Name: 
-      Entry: 4
-      Data: 1.2
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -213,18 +153,6 @@ MonoBehaviour:
     - Name: Sprite
       Entry: 10
       Data: 5
-    - Name: SpriteScale
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -243,18 +171,6 @@ MonoBehaviour:
     - Name: Sprite
       Entry: 10
       Data: 6
-    - Name: SpriteScale
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -273,18 +189,6 @@ MonoBehaviour:
     - Name: Sprite
       Entry: 10
       Data: 7
-    - Name: SpriteScale
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -303,18 +207,6 @@ MonoBehaviour:
     - Name: Sprite
       Entry: 10
       Data: 8
-    - Name: SpriteScale
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -333,18 +225,6 @@ MonoBehaviour:
     - Name: Sprite
       Entry: 10
       Data: 9
-    - Name: SpriteScale
-      Entry: 7
-      Data: UnityEngine.Vector2, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -357,4 +237,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  FruitScaleRange: {x: 0.7116279, y: 1.2697674}
+  FruitScaleRange: {x: 1.0488372, y: 1.5023258}

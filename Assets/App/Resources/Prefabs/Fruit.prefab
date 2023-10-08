@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c71a353cb1b1574abf13b3c1eb41d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Shadow>k__BackingField: {fileID: 0}
   _spriteRenderer: {fileID: 2247192260603959594}
   _shadowMover: {fileID: 6168481500215914990}
   _shadowRotater: {fileID: 6211377983010092635}
@@ -206,7 +207,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4931872226470793001}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

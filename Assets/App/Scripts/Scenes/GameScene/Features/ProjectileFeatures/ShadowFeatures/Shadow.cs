@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class Shadow : MonoBehaviour
 {
+    public Vector2 SpriteOffset =>
+        SpriteRenderer.transform.localPosition;
     [field: SerializeField] public GameObject SpriteGameObject { get; private set; }
-    [field: SerializeField] public SpriteRenderer SpriteRenderer;
+    [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
     
     private ShadowConfig _shadowConfig;
 

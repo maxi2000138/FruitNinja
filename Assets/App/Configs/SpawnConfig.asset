@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ac882ef615dbf42a5217b855c857ff, type: 3}
   m_Name: SpawnConfig
   m_EditorClassIdentifier: 
-  FruitsAmountRange: {x: 4, y: 7}
-  GroupSpawnDelayRange: {x: 4.411628, y: 6.2953486}
+  FruitsAmountRange: {x: 4, y: 10}
+  GroupSpawnDelayRange: {x: 4.411628, y: 6.6210523}
   FruitsInGroupSpawnDelayRange: {x: 0.38604647, y: 0.5953488}
+  AverageAmountSpawnGroups: 14
