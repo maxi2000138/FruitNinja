@@ -16,16 +16,24 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 21300000, guid: 1a14fc92e1c728d4181e68f409dc8aa3, type: 3}
-    - {fileID: 21300000, guid: 6ca9f5e660f952545a61486b06d9c01a, type: 3}
-    - {fileID: 21300000, guid: 79b853f3e8a8c784db7003825097b667, type: 3}
-    - {fileID: 21300000, guid: 2acd3f0e6e7b3a248b5569ae35b89fc2, type: 3}
-    - {fileID: 21300000, guid: 7bd1efb702066ad4abb70d75c320506d, type: 3}
-    - {fileID: 21300000, guid: ae39af56c9af8f046b42c34ef58ba242, type: 3}
-    - {fileID: 21300000, guid: 3bf1f5c7af5f1b44f9638dda81ad1fcc, type: 3}
-    - {fileID: 21300000, guid: eb4ddfcac0bf2344d981099f989e2a5d, type: 3}
-    - {fileID: 21300000, guid: 2c7781642f6e3b249883b03f0d61cb96, type: 3}
-    - {fileID: 21300000, guid: 95c3c28aa21847841a3474c9f014fa66, type: 3}
+    - {fileID: 21300000, guid: 9bdd50df161de3642a2ec23bb57647a2, type: 3}
+    - {fileID: 21300000, guid: 1951639280e87d946ab0d143c453d729, type: 3}
+    - {fileID: 21300000, guid: 69e2baa6de4490a45a8fd56ab7033082, type: 3}
+    - {fileID: 21300000, guid: fd8980eeb40a2e048afad998b9de9ffa, type: 3}
+    - {fileID: 21300000, guid: 8f8b8584815189d4da3f6b1774ce6bd9, type: 3}
+    - {fileID: 21300000, guid: 5f11137c5e8f79341a0885a85ca4f217, type: 3}
+    - {fileID: 21300000, guid: 94c36ff8218c91f4fa490cfd158b85b3, type: 3}
+    - {fileID: 21300000, guid: d0983d5902788984fa8629a72e4016f0, type: 3}
+    - {fileID: 21300000, guid: 10ff540dfee91c7448edbafdbba8b398, type: 3}
+    - {fileID: 21300000, guid: 9aa95e8dc00a55243bdea7e2a5b5a391, type: 3}
+    - {fileID: 21300000, guid: cf1f5a6b9a2add746a59b75dc81d18b9, type: 3}
+    - {fileID: 21300000, guid: edfe1cf11f5243940a589de4c7583d5b, type: 3}
+    - {fileID: 21300000, guid: 64690c718efd70a46bb58a6f59d5253d, type: 3}
+    - {fileID: 21300000, guid: 1883dc3ab53c5c942adb791da1a790d7, type: 3}
+    - {fileID: 21300000, guid: 6a222d1dfa71a154793e4c032b668fc9, type: 3}
+    - {fileID: 21300000, guid: 7f796834de844884a9ee428d1086cc6a, type: 3}
+    - {fileID: 21300000, guid: fa2f137fd9e8ae5458960503e4da93b5, type: 3}
+    - {fileID: 21300000, guid: f6fa09ee587b98f4ba73815fafb0c558, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -50,7 +58,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 10
+      Data: 9
     - Name: 
       Entry: 7
       Data: 
@@ -60,9 +68,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 2|FruitData, Assembly-CSharp
-    - Name: Sprite
+    - Name: LeftSprite
       Entry: 10
       Data: 0
+    - Name: RightSprite
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -78,9 +89,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 3|FruitData, Assembly-CSharp
-    - Name: Sprite
+    - Name: LeftSprite
       Entry: 10
-      Data: 1
+      Data: 2
+    - Name: RightSprite
+      Entry: 10
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -96,9 +110,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 4|FruitData, Assembly-CSharp
-    - Name: Sprite
+    - Name: LeftSprite
       Entry: 10
-      Data: 2
+      Data: 4
+    - Name: RightSprite
+      Entry: 10
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -114,9 +131,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 5|FruitData, Assembly-CSharp
-    - Name: Sprite
+    - Name: LeftSprite
       Entry: 10
-      Data: 3
+      Data: 6
+    - Name: RightSprite
+      Entry: 10
+      Data: 7
     - Name: 
       Entry: 8
       Data: 
@@ -132,9 +152,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 6|FruitData, Assembly-CSharp
-    - Name: Sprite
+    - Name: LeftSprite
       Entry: 10
-      Data: 4
+      Data: 8
+    - Name: RightSprite
+      Entry: 10
+      Data: 9
     - Name: 
       Entry: 8
       Data: 
@@ -150,9 +173,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 7|FruitData, Assembly-CSharp
-    - Name: Sprite
+    - Name: LeftSprite
       Entry: 10
-      Data: 5
+      Data: 10
+    - Name: RightSprite
+      Entry: 10
+      Data: 11
     - Name: 
       Entry: 8
       Data: 
@@ -168,9 +194,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 8|FruitData, Assembly-CSharp
-    - Name: Sprite
+    - Name: LeftSprite
       Entry: 10
-      Data: 6
+      Data: 12
+    - Name: RightSprite
+      Entry: 10
+      Data: 13
     - Name: 
       Entry: 8
       Data: 
@@ -186,9 +215,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 9|FruitData, Assembly-CSharp
-    - Name: Sprite
+    - Name: LeftSprite
       Entry: 10
-      Data: 7
+      Data: 14
+    - Name: RightSprite
+      Entry: 10
+      Data: 15
     - Name: 
       Entry: 8
       Data: 
@@ -204,27 +236,12 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 10|FruitData, Assembly-CSharp
-    - Name: Sprite
+    - Name: LeftSprite
       Entry: 10
-      Data: 8
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 9
-    - Name: $v
-      Entry: 7
-      Data: 11|FruitData, Assembly-CSharp
-    - Name: Sprite
+      Data: 16
+    - Name: RightSprite
       Entry: 10
-      Data: 9
+      Data: 17
     - Name: 
       Entry: 8
       Data: 
@@ -237,4 +254,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  FruitScaleRange: {x: 1.0488372, y: 1.5023258}
+  FruitScaleRange: {x: 1.0488372, y: 1.6356809}

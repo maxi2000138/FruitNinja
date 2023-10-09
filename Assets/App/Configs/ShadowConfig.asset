@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShadowDirectionX: -0.711
   ShadowDirectionY: 0.434
-  ShadowOffsetScaler: 1.28
-  ShadowScaleScaler: 2.04
+  ShadowOffsetScaler: 1.3
+  ShadowScaleScaler: 1.5

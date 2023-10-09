@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Fruit : MonoBehaviour
+public class FruitPart : MonoBehaviour
 {
     public float SpriteMaxHeight => SpriteDiagonal() * _spriteScale.y;
     public float SpriteScale => _spriteRenderer.transform.localScale.x;
-    [field: SerializeField] public Shadow Shadow { get; private set; }
+    public Shadow Shadow { get; private set; }
 
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private CloneMover _shadowMover;
@@ -30,10 +30,11 @@ public class Fruit : MonoBehaviour
         _shadowSpriteOffseter.StopOffseter();
     }
 
-    public void SetSprite(Sprite sprite, Vector2 spriteScale)
+    public void SetSprite(Sprite sprite, Vector2 spriteScale, int sortingOrder)
     {
         _spriteScale = spriteScale;
         _spriteRenderer.sprite = sprite;
+        _spriteRenderer.sortingOrder = sortingOrder;
         ChangeSpriteScale(spriteScale);
     }
 

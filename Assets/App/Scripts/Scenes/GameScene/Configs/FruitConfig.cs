@@ -15,5 +15,6 @@ public class FruitConfig : SerializedScriptableObject
 public class FruitData
 {
     [Header("Sprite Settings")]
-    public Sprite Sprite;
+    public Sprite LeftSprite;
+    public Sprite RightSprite;
 }

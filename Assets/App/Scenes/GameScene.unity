@@ -805,9 +805,9 @@ MonoBehaviour:
       ViewportPositionX: 0.195
       ViewportPositionY: 0
       OffsetPositionX: 0
-      OffsetPositionY: -2
-      ViewportLeftPosition: {x: 0.03999996, y: -0.19999999}
-      ViewportRightPosition: {x: 0.35, y: -0.19999999}
+      OffsetPositionY: -1
+      ViewportLeftPosition: {x: 0.03999996, y: -0.100000024}
+      ViewportRightPosition: {x: 0.35, y: -0.100000024}
       LineLength: 0.155
       LineAngle: 0
       ShootMinAngle: 68
@@ -821,9 +821,9 @@ MonoBehaviour:
       ViewportPositionX: 0.703
       ViewportPositionY: 0
       OffsetPositionX: 0
-      OffsetPositionY: -2
-      ViewportLeftPosition: {x: 0.513, y: -0.19999999}
-      ViewportRightPosition: {x: 0.893, y: -0.19999999}
+      OffsetPositionY: -1
+      ViewportLeftPosition: {x: 0.513, y: -0.100000024}
+      ViewportRightPosition: {x: 0.893, y: -0.100000024}
       LineLength: 0.19
       LineAngle: 0
       ShootMinAngle: 88
@@ -836,10 +836,10 @@ MonoBehaviour:
     _spawnAreaData:
       ViewportPositionX: 1
       ViewportPositionY: 0.379
-      OffsetPositionX: 2
+      OffsetPositionX: 1
       OffsetPositionY: 0
-      ViewportLeftPosition: {x: 1.0899999, y: 0.18344444}
-      ViewportRightPosition: {x: 1.0899999, y: 0.5745556}
+      ViewportLeftPosition: {x: 1.0450001, y: 0.18344444}
+      ViewportRightPosition: {x: 1.0450001, y: 0.5745556}
       LineLength: 0.088
       LineAngle: 90
       ShootMinAngle: 33
@@ -852,10 +852,10 @@ MonoBehaviour:
     _spawnAreaData:
       ViewportPositionX: 0
       ViewportPositionY: 0.309
-      OffsetPositionX: -2
+      OffsetPositionX: -1
       OffsetPositionY: 0
-      ViewportLeftPosition: {x: -0.089999974, y: 0.4867778}
-      ViewportRightPosition: {x: -0.089999974, y: 0.13122219}
+      ViewportLeftPosition: {x: -0.045000017, y: 0.4867778}
+      ViewportRightPosition: {x: -0.045000017, y: 0.13122219}
       LineLength: 0.08
       LineAngle: 270
       ShootMinAngle: 156

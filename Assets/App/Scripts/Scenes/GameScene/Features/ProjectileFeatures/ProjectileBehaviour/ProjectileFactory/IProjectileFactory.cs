@@ -2,5 +2,5 @@
 
 public interface IProjectileFactory
 {
-    Fruit CreateFruitByType(Vector2 position, FruitType fruitType);
+    WholeFruit CreateFruitByType(Vector2 position, FruitType fruitType);
 }

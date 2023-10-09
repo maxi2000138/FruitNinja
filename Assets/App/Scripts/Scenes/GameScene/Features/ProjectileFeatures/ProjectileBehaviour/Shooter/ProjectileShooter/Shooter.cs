@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Shooter : IShooter, IInitializable
@@ -39,33 +40,43 @@ public class Shooter : IShooter, IInitializable
     private void SpawnFruitAndShootByAngle(SpawnAreaData areaData, float angle)
     {
         GetRandomTypeAndPosition(areaData, out var position, out var type);
-        Fruit fruit = _projectileFactory.CreateFruitByType(position, type);
-        SetScalingAndOffseting(fruit, GetScaleDistance(fruit.SpriteScale, _fruitConfig.FruitScaleRange), GetFlyTimeFromYPosition(position.y));
-        SetRotateAndShoot(areaData, angle, fruit);
+        WholeFruit wholeFruit = _projectileFactory.CreateFruitByType(position, type);
+
+        FruitPart[] fruitParts = new FruitPart[2] { wholeFruit.LeftFruitPart, wholeFruit.RightFruitPart };
+        
+        SetScalingAndOffseting(GetScaleDistance(wholeFruit.LeftFruitPart.SpriteScale, _fruitConfig.FruitScaleRange), GetFlyTimeFromYPosition(position.y), fruitParts);
+        SetRotateAndShoot(areaData, angle, wholeFruit.LeftFruitPart, wholeFruit.RightFruitPart);
     }
 
-    private void SetRotateAndShoot(SpawnAreaData areaData, float angle, Fruit fruit)
+    private void SetRotateAndShoot(SpawnAreaData areaData, float angle, params FruitPart[] fruitParts)
     {
-        Vector2 moveVector = GetMovementVector(areaData, angle);
-        moveVector = ConstrainSpeed(FruitSpriteHeight(fruit), moveVector);
-        RotateFruit(fruit);
-        ShootFruit(fruit.gameObject, moveVector);
+            Vector2 moveVector = GetMovementVector(areaData, angle);
+            moveVector = ConstrainSpeed(FruitSpriteHeight(fruitParts[0]), moveVector);
+            
+            RotateFruit(fruitParts);
+            
+            for(int i = 0; i < fruitParts.Length; i++)
+                ShootFruit(fruitParts[i].gameObject, moveVector);
     }
 
-    private void SetScalingAndOffseting(Fruit fruit, float scaleDistance, float flyTime)
+    private void SetScalingAndOffseting(float scaleDistance, float flyTime, FruitPart[] fruitPart)
     {
-        fruit.StartChangingFruitSpriteScale(fruit.SpriteScale + scaleDistance, flyTime);
-        float deltaScale = fruit.Shadow.SpriteRenderer.transform.localScale.x + scaleDistance * _shadowConfig.ShadowScaleScaler;
-        deltaScale = Mathf.Clamp(deltaScale, 1f, float.MaxValue);
-        fruit.StartChangingShadowSpriteScale(deltaScale, flyTime);
-        fruit.StartChangingShadowOffset(
-            new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY).normalized
-            ,Mathf.Clamp(scaleDistance * _shadowConfig.ShadowOffsetScaler, 0, float.MaxValue), flyTime);
+        for (int i = 0; i < fruitPart.Length; i++)
+        {
+            fruitPart[i].StartChangingFruitSpriteScale(fruitPart[i].SpriteScale + scaleDistance, flyTime);
+        
+            float deltaScale = fruitPart[i].Shadow.SpriteRenderer.transform.localScale.x + scaleDistance * _shadowConfig.ShadowScaleScaler;
+            deltaScale = Mathf.Clamp(deltaScale, 1f, float.MaxValue);
+            fruitPart[i].StartChangingShadowSpriteScale(deltaScale, flyTime);
+            fruitPart[i].StartChangingShadowOffset(
+                new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY).normalized
+                ,Mathf.Clamp(scaleDistance * _shadowConfig.ShadowOffsetScaler, 0, float.MaxValue), flyTime);
+        }
     }
 
-    private float FruitSpriteHeight(Fruit fruit)
+    private float FruitSpriteHeight(FruitPart fruitPart)
     {
-        return fruit.transform.position.y + fruit.SpriteMaxHeight/2;
+        return fruitPart.transform.position.y + fruitPart.SpriteMaxHeight/2;
     }
 
     private void ShootFruit(GameObject fruit, Vector2 moveVector)
@@ -74,10 +85,14 @@ public class Shooter : IShooter, IInitializable
         shootApplier.Shoot(moveVector);
     }
 
-    private void RotateFruit(Fruit fruit)
+    private void RotateFruit(params FruitPart[] fruitParts)
     {
-        TorqueApplier torqueApplier = fruit.GetComponentInChildren<TorqueApplier>();
-        torqueApplier.AddTorque(_projectileConfig.TorqueVelocityRange.GetRandomFloatBetween());
+        float torqueValue = _projectileConfig.TorqueVelocityRange.GetRandomFloatBetween();
+        for (int i = 0; i < fruitParts.Length; i++)
+        {
+            TorqueApplier torqueApplier = fruitParts[i].GetComponentInChildren<TorqueApplier>();
+            torqueApplier.AddTorque(torqueValue);
+        }
     }
 
     private void GetRandomTypeAndPosition(SpawnAreaData areaData, out Vector2 position, out FruitType type)
