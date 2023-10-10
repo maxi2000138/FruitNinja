@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shooter : IShooter, IInitializable
@@ -79,7 +78,7 @@ public class Shooter : IShooter, IInitializable
         return fruitPart.transform.position.y + fruitPart.SpriteMaxHeight/2;
     }
 
-    private void ShootFruit(GameObject fruit, Vector2 moveVector)
+    public void ShootFruit(GameObject fruit, Vector2 moveVector)
     {
         ShootApplier shootApplier = fruit.GetComponentInChildren<ShootApplier>();
         shootApplier.Shoot(moveVector);

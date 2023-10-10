@@ -145,6 +145,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c0ca48df86c174cbbd14d89fc8b116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3095398418513120016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8558221136918795624}
+  - component: {fileID: 5580649760049666291}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8558221136918795624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3095398418513120016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3858916285223650547}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5580649760049666291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3095398418513120016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575e29bddf614d84890bb6c4c03773e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3263061091714505211
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3858916285223650547}
   - component: {fileID: 2643882582439016002}
+  - component: {fileID: 7082699634129394926}
   m_Layer: 0
   m_Name: Fruit
   m_TagString: Untagged
@@ -258,8 +303,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2950983998862729246}
-  - {fileID: 7679009547338921047}
+  - {fileID: 2330464728562907449}
+  - {fileID: 8558221136918795624}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -277,6 +322,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeftFruitPart: {fileID: 1679847870796283039}
   RightFruitPart: {fileID: 1320087224251211472}
+--- !u!114 &7082699634129394926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3858916285223650550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575e29bddf614d84890bb6c4c03773e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4820578651902953680
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +520,7 @@ Transform:
   m_Children:
   - {fileID: 3036667634212875339}
   - {fileID: 2541319532139080271}
-  m_Father: {fileID: 3858916285223650547}
+  m_Father: {fileID: 2330464728562907449}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1679847870796283039
@@ -606,6 +663,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gravitationConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
+--- !u!1 &6986757470689892482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2330464728562907449}
+  m_Layer: 0
+  m_Name: FruitObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2330464728562907449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6986757470689892482}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2950983998862729246}
+  - {fileID: 7679009547338921047}
+  m_Father: {fileID: 3858916285223650547}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7479720066543211224
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,7 +926,7 @@ Transform:
   m_Children:
   - {fileID: 7365157879416325360}
   - {fileID: 7099243455245988630}
-  m_Father: {fileID: 3858916285223650547}
+  m_Father: {fileID: 2330464728562907449}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1320087224251211472
