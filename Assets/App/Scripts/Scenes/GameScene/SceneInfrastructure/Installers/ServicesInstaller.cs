@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class ServicesInstaller : Installer
 {
+    public InputReader InputReader { get; private set; }
+    public ResourceObjectsProvider ResourceObjectsProvider { get; private set; }
+    public ProjectileDestroyer ProjectileDestroyer { get; private set; }
+    public ProjectileFactory ProjectileFactory { get; private set; }
+    public Shooter Shooter { get; private set; }
+    public IShootPolicy ShootPolicy { get; private set; }
+    public DestroyTrigger DestroyTrigger { get; private set; }
+    public ShootSystem ShootSystem { get; private set; }
+    
     [Header("Installers")] 
     [SerializeField]
     private ConfigsInstaller _configsInstaller;
@@ -18,25 +27,17 @@ public class ServicesInstaller : Installer
     private ShadowContainer _shadowContainer;
     [SerializeField]
     private CoroutineRunner _coroutineRunner;
-
-
-    public InputReader InputReader { get; private set; }
-    public ResourceObjectsProvider ResourceObjectsProvider { get; private set; }
-    public ProjectileDestroyer ProjectileDestroyer { get; private set; }
-    public ProjectileFactory ProjectileFactory { get; private set; }
-    public Shooter Shooter { get; private set; }
-    public IShootPolicy ShootPolicy { get; private set; }
-    public DestroyTrigger DestroyTrigger { get; private set; }
-    public ShootSystem ShootSystem { get; private set; }
+    
+    
 
     public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
     {
         InputReader = new InputReader();
-        _sliceDrawer.Construct(InputReader, _screenSettingsProvider, _coroutineRunner);
         ResourceObjectsProvider = new ResourceObjectsProvider();
         ProjectileDestroyer = new ProjectileDestroyer();
+        _sliceDrawer.Construct(InputReader, _screenSettingsProvider, _coroutineRunner);
         DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsInstaller.ProjectileConfig);
-        ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, _coroutineRunner, ResourceObjectsProvider
+        ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, ResourceObjectsProvider
             , _configsInstaller.FruitConfig, _configsInstaller.ResourcesConfig, _configsInstaller.ShadowConfig);
         ShootPolicy = new WavesSpawnPolicy(_coroutineRunner, _configsInstaller.SpawnConfig);
         Shooter = new Shooter(ProjectileFactory, _spawnAreasContainer, _screenSettingsProvider,_configsInstaller.ProjectileConfig

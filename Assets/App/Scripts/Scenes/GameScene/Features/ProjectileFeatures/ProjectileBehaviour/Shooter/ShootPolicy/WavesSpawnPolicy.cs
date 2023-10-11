@@ -13,7 +13,6 @@ public class WavesSpawnPolicy : IShootPolicy
         _coroutineRunner = coroutineRunner;
         _spawnConfig = spawnConfig;
     }
-
     public event Action NeedShoot;
     public void StartWorking()
     {

@@ -6,6 +6,8 @@ public class Shadow : MonoBehaviour
         SpriteRenderer.transform.localPosition;
     [field: SerializeField] public GameObject SpriteGameObject { get; private set; }
     [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
+    [field: SerializeField] public ScaleByTime ScaleByTime { get; private set; }
+    [field: SerializeField] public OffsetByTime OffsetByTime { get; private set; }
     
     private ShadowConfig _shadowConfig;
 

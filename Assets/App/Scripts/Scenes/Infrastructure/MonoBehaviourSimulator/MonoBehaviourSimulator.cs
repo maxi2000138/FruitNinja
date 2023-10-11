@@ -23,7 +23,10 @@ public class MonoBehaviourSimulator
 
     public void AddInitializable(IInitializable initializable) => 
         _initializables.Add(initializable);
-
+    public void RemoveInitializable(IInitializable initializable) => 
+        _initializables.Remove(initializable);
     public void AddUpdatable(IUpdatable updatable) => 
         _updatables.Add(updatable);
+    public void RemoveUpdatable(IUpdatable updatable) => 
+        _updatables.Remove(updatable);
 }

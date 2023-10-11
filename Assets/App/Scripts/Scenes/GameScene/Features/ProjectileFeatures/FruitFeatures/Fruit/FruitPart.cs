@@ -3,31 +3,21 @@ using UnityEngine;
 public class FruitPart : MonoBehaviour
 {
     public float SpriteMaxHeight => SpriteDiagonal() * _spriteScale.y;
-    public float SpriteScale => _spriteRenderer.transform.localScale.x;
+    public Vector2 SpriteScale => _spriteRenderer.transform.localScale;
     public Shadow Shadow { get; private set; }
 
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private CloneMover _shadowMover;
     [SerializeField] private CloneRotater _shadowRotater;
-    private SpriteOffseter _shadowSpriteOffseter;
-    private ICoroutineRunner _coroutineRunner;
-    private ShadowConfig _shadowConfig;
-    private SpriteScaler _fruitSpriteScaler;
-    private SpriteScaler _shadowSpriteScaler;
-    private Vector2 _spriteScale;
-
-    public void Construct(ICoroutineRunner coroutineRunner, ShadowConfig shadowConfig)
-    {
-        _shadowConfig = shadowConfig;
-        _coroutineRunner = coroutineRunner;
-        _fruitSpriteScaler = new SpriteScaler(_spriteRenderer, coroutineRunner);
-    }
-
+    [SerializeField] private Vector2 _spriteScale;
+    
     private void OnDestroy()
     {
-        _shadowSpriteScaler.StopScaling();
-        _fruitSpriteScaler.StopScaling();
-        _shadowSpriteOffseter.StopOffseter();
+        /*
+        _transformLocalScaler.StopChanging(transform);
+        _transformLocalScaler.StopChanging(Shadow.SpriteRenderer.transform);
+        _transformLocalOffseter.StopChanging(Shadow.SpriteRenderer.transform);
+    */
     }
 
     public void SetSprite(Sprite sprite, Vector2 spriteScale, int sortingOrder)
@@ -43,23 +33,16 @@ public class FruitPart : MonoBehaviour
         Shadow = shadow;
         _shadowMover.Construct(shadow.gameObject);
         _shadowRotater.Construct(shadow.SpriteGameObject);
-        _shadowSpriteScaler = new SpriteScaler(Shadow.SpriteRenderer, _coroutineRunner);
-        _shadowSpriteOffseter = new SpriteOffseter(Shadow.SpriteRenderer, _coroutineRunner);
     }
 
-    public void StartChangingFruitSpriteScale(float finalScale, float flyTime)
+    public void StartChangingShadowSpriteScale(Vector2 startScale, Vector2 finalScale, float flyTime)
     {
-        _fruitSpriteScaler.StartScaling(finalScale, flyTime);
-    }
-    
-    public void StartChangingShadowSpriteScale(float finalScale, float flyTime)
-    {
-        _shadowSpriteScaler.StartScaling(finalScale, flyTime);
+       Shadow.ScaleByTime.StartScaling(startScale, finalScale, flyTime);
     }
 
-    public void StartChangingShadowOffset(Vector2 shadowOffset, float deltaOffset, float flyTime)
+    public void StartChangingShadowOffset(Vector2 startOffset, Vector2 finalOffset, float flyTime)
     {
-        _shadowSpriteOffseter.StartOffseter(shadowOffset, deltaOffset, flyTime);   
+        Shadow.OffsetByTime.StartOffseting(startOffset,finalOffset, flyTime);
     }
 
     private void ChangeSpriteScale(Vector2 spriteScale)

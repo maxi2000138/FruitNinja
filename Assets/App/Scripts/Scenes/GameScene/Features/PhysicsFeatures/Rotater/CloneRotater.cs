@@ -9,7 +9,7 @@ public class CloneRotater : PhysicsBehaviour
         _cloneObject = cloneObject;
     }
 
-    public override void ExecuteOperation(GameObject physicsObject)
+    public override void Operation(GameObject physicsObject)
     {
         if (_cloneObject != null)
         {

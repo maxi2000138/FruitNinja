@@ -6,7 +6,7 @@ public class PhysicsOperationOrder : MonoBehaviour
     [SerializeField] private GameObject _physicsObject;
     [SerializeField] private List<PhysicsBehaviour> _physicOperations;
 
-    private void FixedUpdate()
+    private void Update()
     {
         for (int i = 0; i < _physicOperations.Count; i++)
         {

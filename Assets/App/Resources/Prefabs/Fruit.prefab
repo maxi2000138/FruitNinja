@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &692225728304326594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4102638147339470242}
+  - component: {fileID: 8976041037518006046}
+  - component: {fileID: 5892379175246256098}
+  m_Layer: 0
+  m_Name: FruitMover
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4102638147339470242
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692225728304326594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2572651703782239259}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8976041037518006046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692225728304326594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e5209564c6efd4497a087c2cc92edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5892379175246256098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692225728304326594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 046abc5f55cbbcc4b9b5c43bacdc6669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gravitationConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
 --- !u!1 &1142653428990473380
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +70,7 @@ GameObject:
   - component: {fileID: 7825090797665654829}
   - component: {fileID: 3884001075529654924}
   m_Layer: 0
-  m_Name: LeftFruitPartRotater
+  m_Name: LeftFruitRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,6 +157,63 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16c0ca48df86c174cbbd14d89fc8b116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2473002728416569575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5959773613409615485}
+  - component: {fileID: 8734878154665073791}
+  - component: {fileID: 2174210399844158461}
+  m_Layer: 0
+  m_Name: FruitScaler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5959773613409615485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2473002728416569575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2572651703782239259}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8734878154665073791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2473002728416569575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9b820e73c988944a9f255aeff08fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2174210399844158461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2473002728416569575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4ca7ae3d72fff44ae0c3e88b875f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3036098074025989281
@@ -322,6 +437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeftFruitPart: {fileID: 1679847870796283039}
   RightFruitPart: {fileID: 1320087224251211472}
+  ScalerByTime: {fileID: 2174210399844158461}
 --- !u!114 &7082699634129394926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +462,7 @@ GameObject:
   - component: {fileID: 9007650021180840384}
   - component: {fileID: 6850602039875658621}
   m_Layer: 0
-  m_Name: RightFruitPartRotater
+  m_Name: RightFruitRotater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -443,8 +559,59 @@ MonoBehaviour:
   _physicOperations:
   - {fileID: 8026386501935642874}
   - {fileID: 7825090797665654829}
+  - {fileID: 0}
   - {fileID: 6168481500215914990}
   - {fileID: 6211377983010092635}
+--- !u!1 &5663910126908756341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2572651703782239259}
+  - component: {fileID: 7501482004418162440}
+  m_Layer: 0
+  m_Name: FruitExecutionOrder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2572651703782239259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663910126908756341}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4102638147339470242}
+  - {fileID: 5959773613409615485}
+  m_Father: {fileID: 2330464728562907449}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7501482004418162440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5663910126908756341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4cde1b549e33a449e3c5a7eaf29fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _physicsObject: {fileID: 6986757470689892482}
+  _physicOperations:
+  - {fileID: 8976041037518006046}
+  - {fileID: 8734878154665073791}
 --- !u!1 &6040894019480192141
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +705,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 6093624603544318279}
   _shadowMover: {fileID: 6168481500215914990}
   _shadowRotater: {fileID: 6211377983010092635}
+  _spriteScale: {x: 0, y: 0}
 --- !u!1 &6423013265669156492
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +758,7 @@ MonoBehaviour:
   _physicOperations:
   - {fileID: 2813682082718202815}
   - {fileID: 9007650021180840384}
+  - {fileID: 0}
   - {fileID: 8542527342966621905}
   - {fileID: 3408986898674322573}
 --- !u!1 &6749377670871805723
@@ -603,7 +772,6 @@ GameObject:
   - component: {fileID: 2858522440340214100}
   - component: {fileID: 2813682082718202815}
   - component: {fileID: 2343165167969653179}
-  - component: {fileID: 8650105577468626124}
   m_Layer: 0
   m_Name: RightFruitMover
   m_TagString: Untagged
@@ -650,19 +818,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0ceb612d1624446bd2b8fa5517b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8650105577468626124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6749377670871805723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 046abc5f55cbbcc4b9b5c43bacdc6669, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gravitationConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
 --- !u!1 &6986757470689892482
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,6 +848,7 @@ Transform:
   m_Children:
   - {fileID: 2950983998862729246}
   - {fileID: 7679009547338921047}
+  - {fileID: 2572651703782239259}
   m_Father: {fileID: 3858916285223650547}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -707,7 +863,6 @@ GameObject:
   - component: {fileID: 3028197764483519626}
   - component: {fileID: 8026386501935642874}
   - component: {fileID: 4230949547043519055}
-  - component: {fileID: 5908031204529706454}
   m_Layer: 0
   m_Name: LeftFruitMover
   m_TagString: Untagged
@@ -754,19 +909,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0ceb612d1624446bd2b8fa5517b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5908031204529706454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7479720066543211224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 046abc5f55cbbcc4b9b5c43bacdc6669, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gravitationConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
 --- !u!1 &7778576248829258598
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,3 +1086,4 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 8743895685575218034}
   _shadowMover: {fileID: 8542527342966621905}
   _shadowRotater: {fileID: 3408986898674322573}
+  _spriteScale: {x: 0, y: 0}

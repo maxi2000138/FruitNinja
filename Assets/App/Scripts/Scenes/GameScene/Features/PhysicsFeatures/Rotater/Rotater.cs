@@ -10,7 +10,7 @@ public class Rotater : PhysicsBehaviour
         _rotaters.AddRange(GetComponents<IRotater>());
     }
     
-    public override void ExecuteOperation(GameObject physicsObject)
+    public override void Operation(GameObject physicsObject)
     {
         Vector3 rotationVector = Vector3.zero;
         foreach (IRotater mover in _rotaters)

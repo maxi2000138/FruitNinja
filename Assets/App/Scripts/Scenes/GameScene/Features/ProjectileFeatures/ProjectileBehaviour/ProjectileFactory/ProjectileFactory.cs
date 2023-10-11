@@ -6,19 +6,17 @@ public class ProjectileFactory : IProjectileFactory
     private readonly ResourceObjectsProvider _resourceObjectsProvider;
     private readonly ProjectileContainer _projectileContainer;
     private readonly ShadowContainer _shadowContainer;
-    private readonly ICoroutineRunner _coroutineRunner;
     private readonly IDestroyTrigger _destroyTrigger;
     private readonly ResourcesConfig _resourcesConfig;
     private readonly ShadowConfig _shadowConfig;
     private readonly FruitConfig _fruitConfig;
 
-    public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectileContainer projectileContainer, ShadowContainer shadowContainer, ICoroutineRunner coroutineRunner
+    public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectileContainer projectileContainer, ShadowContainer shadowContainer
         , ResourceObjectsProvider resourceObjectsProvider, FruitConfig fruitConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig)
     {
         _destroyTrigger = destroyTrigger;
         _projectileContainer = projectileContainer;
         _shadowContainer = shadowContainer;
-        _coroutineRunner = coroutineRunner;
         _fruitConfig = fruitConfig;
         _resourceObjectsProvider = resourceObjectsProvider;
         _resourcesConfig = resourcesConfig;
@@ -59,8 +57,6 @@ public class ProjectileFactory : IProjectileFactory
     private WholeFruit SpawnFruitAndConstruct(Vector2 position)
     {
         WholeFruit wholeFruit = SpawnFruitWithParentZPosition(position, _projectileContainer.transform).GetComponent<WholeFruit>();
-        wholeFruit.LeftFruitPart.Construct(_coroutineRunner, _shadowConfig);
-        wholeFruit.RightFruitPart.Construct(_coroutineRunner, _shadowConfig);
         return wholeFruit;
     }
 

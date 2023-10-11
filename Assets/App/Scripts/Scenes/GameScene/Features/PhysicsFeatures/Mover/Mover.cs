@@ -11,7 +11,7 @@ public class Mover : PhysicsBehaviour
         _movers.AddRange(GetComponents<IMover>());
     }
     
-    public override void ExecuteOperation(GameObject physicsObject)
+    public override void Operation(GameObject physicsObject)
     {
         Vector2 movementVector = Vector2.zero;
         foreach (IMover mover in _movers)

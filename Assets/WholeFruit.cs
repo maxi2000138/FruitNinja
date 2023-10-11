@@ -4,6 +4,7 @@ public class WholeFruit : MonoBehaviour, ISlicable
 {
     [field: SerializeField] public FruitPart LeftFruitPart;
     [field: SerializeField] public FruitPart RightFruitPart;
+    [field: SerializeField] public ScaleByTime ScalerByTime;
 
     private Shooter _shooter;
     public void Construct(Shooter shooter)
