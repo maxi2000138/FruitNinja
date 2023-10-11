@@ -41,7 +41,7 @@ public class ServicesInstaller : Installer
             , _configsInstaller.FruitConfig, _configsInstaller.ResourcesConfig, _configsInstaller.ShadowConfig);
         ShootPolicy = new WavesSpawnPolicy(_coroutineRunner, _configsInstaller.SpawnConfig);
         Shooter = new Shooter(ProjectileFactory, _spawnAreasContainer, _screenSettingsProvider,_configsInstaller.ProjectileConfig
-            ,_configsInstaller.ShadowConfig , _configsInstaller.FruitConfig, _configsInstaller.GravitationConfig);
+            ,_configsInstaller.ShadowConfig , _configsInstaller.FruitConfig, _configsInstaller.GravitationConfig, _configsInstaller.SpawnConfig);
         ShootSystem = new ShootSystem(Shooter, ShootPolicy);
 
         monoBehaviourSimulator.AddInitializable(Shooter);

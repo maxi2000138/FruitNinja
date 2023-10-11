@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class SliceDrawer : MonoBehaviour
 {
@@ -11,6 +9,7 @@ public class SliceDrawer : MonoBehaviour
     private ICoroutineRunner _coroutineRunner;
     private InputReader _inputReader;
     private Coroutine _sliceCoroutine;
+    private bool _isSlicing;
 
     public void Construct(InputReader inputReader, ScreenSettingsProvider screenSettingsProvider, ICoroutineRunner coroutineRunner)
     {
@@ -20,6 +19,16 @@ public class SliceDrawer : MonoBehaviour
         Enable();
     }
 
+    private void Update()
+    {
+        if(!_isSlicing)
+            return;
+        
+        Vector3 worldPosition = _screenSettingsProvider.ScreenToWorldPosition(_inputReader.TouchPosition);
+        worldPosition.z = _zPosition;
+        _trailRenderer.transform.position = worldPosition;
+    }
+
     private void OnDestroy()
     {
         Disable();
@@ -27,16 +36,15 @@ public class SliceDrawer : MonoBehaviour
 
     private void StartSlicing()
     {
-        _sliceCoroutine = _coroutineRunner.StartCoroutine(SliceCoroutine());
         _trailRenderer.Clear();
         _trailRenderer.enabled = true;
+        _isSlicing = true;
     }
 
     private void EndSlicing()
     {
+        _isSlicing = false;
         _trailRenderer.enabled = false;
-        if(_sliceCoroutine != null)
-            _coroutineRunner.StopCoroutine(_sliceCoroutine);
     }
 
     private void Enable()
@@ -49,16 +57,5 @@ public class SliceDrawer : MonoBehaviour
     {
         _inputReader.SliceStartedEvent -= StartSlicing;
         _inputReader.SliceEndedEvent -= EndSlicing;
-    }
-
-    private IEnumerator SliceCoroutine()
-    {
-        while (true)
-        {
-            Vector3 worldPosition = _screenSettingsProvider.ScreenToWorldPosition(_inputReader.TouchPosition);
-            worldPosition.z = _zPosition;
-            _trailRenderer.transform.position = worldPosition;
-            yield return null;
-        }
     }
 }

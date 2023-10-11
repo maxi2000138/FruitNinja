@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -12,5 +13,6 @@ public class SpawnConfig : ScriptableObject
     public Vector2 FruitsInGroupSpawnDelayRange;
     [Range(2,100)]
     public int AverageAmountSpawnGroups;
+    public List<FruitType> FruitTypes;
 
 }

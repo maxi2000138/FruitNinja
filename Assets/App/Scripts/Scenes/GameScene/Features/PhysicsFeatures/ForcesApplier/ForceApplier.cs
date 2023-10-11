@@ -4,7 +4,7 @@ public class ForceApplier : MonoBehaviour, IMover
 {
     private Vector2 _forceVector;
 
-    public void Shoot(Vector2 forceVector)
+    public void AddForce(Vector2 forceVector)
     {
         _forceVector = forceVector;
     }

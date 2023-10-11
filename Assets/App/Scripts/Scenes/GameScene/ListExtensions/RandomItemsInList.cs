@@ -40,16 +40,10 @@ public static class RandomItemInList
         return randomIndex;
     }
     
-    public static int GetRandomIntBetween(this Vector2Int vector2)
+    public static T GetRandomItem<T>(this List<T> list)
     {
-        int randomIndex = (int)(Random.value * (vector2.y - vector2.x) + vector2.x);
-        return randomIndex;
-    }
-
-    public static int GetRandomIntBetween(this (int, int) items)
-    {
-        int randomIndex = (int)(Random.value * (items.Item2 - items.Item1) + items.Item1);
-        return randomIndex;
+        T randomItem = (T)list[(int)(Random.value * (list.Count-1))];
+        return randomItem;
     }
 
     public static Vector2 GetRandomPointBetween(this (Vector2, Vector2) items)

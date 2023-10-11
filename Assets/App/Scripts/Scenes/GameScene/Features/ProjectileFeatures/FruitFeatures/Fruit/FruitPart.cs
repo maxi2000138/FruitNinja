@@ -11,21 +11,12 @@ public class FruitPart : MonoBehaviour
     [SerializeField] private CloneRotater _shadowRotater;
     [SerializeField] private Vector2 _spriteScale;
     
-    private void OnDestroy()
-    {
-        /*
-        _transformLocalScaler.StopChanging(transform);
-        _transformLocalScaler.StopChanging(Shadow.SpriteRenderer.transform);
-        _transformLocalOffseter.StopChanging(Shadow.SpriteRenderer.transform);
-    */
-    }
-
     public void SetSprite(Sprite sprite, Vector2 spriteScale, int sortingOrder)
     {
         _spriteScale = spriteScale;
         _spriteRenderer.sprite = sprite;
         _spriteRenderer.sortingOrder = sortingOrder;
-        ChangeSpriteScale(spriteScale);
+        _spriteRenderer.transform.localScale = spriteScale;
     }
 
     public void SetShadow(Shadow shadow)
@@ -44,11 +35,6 @@ public class FruitPart : MonoBehaviour
     {
         Shadow.OffsetByTime.StartOffseting(startOffset,finalOffset, flyTime);
     }
-
-    private void ChangeSpriteScale(Vector2 spriteScale)
-    {
-        _spriteRenderer.transform.localScale = spriteScale;
-    }
-
+    
     private float SpriteDiagonal() => Mathf.Sqrt(Mathf.Pow(_spriteRenderer.sprite.bounds.size.x,2) + Mathf.Pow(_spriteRenderer.sprite.bounds.size.y,2));
 }

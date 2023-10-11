@@ -26,25 +26,32 @@ public class ProjectileFactory : IProjectileFactory
     public WholeFruit CreateFruitByType(Vector2 position, FruitType fruitType)
     {
         WholeFruit wholeFruit = SpawnFruitAndConstruct(position);
+        TrySetFruitsAndShadowsSprites(fruitType, wholeFruit, position);
         
-        Shadow shadow1 = SetShadowAndConstruct(position);
-        Shadow shadow2 = SetShadowAndConstruct(position);
-
-        Shadow[] shadows = new Shadow[2] { shadow1, shadow2 };
-        FruitPart[] fruitParts = new FruitPart[2] { wholeFruit.LeftFruitPart, wholeFruit.RightFruitPart };
-        FruitPartEnum[] fruitPartEnums = new FruitPartEnum[2] { FruitPartEnum.Left, FruitPartEnum.Right };
-        
-        TrySetFruitsAndShadowsSprites(fruitType, fruitPartEnums, shadows, fruitParts);
         _destroyTrigger.AddDestroyTriggerListeners(wholeFruit.LeftFruitPart.transform, wholeFruit.LeftFruitPart.Shadow.transform);
         _destroyTrigger.AddDestroyTriggerListeners(wholeFruit.RightFruitPart.transform, wholeFruit.RightFruitPart.Shadow.transform);
-
+        
         return wholeFruit;
     }
 
-    private void TrySetFruitsAndShadowsSprites(FruitType fruitType, FruitPartEnum[] fruitPartEnum, Shadow[] shadow, params FruitPart[] fruitPart)
+    private void TrySetFruitsAndShadowsSprites(FruitType fruitType, WholeFruit wholeFruit, Vector2 position)
     {
+        float randomFloatBetween = _fruitConfig.FruitScaleRange.GetRandomFloatBetween();
+        Vector2 randVector = new Vector2(randomFloatBetween, randomFloatBetween);
+        
         if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out var fruitData))
-            SetShadowAndFruitSprites(fruitPartEnum, fruitData, shadow, fruitPart);
+        {
+            SetShadowAndFruitSprites(wholeFruit.LeftFruitPart, fruitData.LeftSprite, SetShadowAndConstruct(position), randVector);
+            SetShadowAndFruitSprites(wholeFruit.RightFruitPart, fruitData.RightSprite, SetShadowAndConstruct(position), randVector);
+        }
+    }
+
+    private void SetShadowAndFruitSprites(FruitPart fruitPart, Sprite fruitSprite, Shadow shadow, Vector2 offsetVector)
+    {
+        fruitPart.SetShadow(shadow);
+        fruitPart.SetSprite(fruitSprite, offsetVector, _sortingOrder++);
+        shadow.SetSpriteWithOffset(fruitSprite, offsetVector, 0.2f);
+        shadow.TurnIntoShadow();
     }
 
     private Shadow SetShadowAndConstruct(Vector2 position)
@@ -58,35 +65,6 @@ public class ProjectileFactory : IProjectileFactory
     {
         WholeFruit wholeFruit = SpawnFruitWithParentZPosition(position, _projectileContainer.transform).GetComponent<WholeFruit>();
         return wholeFruit;
-    }
-
-    private void SetShadowAndFruitSprites(FruitPartEnum[] fruitPartEnum, FruitData fruitData, Shadow[] shadow, params FruitPart[] fruitPart)
-    {
-        Sprite[] spr = new Sprite[fruitPart.Length];
-
-        for (int i = 0; i < fruitPart.Length; i++)
-        {
-            switch (fruitPartEnum[i])
-            {
-                case (FruitPartEnum.Left):
-                    spr[i] = fruitData.LeftSprite;
-                    break;
-                case (FruitPartEnum.Right):
-                    spr[i] = fruitData.RightSprite;
-                    break;
-            }
-        }
-        
-        float randomFloatBetween = _fruitConfig.FruitScaleRange.GetRandomFloatBetween();
-
-        for (int i = 0; i < fruitPart.Length; i++)
-        {
-            fruitPart[i].SetShadow(shadow[i]);
-            Vector2 randVector = new Vector2(randomFloatBetween, randomFloatBetween);
-            fruitPart[i].SetSprite(spr[i], randVector, _sortingOrder++);
-            shadow[i].SetSpriteWithOffset(spr[i], randVector, 0.2f);
-            shadow[i].TurnIntoShadow();
-        }
     }
 
     private GameObject SpawnFruitWithParentZPosition(Vector2 position, Transform parent)

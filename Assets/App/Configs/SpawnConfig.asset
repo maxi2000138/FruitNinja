@@ -16,3 +16,4 @@ MonoBehaviour:
   GroupSpawnDelayRange: {x: 4.411628, y: 6.6210523}
   FruitsInGroupSpawnDelayRange: {x: 0.38604647, y: 0.5953488}
   AverageAmountSpawnGroups: 14
+  FruitTypes: 000000000100000002000000030000000400000005000000060000000700000008000000
