@@ -6,17 +6,19 @@ public class ProjectileFactory : IProjectileFactory
     private readonly ResourceObjectsProvider _resourceObjectsProvider;
     private readonly ProjectileContainer _projectileContainer;
     private readonly ShadowContainer _shadowContainer;
+    private readonly SliceCollidersController _sliceCollidersController;
     private readonly IDestroyTrigger _destroyTrigger;
     private readonly ResourcesConfig _resourcesConfig;
     private readonly ShadowConfig _shadowConfig;
     private readonly FruitConfig _fruitConfig;
 
-    public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectileContainer projectileContainer, ShadowContainer shadowContainer
+    public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectileContainer projectileContainer, ShadowContainer shadowContainer, SliceCollidersController sliceCollidersController
         , ResourceObjectsProvider resourceObjectsProvider, FruitConfig fruitConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig)
     {
         _destroyTrigger = destroyTrigger;
         _projectileContainer = projectileContainer;
         _shadowContainer = shadowContainer;
+        _sliceCollidersController = sliceCollidersController;
         _fruitConfig = fruitConfig;
         _resourceObjectsProvider = resourceObjectsProvider;
         _resourcesConfig = resourcesConfig;
@@ -28,9 +30,8 @@ public class ProjectileFactory : IProjectileFactory
         WholeFruit wholeFruit = SpawnFruitAndConstruct(position);
         TrySetFruitsAndShadowsSprites(fruitType, wholeFruit, position);
         
-        _destroyTrigger.AddDestroyTriggerListeners(wholeFruit.LeftFruitPart.transform, wholeFruit.LeftFruitPart.Shadow.transform);
-        _destroyTrigger.AddDestroyTriggerListeners(wholeFruit.RightFruitPart.transform, wholeFruit.RightFruitPart.Shadow.transform);
-        
+        _destroyTrigger.AddDestroyTriggerListeners(wholeFruit.LeftFruitPart.transform,wholeFruit.RightFruitPart.transform, wholeFruit.LeftFruitPart.Shadow.transform,wholeFruit.RightFruitPart.Shadow.transform, wholeFruit.transform);
+        wholeFruit.GetComponentInChildren<SliceCircleCollider>().Construct(_sliceCollidersController);
         return wholeFruit;
     }
 
@@ -41,16 +42,16 @@ public class ProjectileFactory : IProjectileFactory
         
         if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out var fruitData))
         {
-            SetShadowAndFruitSprites(wholeFruit.LeftFruitPart, fruitData.LeftSprite, SetShadowAndConstruct(position), randVector);
-            SetShadowAndFruitSprites(wholeFruit.RightFruitPart, fruitData.RightSprite, SetShadowAndConstruct(position), randVector);
+            SetShadowAndFruitSprites(wholeFruit.LeftFruitPart, fruitData.LeftSprite, SetShadowAndConstruct(position), _shadowConfig.DefaultShadowOffset);
+            SetShadowAndFruitSprites(wholeFruit.RightFruitPart, fruitData.RightSprite, SetShadowAndConstruct(position), _shadowConfig.DefaultShadowOffset);
         }
     }
 
-    private void SetShadowAndFruitSprites(FruitPart fruitPart, Sprite fruitSprite, Shadow shadow, Vector2 offsetVector)
+    private void SetShadowAndFruitSprites(FruitPart fruitPart, Sprite fruitSprite, Shadow shadow, float shadowDistance)
     {
         fruitPart.SetShadow(shadow);
-        fruitPart.SetSprite(fruitSprite, offsetVector, _sortingOrder++);
-        shadow.SetSpriteWithOffset(fruitSprite, offsetVector, 0.2f);
+        fruitPart.SetSprite(fruitSprite, _sortingOrder++);
+        shadow.SetSpriteWithOffset(fruitSprite, shadowDistance);
         shadow.TurnIntoShadow();
     }
 

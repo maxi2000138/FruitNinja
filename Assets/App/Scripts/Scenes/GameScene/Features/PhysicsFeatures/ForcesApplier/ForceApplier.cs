@@ -6,11 +6,16 @@ public class ForceApplier : MonoBehaviour, IMover
 
     public void AddForce(Vector2 forceVector)
     {
-        _forceVector = forceVector;
+        _forceVector += forceVector;
     }
 
     public Vector2 Move(float deltaTime)
     {
         return _forceVector * deltaTime;
+    }
+
+    public void Clear()
+    {
+        _forceVector = Vector3.zero;
     }
 }

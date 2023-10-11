@@ -16,13 +16,14 @@ public class OffsetByTime : MonoBehaviour, IMover
         return Vector2.zero;
    
     }
-    
+
+    public void Clear()
+    {
+        StopOffseting();
+    }
+
     public void StartOffseting(Vector2 startValue, Vector2 finalValue, float flyTime)
     {
-        if(_isActive)
-            return;
-
-        _isActive = true;
         _currentChangeData = new ChangeData(startValue, finalValue, flyTime)
         {
             CurrentTime = 0f,
@@ -31,10 +32,7 @@ public class OffsetByTime : MonoBehaviour, IMover
     
     public void StopOffseting()
     {
-        if(!_isActive)
-            return;
-
-        _isActive = false;
+        _currentChangeData = null;
     }
     
     private Vector2 GetOffset(ChangeData changeData)

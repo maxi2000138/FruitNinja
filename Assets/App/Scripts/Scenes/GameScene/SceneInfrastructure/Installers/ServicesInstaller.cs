@@ -22,22 +22,24 @@ public class ServicesInstaller : Installer
     [SerializeField] 
     private ProjectileContainer _projectileContainer;
     [SerializeField]
-    private SliceDrawer _sliceDrawer;
+    private Slicer _slicer;
     [SerializeField] 
     private ShadowContainer _shadowContainer;
     [SerializeField]
     private CoroutineRunner _coroutineRunner;
     
-    
+    private SliceCollidersController _sliceCollidersController;
+
 
     public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
     {
         InputReader = new InputReader();
         ResourceObjectsProvider = new ResourceObjectsProvider();
         ProjectileDestroyer = new ProjectileDestroyer();
-        _sliceDrawer.Construct(InputReader, _screenSettingsProvider, _coroutineRunner);
+        _sliceCollidersController = new SliceCollidersController();
+        _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController);
         DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsInstaller.ProjectileConfig);
-        ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, ResourceObjectsProvider
+        ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, _sliceCollidersController, ResourceObjectsProvider
             , _configsInstaller.FruitConfig, _configsInstaller.ResourcesConfig, _configsInstaller.ShadowConfig);
         ShootPolicy = new WavesSpawnPolicy(_coroutineRunner, _configsInstaller.SpawnConfig);
         Shooter = new Shooter(ProjectileFactory, _spawnAreasContainer, _screenSettingsProvider,_configsInstaller.ProjectileConfig

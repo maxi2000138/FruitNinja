@@ -974,6 +974,7 @@ GameObject:
   - component: {fileID: 1312335035}
   - component: {fileID: 1312335037}
   - component: {fileID: 1312335036}
+  - component: {fileID: 1312335038}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -997,7 +998,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1039,6 +1040,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312335034}
   m_CullTransparentMesh: 1
+--- !u!114 &1312335038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312335034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 4
+  m_AspectRatio: 2.1386354
 --- !u!1 &1632389564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,7 +1326,7 @@ MonoBehaviour:
   _screenSettingsProvider: {fileID: 879768327}
   _spawnAreasContainer: {fileID: 938910096}
   _projectileContainer: {fileID: 610487079}
-  _sliceDrawer: {fileID: 2119743383}
+  _slicer: {fileID: 2119743383}
   _shadowContainer: {fileID: 1632389566}
   _coroutineRunner: {fileID: 296955170}
 --- !u!1 &2119743380

@@ -8,6 +8,11 @@ public class TorqueApplier : MonoBehaviour, IRotater
     {
         _torque.z += torqueValue;
     }
+
+    public void Clear()
+    {
+        _torque = Vector3.zero;
+    }
     
     public Vector3 Rotate(float deltaTime)
     {

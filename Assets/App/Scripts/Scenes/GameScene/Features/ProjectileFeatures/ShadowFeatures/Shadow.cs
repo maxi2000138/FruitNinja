@@ -16,11 +16,10 @@ public class Shadow : MonoBehaviour
         _shadowConfig = shadowConfig;
     }
     
-    public void SetSpriteWithOffset(Sprite sprite, Vector2 spriteScale, float distance)
+    public void SetSpriteWithOffset(Sprite sprite, float distance)
     {
-        SpriteRenderer.transform.localScale = spriteScale;
         SpriteRenderer.sprite = sprite;
-        SetSpriteOffset(spriteScale.magnitude * distance);
+        SetSpriteOffset(distance);
     }
 
     public void SetSpriteOffset(float distance)

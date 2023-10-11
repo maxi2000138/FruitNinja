@@ -18,6 +18,6 @@ public class Rotater : PhysicsBehaviour
             rotationVector += mover.Rotate(Time.fixedDeltaTime);
         }
 
-        physicsObject.transform.Rotate(rotationVector);
+        physicsObject.transform.Rotate(rotationVector, Space.World);
     }
 }

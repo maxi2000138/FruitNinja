@@ -57,16 +57,13 @@ public class Shooter : IShooter, IInitializable
     {
         Vector2 moveVector = GetRandomMovementVector(areaData, angle);
         moveVector = ConstrainSpeed(FruitSpriteHeight(wholeFruit.LeftFruitPart), moveVector);
-        ShootFruit(wholeFruit.LeftFruitPart.gameObject, moveVector);
-        ShootFruit(wholeFruit.RightFruitPart.gameObject, moveVector);
+        ShootFruit(wholeFruit.PhysicsOperationOrder.gameObject, moveVector);
     }
 
     private void RotateFruit(WholeFruit wholeFruit)
     {
         float torqueValue = _projectileConfig.TorqueVelocityRange.GetRandomFloatBetween();
-        TorqueApplier torqueApplier = wholeFruit.LeftFruitPart.GetComponentInChildren<TorqueApplier>();
-        torqueApplier.AddTorque(torqueValue);
-        torqueApplier = wholeFruit.RightFruitPart.GetComponentInChildren<TorqueApplier>();
+        TorqueApplier torqueApplier = wholeFruit.TorqueApplier;
         torqueApplier.AddTorque(torqueValue);
     }
 

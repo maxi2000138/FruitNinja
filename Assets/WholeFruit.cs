@@ -1,20 +1,10 @@
 using UnityEngine;
 
-public class WholeFruit : MonoBehaviour, ISlicable
+public class WholeFruit : MonoBehaviour
 {
     [field: SerializeField] public FruitPart LeftFruitPart;
     [field: SerializeField] public FruitPart RightFruitPart;
     [field: SerializeField] public ScaleByTime ScalerByTime;
-
-    private Shooter _shooter;
-    public void Construct(Shooter shooter)
-    {
-        _shooter = shooter;
-    }
-
-    public void Slice(Vector2 sliceVector)
-    {
-        _shooter.ShootFruit(LeftFruitPart.gameObject, new Vector2(sliceVector.y, -sliceVector.x) * 3f);
-        _shooter.ShootFruit(RightFruitPart.gameObject, new Vector2(-sliceVector.y, sliceVector.x) * 3f);
-    }
+    [field: SerializeField] public TorqueApplier TorqueApplier;
+    [field: SerializeField] public PhysicsOperationOrder PhysicsOperationOrder;
 }

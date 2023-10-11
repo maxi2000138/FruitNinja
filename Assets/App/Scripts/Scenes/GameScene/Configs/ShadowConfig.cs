@@ -12,5 +12,7 @@ public class ShadowConfig : ScriptableObject
     public float ShadowOffsetScaler;
     [Range(0f,10f)]
     public float ShadowScaleScaler;
+    [Range(0f, 1f)] 
+    public float DefaultShadowOffset;
 
 }

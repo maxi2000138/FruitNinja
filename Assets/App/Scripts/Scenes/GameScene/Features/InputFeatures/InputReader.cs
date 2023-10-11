@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 public class InputReader : InputActions.IGameSceneActions
 {
     public event Action SliceStartedEvent; 
-    public event Action SliceEndedEvent; 
-    
+    public event Action SliceEndedEvent;
     public Vector2 TouchPosition { get; private set; }
 
     private readonly InputActions _inputActions;
@@ -23,9 +22,11 @@ public class InputReader : InputActions.IGameSceneActions
         if(context.performed)
         {
             SliceStartedEvent?.Invoke();
+            Debug.Log("started!");
         }
         else if (context.canceled)
         {
+            Debug.Log("ended!");
             SliceEndedEvent?.Invoke();
         }
     }

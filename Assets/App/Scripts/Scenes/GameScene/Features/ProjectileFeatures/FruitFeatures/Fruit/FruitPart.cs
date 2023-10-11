@@ -11,12 +11,10 @@ public class FruitPart : MonoBehaviour
     [SerializeField] private CloneRotater _shadowRotater;
     [SerializeField] private Vector2 _spriteScale;
     
-    public void SetSprite(Sprite sprite, Vector2 spriteScale, int sortingOrder)
+    public void SetSprite(Sprite sprite, int sortingOrder)
     {
-        _spriteScale = spriteScale;
         _spriteRenderer.sprite = sprite;
         _spriteRenderer.sortingOrder = sortingOrder;
-        _spriteRenderer.transform.localScale = spriteScale;
     }
 
     public void SetShadow(Shadow shadow)

@@ -4,6 +4,11 @@ public class GravitationApplier : MonoBehaviour, IMover
 {
     [SerializeField] private GravitationConfig _gravitationConfig;
     private float _velocity = 0f;
+
+    public void Clear()
+    {
+        _velocity = 0f;
+    }
     
     public Vector2 Move(float deltaTime)
     {
