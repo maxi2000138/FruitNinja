@@ -1,39 +1,44 @@
+using App.Scripts.Scenes.GameScene.Configs;
+using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier;
 using UnityEngine;
 
-public class Shadow : MonoBehaviour
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeatures
 {
-    public Vector2 SpriteOffset =>
-        SpriteRenderer.transform.localPosition;
-    [field: SerializeField] public GameObject SpriteGameObject { get; private set; }
-    [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
-    [field: SerializeField] public ScaleByTime ScaleByTime { get; private set; }
-    [field: SerializeField] public OffsetByTime OffsetByTime { get; private set; }
+    public class Shadow : MonoBehaviour
+    {
+        public Vector2 SpriteOffset =>
+            SpriteRenderer.transform.localPosition;
+        [field: SerializeField] public GameObject SpriteGameObject { get; private set; }
+        [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
+        [field: SerializeField] public ScaleByTimeApplier ScaleByTimeApplier { get; private set; }
+        [field: SerializeField] public OffsetByTimeApplier OffsetByTimeApplier { get; private set; }
     
-    private ShadowConfig _shadowConfig;
+        private ShadowConfig _shadowConfig;
 
-    public void Construct(ShadowConfig shadowConfig)
-    {
-        _shadowConfig = shadowConfig;
-    }
+        public void Construct(ShadowConfig shadowConfig)
+        {
+            _shadowConfig = shadowConfig;
+        }
     
-    public void SetSpriteWithOffset(Sprite sprite, float distance)
-    {
-        SpriteRenderer.sprite = sprite;
-        SetSpriteOffset(distance);
-    }
+        public void SetSpriteWithOffset(Sprite sprite, float distance)
+        {
+            SpriteRenderer.sprite = sprite;
+            SetSpriteOffset(distance);
+        }
 
-    public void SetSpriteOffset(float distance)
-    {
-        Vector2 offsetVector = new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY);
-        offsetVector = offsetVector.normalized * distance;
-        SpriteRenderer.transform.localPosition =
-            new Vector3(offsetVector.x, offsetVector.y, 0f);
-    }
+        public void SetSpriteOffset(float distance)
+        {
+            Vector2 offsetVector = new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY);
+            offsetVector = offsetVector.normalized * distance;
+            SpriteRenderer.transform.localPosition =
+                new Vector3(offsetVector.x, offsetVector.y, 0f);
+        }
 
-    public void TurnIntoShadow()
-    {
-        Color32 shadowColor = Color.black;
-        shadowColor.a = 100;
-        SpriteRenderer.color = shadowColor;
+        public void TurnIntoShadow()
+        {
+            Color32 shadowColor = Color.black;
+            shadowColor.a = 100;
+            SpriteRenderer.color = shadowColor;
+        }
     }
 }

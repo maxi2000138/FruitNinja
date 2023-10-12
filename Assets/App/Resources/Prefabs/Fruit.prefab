@@ -512,9 +512,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeftFruitPart: {fileID: 1679847870796283039}
   RightFruitPart: {fileID: 1320087224251211472}
-  ScalerByTime: {fileID: 2174210399844158461}
+  ScalerByTimeApplier: {fileID: 2174210399844158461}
   TorqueApplier: {fileID: 4343094047579919435}
-  PhysicsOperationOrder: {fileID: 7501482004418162440}
+  PhysicsForcesOrder: {fileID: 7501482004418162440}
   SliceParticlesController: {fileID: 5753463196727177571}
 --- !u!1 &4820578651902953680
 GameObject:
@@ -770,8 +770,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 6093624603544318279}
-  _shadowMover: {fileID: 6168481500215914990}
-  _shadowRotater: {fileID: 6211377983010092635}
+  _shadowForceMover: {fileID: 6168481500215914990}
+  _shadowForceRotater: {fileID: 6211377983010092635}
   _spriteScale: {x: 0, y: 0}
 --- !u!1 &6423013265669156492
 GameObject:
@@ -933,8 +933,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575e29bddf614d84890bb6c4c03773e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SliceBlock>k__BackingField: {fileID: 8169345344557271044}
-  <_colliderCenter>k__BackingField: {fileID: 2330464728562907449}
+  <SliceObject>k__BackingField: {fileID: 8169345344557271044}
+  <ColliderObject>k__BackingField: {fileID: 2330464728562907449}
 --- !u!114 &8169345344557271044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1185,8 +1185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 8743895685575218034}
-  _shadowMover: {fileID: 8542527342966621905}
-  _shadowRotater: {fileID: 3408986898674322573}
+  _shadowForceMover: {fileID: 8542527342966621905}
+  _shadowForceRotater: {fileID: 3408986898674322573}
   _spriteScale: {x: 0, y: 0}
 --- !u!1001 &3615844467091558834
 PrefabInstance:

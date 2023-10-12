@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public class ShadowContainer : MonoBehaviour
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeatures
 {
+    public class ShadowContainer : MonoBehaviour
+    {
+    }
 }

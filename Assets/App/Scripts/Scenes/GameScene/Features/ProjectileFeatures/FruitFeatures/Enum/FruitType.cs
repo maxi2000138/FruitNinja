@@ -1,12 +1,15 @@
-public enum FruitType
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Enum
 {
-    Coconut,
-    Lemon,
-    Lime,
-    Orange,
-    Apple,
-    Pear,
-    Watermelon,
-    Peach,
-    StarFruit,
+    public enum FruitType
+    {
+        Coconut,
+        Lemon,
+        Lime,
+        Orange,
+        Apple,
+        Pear,
+        Watermelon,
+        Peach,
+        StarFruit,
+    }
 }

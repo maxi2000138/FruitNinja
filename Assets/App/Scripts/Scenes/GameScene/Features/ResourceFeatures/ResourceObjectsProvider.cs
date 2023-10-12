@@ -1,25 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceObjectsProvider
+namespace App.Scripts.Scenes.GameScene.Features.ResourceFeatures
 {
-    private readonly Dictionary<string, GameObject> _objectsByPath = new();
-
-    public GameObject GetGameObject(string resourcePath)
+    public class ResourceObjectsProvider
     {
-        GameObject loadGameObject;
-        if (_objectsByPath.TryGetValue(resourcePath, out loadGameObject))
-            return loadGameObject;
+        private readonly Dictionary<string, GameObject> _objectsByPath = new();
+
+        public GameObject GetGameObject(string resourcePath)
+        {
+            GameObject loadGameObject;
+            if (_objectsByPath.TryGetValue(resourcePath, out loadGameObject))
+                return loadGameObject;
         
-        loadGameObject = LoadAndCashGameObject(resourcePath);
-        return loadGameObject;
-    }
+            loadGameObject = LoadAndCashGameObject(resourcePath);
+            return loadGameObject;
+        }
 
-    private GameObject LoadAndCashGameObject(string resourcePath)
-    {
-        GameObject loadGameObject;
-        loadGameObject = (GameObject)Resources.Load(resourcePath);
-        _objectsByPath.Add(resourcePath, loadGameObject);
-        return loadGameObject;
+        private GameObject LoadAndCashGameObject(string resourcePath)
+        {
+            GameObject loadGameObject;
+            loadGameObject = (GameObject)Resources.Load(resourcePath);
+            _objectsByPath.Add(resourcePath, loadGameObject);
+            return loadGameObject;
+        }
     }
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public abstract class Installer : MonoBehaviour
+namespace App.Scripts.Scenes.Infrastructure.CompositeRoot
 {
-    public abstract void Compose(MonoBehaviourSimulator monoBehaviourSimulator);
+    public abstract class Installer : MonoBehaviour
+    {
+        public abstract void Compose(MonoBehaviourSimulator.MonoBehaviourSimulator monoBehaviourSimulator);
+    }
 }

@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public class ProjectileContainer : MonoBehaviour
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileContainer
 {
+    public class ProjectileContainer : MonoBehaviour
+    {
+    }
 }

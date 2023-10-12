@@ -6,6 +6,8 @@ TagManager:
   tags:
   - FxTemporaire
   - Missile
+  - Fruit
+  - Bomb
   layers:
   - Default
   - TransparentFX
@@ -43,12 +45,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: FXUnderFruits
+    uniqueID: 3530528809
+    locked: 0
   - name: Fruits
     uniqueID: 3960523479
     locked: 0
-  - name: Slicer
-    uniqueID: 2720482657
-    locked: 0
   - name: FX
     uniqueID: 4362481
+    locked: 0
+  - name: Slicer
+    uniqueID: 2720482657
     locked: 0

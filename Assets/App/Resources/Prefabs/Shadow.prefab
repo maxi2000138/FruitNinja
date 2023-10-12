@@ -296,5 +296,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SpriteGameObject>k__BackingField: {fileID: 4220116565327702142}
   <SpriteRenderer>k__BackingField: {fileID: 8988167893080911641}
-  <ScaleByTime>k__BackingField: {fileID: 3521300081488703509}
-  <OffsetByTime>k__BackingField: {fileID: 3582187527697598645}
+  <ScaleByTimeApplier>k__BackingField: {fileID: 3521300081488703509}
+  <OffsetByTimeApplier>k__BackingField: {fileID: 3582187527697598645}

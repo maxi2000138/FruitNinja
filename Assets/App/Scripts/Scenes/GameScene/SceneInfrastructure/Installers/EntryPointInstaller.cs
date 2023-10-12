@@ -1,15 +1,20 @@
+using App.Scripts.Scenes.Infrastructure.CompositeRoot;
+using App.Scripts.Scenes.Infrastructure.MonoBehaviourSimulator;
 using UnityEngine;
 
-public class EntryPointInstaller : Installer
+namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
 {
-    [SerializeField] 
-    private EntryPoint _entryPoint;
-    [Header("Installers")]
-    [SerializeField] 
-    private ServicesInstaller _servicesInstaller;
-    
-    public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
+    public class EntryPointInstaller : Installer
     {
-        _entryPoint.Construct(_servicesInstaller.ShootSystem);
+        [SerializeField] 
+        private EntryPoint.EntryPoint _entryPoint;
+        [Header("Installers")]
+        [SerializeField] 
+        private ServicesInstaller _servicesInstaller;
+    
+        public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
+        {
+            _entryPoint.Construct(_servicesInstaller.ShootSystem);
+        }
     }
 }

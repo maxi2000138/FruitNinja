@@ -1,21 +1,25 @@
+using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Rotater;
 using UnityEngine;
 
-public class TorqueApplier : MonoBehaviour, IRotater
+namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
 {
-    private Vector3 _torque = Vector3.zero;
-    
-    public void AddTorque(float torqueValue)
+    public class TorqueApplier : MonoBehaviour, IRotater
     {
-        _torque.z += torqueValue;
-    }
+        private Vector3 _torque = Vector3.zero;
+    
+        public void AddTorque(float torqueValue)
+        {
+            _torque.z += torqueValue;
+        }
 
-    public void Clear()
-    {
-        _torque = Vector3.zero;
-    }
+        public void Clear()
+        {
+            _torque = Vector3.zero;
+        }
     
-    public Vector3 Rotate(float deltaTime)
-    {
-        return _torque * deltaTime;
+        public Vector3 Rotate(float deltaTime)
+        {
+            return _torque * deltaTime;
+        }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
-public interface IScreenSettingsProvider
+namespace App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsProvider
 {
-    Vector2 ViewportToWorldPosition(Vector2 viewportPosition);
+    public interface IScreenSettingsProvider
+    {
+        Vector2 ViewportToWorldPosition(Vector2 viewportPosition);
+    }
 }

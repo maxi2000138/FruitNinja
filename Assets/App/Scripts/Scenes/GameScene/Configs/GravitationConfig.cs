@@ -1,7 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new GameConfig", menuName = "Configs/Game Config")]
-public class GravitationConfig : ScriptableObject
+namespace App.Scripts.Scenes.GameScene.Configs
 {
-    public float StartGravityValue = -5f;
+    [CreateAssetMenu(fileName = "new GameConfig", menuName = "Configs/Game Config")]
+    public class GravitationConfig : ScriptableObject
+    {
+        public float StartGravityValue = -5f;
+    }
 }

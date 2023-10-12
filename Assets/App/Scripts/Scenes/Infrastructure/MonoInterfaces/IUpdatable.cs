@@ -1,4 +1,7 @@
-public interface IUpdatable
+namespace App.Scripts.Scenes.Infrastructure.MonoInterfaces
 {
-    public void Update(float deltaTime);
+    public interface IUpdatable
+    {
+        public void Update(float deltaTime);
+    }
 }

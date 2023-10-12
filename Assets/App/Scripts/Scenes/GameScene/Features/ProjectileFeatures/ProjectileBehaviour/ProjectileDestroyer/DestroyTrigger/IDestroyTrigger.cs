@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IDestroyTrigger
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.DestroyTrigger
 {
-    void AddDestroyTriggerListeners(params Transform[] objectTransform);
+    public interface IDestroyTrigger
+    {
+        void AddDestroyTriggerListeners(params Transform[] objectTransform);
+    }
 }

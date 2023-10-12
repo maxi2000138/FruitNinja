@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IProjectileDestroyer
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.ProjectileDestroyer
 {
-    void DestroyProjectile(GameObject projectile);
+    public interface IProjectileDestroyer
+    {
+        void DestroyProjectile(GameObject projectile);
+    }
 }

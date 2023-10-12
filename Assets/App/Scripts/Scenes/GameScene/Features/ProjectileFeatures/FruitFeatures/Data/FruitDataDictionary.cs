@@ -1,7 +1,12 @@
 using System.Collections.Generic;
+using App.Scripts.Scenes.GameScene.Configs;
+using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Enum;
 using Sirenix.OdinInspector;
 
-public class FruitDataDictionary : SerializedComponent
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Data
 {
-    public Dictionary<FruitType, List<FruitData>> FruitDictionary;
+    public class FruitDataDictionary : SerializedComponent
+    {
+        public Dictionary<FruitType, List<FruitData>> FruitDictionary;
+    }
 }

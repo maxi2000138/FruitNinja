@@ -1,26 +1,30 @@
-using UnityEngine;
+using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.Shooter.ProjectileShooter;
+using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.Shooter.ShootPolicy;
 
-public class ShootSystem
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ShootSystem
 {
-    private readonly IShooter _shooter;
-    private readonly IShootPolicy _shootPolicy;
-
-    public ShootSystem(IShooter shooter, IShootPolicy shootPolicy)
+    public class ShootSystem
     {
-        _shooter = shooter;
-        _shootPolicy = shootPolicy;
-    }
+        private readonly IShooter _shooter;
+        private readonly IShootPolicy _shootPolicy;
 
-    public void StartShooting()
-    {
-        StopShooting();
-        _shootPolicy.NeedShoot += _shooter.Shoot;
-        _shootPolicy.StartWorking();
-    }
+        public ShootSystem(IShooter shooter, IShootPolicy shootPolicy)
+        {
+            _shooter = shooter;
+            _shootPolicy = shootPolicy;
+        }
 
-    public void StopShooting()
-    {
-        _shootPolicy.StopWorking();
-        _shootPolicy.NeedShoot -= _shooter.Shoot;
+        public void StartShooting()
+        {
+            StopShooting();
+            _shootPolicy.NeedShoot += _shooter.Shoot;
+            _shootPolicy.StartWorking();
+        }
+
+        public void StopShooting()
+        {
+            _shootPolicy.StopWorking();
+            _shootPolicy.NeedShoot -= _shooter.Shoot;
+        }
     }
 }

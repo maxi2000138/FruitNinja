@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public class CoroutineRunner : MonoBehaviour, ICoroutineRunner
+namespace App.Scripts.Scenes.Infrastructure.CoroutineRunner
 {
+    public class CoroutineRunner : MonoBehaviour, ICoroutineRunner
+    {
+    }
 }

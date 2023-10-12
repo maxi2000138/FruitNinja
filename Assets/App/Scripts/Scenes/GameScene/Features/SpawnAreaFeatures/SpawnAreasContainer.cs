@@ -1,29 +1,33 @@
 using System.Collections.Generic;
 using System.Linq;
+using App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsProvider;
 using UnityEngine;
 
-public class SpawnAreasContainer : MonoBehaviour
+namespace App.Scripts.Scenes.GameScene.Features.SpawnAreaFeatures
 {
-    [SerializeField] private ScreenSettingsProvider _screenSettingsProvider;
-    [SerializeField] private List<SpawnAreaHandler> _spawnAreaHandlers;
-
-    public List<SpawnAreaData> SpawnAreaHandlers =>
-        _spawnAreaHandlers.Select(drawer => drawer.SpawnAreaData).ToList();
-
-    private void OnValidate()
+    public class SpawnAreasContainer : MonoBehaviour
     {
-        foreach (SpawnAreaHandler drawer in _spawnAreaHandlers)
+        [SerializeField] private ScreenSettingsProvider _screenSettingsProvider;
+        [SerializeField] private List<SpawnAreaHandler> _spawnAreaHandlers;
+
+        public List<SpawnAreaData> SpawnAreaHandlers =>
+            _spawnAreaHandlers.Select(drawer => drawer.SpawnAreaData).ToList();
+
+        private void OnValidate()
         {
-            drawer.Construct(_screenSettingsProvider);
-            drawer.Validate();
+            foreach (SpawnAreaHandler drawer in _spawnAreaHandlers)
+            {
+                drawer.Construct(_screenSettingsProvider);
+                drawer.Validate();
+            }
         }
-    }
 
-    private void OnDrawGizmos()
-    {
-        foreach (SpawnAreaHandler drawer in _spawnAreaHandlers)
+        private void OnDrawGizmos()
         {
-            drawer.DrawGizmos();
+            foreach (SpawnAreaHandler drawer in _spawnAreaHandlers)
+            {
+                drawer.DrawGizmos();
+            }
         }
     }
 }

@@ -1,16 +1,19 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-class CompositionOrder : MonoBehaviour
+namespace App.Scripts.Scenes.Infrastructure.CompositeRoot
 {
-    [SerializeField] 
-    private List<Installer> _order;
-
-    public void CompositeAll(MonoBehaviourSimulator monoBehaviourSimulator)
+    class CompositionOrder : MonoBehaviour
     {
-        foreach (var compositionRoot in _order)
+        [SerializeField] 
+        private List<Installer> _order;
+
+        public void CompositeAll(MonoBehaviourSimulator.MonoBehaviourSimulator monoBehaviourSimulator)
         {
-            compositionRoot.Compose(monoBehaviourSimulator);
+            foreach (var compositionRoot in _order)
+            {
+                compositionRoot.Compose(monoBehaviourSimulator);
+            }
         }
     }
 }

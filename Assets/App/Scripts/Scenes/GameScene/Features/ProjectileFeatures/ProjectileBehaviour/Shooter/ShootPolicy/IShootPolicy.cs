@@ -1,8 +1,11 @@
 using System;
 
-public interface IShootPolicy
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.Shooter.ShootPolicy
 {
-    public event Action NeedShoot;
-    public void StartWorking();
-    public void StopWorking();
+    public interface IShootPolicy
+    {
+        public event Action NeedShoot;
+        public void StartWorking();
+        public void StopWorking();
+    }
 }

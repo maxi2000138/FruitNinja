@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class ProjectileDestroyer : IProjectileDestroyer
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.ProjectileDestroyer
 {
-    public void DestroyProjectile(GameObject projectile)
+    public class ProjectileDestroyer : IProjectileDestroyer
     {
-        Object.Destroy(projectile);   
+        public void DestroyProjectile(GameObject projectile)
+        {
+            Object.Destroy(projectile);   
+        }
     }
 }

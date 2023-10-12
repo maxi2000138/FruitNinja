@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public interface IInitializable
+namespace App.Scripts.Scenes.Infrastructure.MonoInterfaces
 {
-    public void Initialize();
+    public interface IInitializable
+    {
+        public void Initialize();
+    }
 }

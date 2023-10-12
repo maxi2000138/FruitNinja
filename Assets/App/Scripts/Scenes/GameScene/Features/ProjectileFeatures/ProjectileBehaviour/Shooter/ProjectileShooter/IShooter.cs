@@ -1,4 +1,7 @@
-﻿public interface IShooter
+﻿namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.Shooter.ProjectileShooter
 {
-    public void Shoot();
+    public interface IShooter
+    {
+        public void Shoot();
+    }
 }

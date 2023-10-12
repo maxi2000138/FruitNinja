@@ -288,7 +288,7 @@ TrailRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1574484639
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Time: 0.25
   m_Parameters:
@@ -1340,7 +1340,7 @@ GameObject:
   - component: {fileID: 2119743381}
   - component: {fileID: 2119743383}
   m_Layer: 0
-  m_Name: SliceDrawer
+  m_Name: Slicer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

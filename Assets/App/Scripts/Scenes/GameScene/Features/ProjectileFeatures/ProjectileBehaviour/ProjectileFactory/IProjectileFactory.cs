@@ -1,6 +1,11 @@
-﻿using UnityEngine;
+﻿using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Enum;
+using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Fruit;
+using UnityEngine;
 
-public interface IProjectileFactory
+namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileFactory
 {
-    WholeFruit CreateFruitByType(Vector2 position, FruitType fruitType);
+    public interface IProjectileFactory
+    {
+        WholeFruit CreateFruitByType(Vector2 position, FruitType fruitType);
+    }
 }

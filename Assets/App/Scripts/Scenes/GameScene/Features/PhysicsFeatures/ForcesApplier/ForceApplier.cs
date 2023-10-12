@@ -1,21 +1,25 @@
+using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using UnityEngine;
 
-public class ForceApplier : MonoBehaviour, IMover
+namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
 {
-    private Vector2 _forceVector;
-
-    public void AddForce(Vector2 forceVector)
+    public class ForceApplier : MonoBehaviour, IMover
     {
-        _forceVector += forceVector;
-    }
+        private Vector2 _forceVector;
 
-    public Vector2 Move(float deltaTime)
-    {
-        return _forceVector * deltaTime;
-    }
+        public void AddForce(Vector2 forceVector)
+        {
+            _forceVector += forceVector;
+        }
 
-    public void Clear()
-    {
-        _forceVector = Vector3.zero;
+        public Vector2 Move(float deltaTime)
+        {
+            return _forceVector * deltaTime;
+        }
+
+        public void Clear()
+        {
+            _forceVector = Vector3.zero;
+        }
     }
 }

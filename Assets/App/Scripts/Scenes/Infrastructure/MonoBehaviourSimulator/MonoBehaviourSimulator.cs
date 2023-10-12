@@ -1,32 +1,36 @@
 using System.Collections.Generic;
+using App.Scripts.Scenes.Infrastructure.MonoInterfaces;
 
-public class MonoBehaviourSimulator
+namespace App.Scripts.Scenes.Infrastructure.MonoBehaviourSimulator
 {
-    private readonly List<IInitializable> _initializables = new();
-    private readonly List<IUpdatable> _updatables = new();
-
-    public void InitializeAll()
+    public class MonoBehaviourSimulator
     {
-        foreach (IInitializable initializable in _initializables)
-        {
-            initializable?.Initialize();
-        }
-    }
+        private readonly List<IInitializable> _initializables = new();
+        private readonly List<IUpdatable> _updatables = new();
 
-    public void UpdateAll(float deltaTime)
-    {
-        foreach (IUpdatable updatable in _updatables)
+        public void InitializeAll()
         {
-            updatable?.Update(deltaTime);
+            foreach (IInitializable initializable in _initializables)
+            {
+                initializable?.Initialize();
+            }
         }
-    }
 
-    public void AddInitializable(IInitializable initializable) => 
-        _initializables.Add(initializable);
-    public void RemoveInitializable(IInitializable initializable) => 
-        _initializables.Remove(initializable);
-    public void AddUpdatable(IUpdatable updatable) => 
-        _updatables.Add(updatable);
-    public void RemoveUpdatable(IUpdatable updatable) => 
-        _updatables.Remove(updatable);
+        public void UpdateAll(float deltaTime)
+        {
+            foreach (IUpdatable updatable in _updatables)
+            {
+                updatable?.Update(deltaTime);
+            }
+        }
+
+        public void AddInitializable(IInitializable initializable) => 
+            _initializables.Add(initializable);
+        public void RemoveInitializable(IInitializable initializable) => 
+            _initializables.Remove(initializable);
+        public void AddUpdatable(IUpdatable updatable) => 
+            _updatables.Add(updatable);
+        public void RemoveUpdatable(IUpdatable updatable) => 
+            _updatables.Remove(updatable);
+    }
 }

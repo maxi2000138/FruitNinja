@@ -2,35 +2,38 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputReader : InputActions.IGameSceneActions
+namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
 {
-    public event Action SliceStartedEvent; 
-    public event Action SliceEndedEvent;
-    public Vector2 TouchPosition { get; private set; }
+    public class InputReader : InputActions.IGameSceneActions
+    {
+        public event Action SliceStartedEvent; 
+        public event Action SliceEndedEvent;
+        public Vector2 TouchPosition { get; private set; }
 
-    private readonly InputActions _inputActions;
+        private readonly InputActions _inputActions;
     
-    public InputReader()
-    {
-        _inputActions = new InputActions();
-        _inputActions.GameScene.SetCallbacks(this);
-        _inputActions.Enable();
-    }
+        public InputReader()
+        {
+            _inputActions = new InputActions();
+            _inputActions.GameScene.SetCallbacks(this);
+            _inputActions.Enable();
+        }
     
-    public void OnSlice(InputAction.CallbackContext context)
-    {
-        if(context.performed)
+        public void OnSlice(InputAction.CallbackContext context)
         {
-            SliceStartedEvent?.Invoke();
+            if(context.performed)
+            {
+                SliceStartedEvent?.Invoke();
+            }
+            else if (context.canceled)
+            {
+                SliceEndedEvent?.Invoke();
+            }
         }
-        else if (context.canceled)
-        {
-            SliceEndedEvent?.Invoke();
-        }
-    }
 
-    public void OnTouchPosition(InputAction.CallbackContext context)
-    {
-        TouchPosition = context.ReadValue<Vector2>();
+        public void OnTouchPosition(InputAction.CallbackContext context)
+        {
+            TouchPosition = context.ReadValue<Vector2>();
+        }
     }
 }
