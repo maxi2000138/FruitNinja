@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FruitPart : MonoBehaviour
 {
-    public float SpriteMaxHeight => SpriteDiagonal() * _spriteScale.y;
+    public float SpriteMaxHeight => SpriteDiagonal();
     public Vector2 SpriteScale => _spriteRenderer.transform.localScale;
     public Shadow Shadow { get; private set; }
 

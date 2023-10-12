@@ -44,19 +44,19 @@ public class Shooter : IShooter, IInitializable
         WholeFruit wholeFruit = _projectileFactory.CreateFruitByType(position, type);
 
         Vector2 finalValue = new Vector2(wholeFruit.transform.localScale.x + GetScaleDistance(wholeFruit.LeftFruitPart.SpriteScale.x, _fruitConfig.FruitScaleRange)
-        , wholeFruit.transform.localScale.x + GetScaleDistance(wholeFruit.LeftFruitPart.SpriteScale.y, _fruitConfig.FruitScaleRange));
+        , wholeFruit.transform.localScale.y + GetScaleDistance(wholeFruit.LeftFruitPart.SpriteScale.y, _fruitConfig.FruitScaleRange));
         wholeFruit.ScalerByTime.StartScaling(wholeFruit.transform.localScale,finalValue, GetFlyTimeFromYPosition(position.y));
         SetScalingAndOffseting(GetScaleDistance(wholeFruit.LeftFruitPart.SpriteScale.x, _fruitConfig.FruitScaleRange), GetFlyTimeFromYPosition(position.y), wholeFruit.LeftFruitPart);
         SetScalingAndOffseting(GetScaleDistance(wholeFruit.LeftFruitPart.SpriteScale.x, _fruitConfig.FruitScaleRange), GetFlyTimeFromYPosition(position.y), wholeFruit.RightFruitPart);
 
         RotateFruit(wholeFruit);
-        ShootFruit(areaData, angle, wholeFruit);
+        ShootFruit(areaData, angle, wholeFruit, (finalValue.magnitude > (wholeFruit.transform.localScale.x)) ? finalValue.magnitude : (wholeFruit.transform.localScale.x));
     }
 
-    private void ShootFruit(SpawnAreaData areaData, float angle, WholeFruit wholeFruit)
+    private void ShootFruit(SpawnAreaData areaData, float angle, WholeFruit wholeFruit, float maxScale)
     {
         Vector2 moveVector = GetRandomMovementVector(areaData, angle);
-        moveVector = ConstrainSpeed(FruitSpriteHeight(wholeFruit.LeftFruitPart), moveVector);
+        moveVector = ConstrainSpeed(FruitSpriteHeight(wholeFruit, maxScale), moveVector);
         ShootFruit(wholeFruit.PhysicsOperationOrder.gameObject, moveVector);
     }
 
@@ -79,9 +79,9 @@ public class Shooter : IShooter, IInitializable
         fruitPart.StartChangingShadowOffset(fruitPart.transform.localPosition,(Vector2)fruitPart.transform.localPosition + deltaOffset , flyTime);
     }
 
-    private float FruitSpriteHeight(FruitPart fruitPart)
+    private float FruitSpriteHeight(WholeFruit wholeFruit, float maxScale)
     {
-        return fruitPart.transform.position.y + fruitPart.SpriteMaxHeight/2;
+        return wholeFruit.transform.position.y + (wholeFruit.LeftFruitPart.SpriteMaxHeight/2 * maxScale);
     }
 
     public void ShootFruit(GameObject fruit, Vector2 moveVector)

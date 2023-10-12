@@ -7,4 +7,5 @@ public class WholeFruit : MonoBehaviour
     [field: SerializeField] public ScaleByTime ScalerByTime;
     [field: SerializeField] public TorqueApplier TorqueApplier;
     [field: SerializeField] public PhysicsOperationOrder PhysicsOperationOrder;
+    [field: SerializeField] public ParticleSystemController SliceParticlesController;
 }

@@ -28,8 +28,8 @@ public class ProjectileFactory : IProjectileFactory
     public WholeFruit CreateFruitByType(Vector2 position, FruitType fruitType)
     {
         WholeFruit wholeFruit = SpawnFruitAndConstruct(position);
+        wholeFruit.SliceParticlesController.SetColor(_fruitConfig.FruitDictionary[fruitType].SliceColor);
         TrySetFruitsAndShadowsSprites(fruitType, wholeFruit, position);
-        
         _destroyTrigger.AddDestroyTriggerListeners(wholeFruit.LeftFruitPart.transform,wholeFruit.RightFruitPart.transform, wholeFruit.LeftFruitPart.Shadow.transform,wholeFruit.RightFruitPart.Shadow.transform, wholeFruit.transform);
         wholeFruit.GetComponentInChildren<SliceCircleCollider>().Construct(_sliceCollidersController);
         return wholeFruit;

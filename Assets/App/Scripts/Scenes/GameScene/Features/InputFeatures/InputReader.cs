@@ -22,11 +22,9 @@ public class InputReader : InputActions.IGameSceneActions
         if(context.performed)
         {
             SliceStartedEvent?.Invoke();
-            Debug.Log("started!");
         }
         else if (context.canceled)
         {
-            Debug.Log("ended!");
             SliceEndedEvent?.Invoke();
         }
     }

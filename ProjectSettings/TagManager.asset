@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FxTemporaire
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -46,4 +48,7 @@ TagManager:
     locked: 0
   - name: Slicer
     uniqueID: 2720482657
+    locked: 0
+  - name: FX
+    uniqueID: 4362481
     locked: 0

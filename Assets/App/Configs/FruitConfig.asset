@@ -74,6 +74,24 @@ MonoBehaviour:
     - Name: RightSprite
       Entry: 10
       Data: 1
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -95,6 +113,24 @@ MonoBehaviour:
     - Name: RightSprite
       Entry: 10
       Data: 3
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.895202756
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -116,6 +152,24 @@ MonoBehaviour:
     - Name: RightSprite
       Entry: 10
       Data: 5
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.129903823
+    - Name: 
+      Entry: 4
+      Data: 0.8396226
+    - Name: 
+      Entry: 4
+      Data: 0.2501811
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -137,6 +191,24 @@ MonoBehaviour:
     - Name: RightSprite
       Entry: 10
       Data: 7
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.7528591
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -158,6 +230,24 @@ MonoBehaviour:
     - Name: RightSprite
       Entry: 10
       Data: 9
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.9622642
+    - Name: 
+      Entry: 4
+      Data: 0.104187034
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -179,6 +269,24 @@ MonoBehaviour:
     - Name: RightSprite
       Entry: 10
       Data: 11
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.6577568
+    - Name: 
+      Entry: 4
+      Data: 0.9245283
+    - Name: 
+      Entry: 4
+      Data: 0.587860465
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -200,6 +308,24 @@ MonoBehaviour:
     - Name: RightSprite
       Entry: 10
       Data: 13
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.236917049
+    - Name: 
+      Entry: 4
+      Data: 0.5188679
+    - Name: 
+      Entry: 4
+      Data: 0.241445944
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -221,6 +347,24 @@ MonoBehaviour:
     - Name: RightSprite
       Entry: 10
       Data: 15
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.9433962
+    - Name: 
+      Entry: 4
+      Data: 0.881596744
+    - Name: 
+      Entry: 4
+      Data: 0.145959347
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -242,6 +386,24 @@ MonoBehaviour:
     - Name: RightSprite
       Entry: 10
       Data: 17
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.952966332
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
