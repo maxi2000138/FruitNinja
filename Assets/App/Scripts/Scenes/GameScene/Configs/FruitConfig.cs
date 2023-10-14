@@ -17,6 +17,7 @@ namespace App.Scripts.Scenes.GameScene.Configs
     [Serializable]
     public class FruitData
     {
+        public Sprite FullSprite;
         public Sprite LeftSprite;
         public Sprite RightSprite;
         public Color SliceColor;

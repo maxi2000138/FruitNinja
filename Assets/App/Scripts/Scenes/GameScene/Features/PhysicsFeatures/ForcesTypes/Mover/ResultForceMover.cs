@@ -7,6 +7,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Move
     public class ResultForceMover : PhysicsBehaviour
     {
         public Vector2 MovementVector { get; private set; }
+        [SerializeField] private float _mass = 1f;   
         private List<IMover> _movers = new();
 
         private void Awake()
@@ -16,13 +17,11 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Move
     
         public override void ExecuteOperation(GameObject physicsObject)
         {
-            Vector2 movementVector = Vector2.zero;
             foreach (IMover mover in _movers)
             {
-                movementVector += mover.Move(Time.fixedDeltaTime);
+                MovementVector += mover.Move(Time.fixedDeltaTime);
             }
-
-            MovementVector = movementVector;
+            
             physicsObject.transform.Translate(MovementVector, Space.World);
         }
     }

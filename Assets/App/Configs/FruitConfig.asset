@@ -16,22 +16,31 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 6b0cf2b7f23677a4e8baa9259c3a41a2, type: 3}
     - {fileID: 21300000, guid: 9bdd50df161de3642a2ec23bb57647a2, type: 3}
     - {fileID: 21300000, guid: 1951639280e87d946ab0d143c453d729, type: 3}
+    - {fileID: 21300000, guid: f40ae5b989187ad459deed0a3595d49c, type: 3}
     - {fileID: 21300000, guid: 69e2baa6de4490a45a8fd56ab7033082, type: 3}
     - {fileID: 21300000, guid: fd8980eeb40a2e048afad998b9de9ffa, type: 3}
+    - {fileID: 21300000, guid: 42103ed247ea26c42ae85807b66ddd08, type: 3}
     - {fileID: 21300000, guid: 8f8b8584815189d4da3f6b1774ce6bd9, type: 3}
     - {fileID: 21300000, guid: 5f11137c5e8f79341a0885a85ca4f217, type: 3}
+    - {fileID: 21300000, guid: 1933367a49c579f49994c792ba4311c4, type: 3}
     - {fileID: 21300000, guid: 94c36ff8218c91f4fa490cfd158b85b3, type: 3}
     - {fileID: 21300000, guid: d0983d5902788984fa8629a72e4016f0, type: 3}
+    - {fileID: 21300000, guid: edf6ee7d52b24094faf8fd403814a1a3, type: 3}
     - {fileID: 21300000, guid: 10ff540dfee91c7448edbafdbba8b398, type: 3}
     - {fileID: 21300000, guid: 9aa95e8dc00a55243bdea7e2a5b5a391, type: 3}
+    - {fileID: 21300000, guid: c977b9f69fa29b04ea4ccb1ef6ca3c46, type: 3}
     - {fileID: 21300000, guid: cf1f5a6b9a2add746a59b75dc81d18b9, type: 3}
     - {fileID: 21300000, guid: edfe1cf11f5243940a589de4c7583d5b, type: 3}
+    - {fileID: 21300000, guid: 4d19304143a0f6e4dadf53da8a997f3f, type: 3}
     - {fileID: 21300000, guid: 64690c718efd70a46bb58a6f59d5253d, type: 3}
     - {fileID: 21300000, guid: 1883dc3ab53c5c942adb791da1a790d7, type: 3}
+    - {fileID: 21300000, guid: 47b23cd4a4528d7408175fe0f1f4599f, type: 3}
     - {fileID: 21300000, guid: 6a222d1dfa71a154793e4c032b668fc9, type: 3}
     - {fileID: 21300000, guid: 7f796834de844884a9ee428d1086cc6a, type: 3}
+    - {fileID: 21300000, guid: 55fa8744f218a634e93ec14c6ced15c3, type: 3}
     - {fileID: 21300000, guid: fa2f137fd9e8ae5458960503e4da93b5, type: 3}
     - {fileID: 21300000, guid: f6fa09ee587b98f4ba73815fafb0c558, type: 3}
     SerializedBytesString: 
@@ -41,12 +50,13 @@ MonoBehaviour:
     SerializationNodes:
     - Name: FruitDictionary
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[FruitType, Assembly-CSharp],[FruitData,
-        Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Enum.FruitType,
+        Assembly-CSharp],[App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp]],
+        mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[FruitType, Assembly-CSharp]],
-        mscorlib
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Enum.FruitType,
+        Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 0
@@ -67,13 +77,16 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 2|FruitData, Assembly-CSharp
-    - Name: LeftSprite
+      Data: 2|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: FullSprite
       Entry: 10
       Data: 0
-    - Name: RightSprite
+    - Name: LeftSprite
       Entry: 10
       Data: 1
+    - Name: RightSprite
+      Entry: 10
+      Data: 2
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -106,13 +119,16 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 3|FruitData, Assembly-CSharp
-    - Name: LeftSprite
-      Entry: 10
-      Data: 2
-    - Name: RightSprite
+      Data: 3|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: FullSprite
       Entry: 10
       Data: 3
+    - Name: LeftSprite
+      Entry: 10
+      Data: 4
+    - Name: RightSprite
+      Entry: 10
+      Data: 5
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -145,13 +161,16 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 4|FruitData, Assembly-CSharp
+      Data: 4|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: FullSprite
+      Entry: 10
+      Data: 6
     - Name: LeftSprite
       Entry: 10
-      Data: 4
+      Data: 7
     - Name: RightSprite
       Entry: 10
-      Data: 5
+      Data: 8
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -184,13 +203,16 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: 5|FruitData, Assembly-CSharp
+      Data: 5|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: FullSprite
+      Entry: 10
+      Data: 9
     - Name: LeftSprite
       Entry: 10
-      Data: 6
+      Data: 10
     - Name: RightSprite
       Entry: 10
-      Data: 7
+      Data: 11
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -223,13 +245,16 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: 6|FruitData, Assembly-CSharp
+      Data: 6|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: FullSprite
+      Entry: 10
+      Data: 12
     - Name: LeftSprite
       Entry: 10
-      Data: 8
+      Data: 13
     - Name: RightSprite
       Entry: 10
-      Data: 9
+      Data: 14
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -262,13 +287,16 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: 7|FruitData, Assembly-CSharp
+      Data: 7|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: FullSprite
+      Entry: 10
+      Data: 15
     - Name: LeftSprite
       Entry: 10
-      Data: 10
+      Data: 16
     - Name: RightSprite
       Entry: 10
-      Data: 11
+      Data: 17
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -301,13 +329,16 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: 8|FruitData, Assembly-CSharp
+      Data: 8|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: FullSprite
+      Entry: 10
+      Data: 18
     - Name: LeftSprite
       Entry: 10
-      Data: 12
+      Data: 19
     - Name: RightSprite
       Entry: 10
-      Data: 13
+      Data: 20
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -340,13 +371,16 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: 9|FruitData, Assembly-CSharp
+      Data: 9|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: FullSprite
+      Entry: 10
+      Data: 21
     - Name: LeftSprite
       Entry: 10
-      Data: 14
+      Data: 22
     - Name: RightSprite
       Entry: 10
-      Data: 15
+      Data: 23
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -379,13 +413,16 @@ MonoBehaviour:
       Data: 8
     - Name: $v
       Entry: 7
-      Data: 10|FruitData, Assembly-CSharp
+      Data: 10|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: FullSprite
+      Entry: 10
+      Data: 24
     - Name: LeftSprite
       Entry: 10
-      Data: 16
+      Data: 25
     - Name: RightSprite
       Entry: 10
-      Data: 17
+      Data: 26
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -416,4 +453,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  FruitScaleRange: {x: 1.0488372, y: 1.6356809}
+  FruitScaleRange: {x: 1.2034782, y: 1.707826}

@@ -6,6 +6,7 @@ namespace App.Scripts.Scenes.GameScene.Configs
     public class ResourcesConfig : ScriptableObject
     {
         public string FruitPath = "Prefabs/Fruit";
+        public string FruitPartPath = "Prefabs/FruitPart";
         public string ShadowPath = "Prefabs/Shadow";
     }
 }

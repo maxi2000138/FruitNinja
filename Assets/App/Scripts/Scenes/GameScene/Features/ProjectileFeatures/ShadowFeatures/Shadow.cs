@@ -1,4 +1,3 @@
-using App.Scripts.Scenes.GameScene.Configs;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier;
 using UnityEngine;
 
@@ -6,32 +5,22 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeature
 {
     public class Shadow : MonoBehaviour
     {
-        public Vector2 SpriteOffset =>
-            SpriteRenderer.transform.localPosition;
-        [field: SerializeField] public GameObject SpriteGameObject { get; private set; }
+        public Vector2 Offset => SpriteRenderer.transform.localPosition;
         [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
         [field: SerializeField] public ScaleByTimeApplier ScaleByTimeApplier { get; private set; }
         [field: SerializeField] public OffsetByTimeApplier OffsetByTimeApplier { get; private set; }
     
-        private ShadowConfig _shadowConfig;
-
-        public void Construct(ShadowConfig shadowConfig)
-        {
-            _shadowConfig = shadowConfig;
-        }
     
-        public void SetSpriteWithOffset(Sprite sprite, float distance)
+        public void SetSpriteWithOffset(Sprite sprite, Vector2 offsetVector)
         {
             SpriteRenderer.sprite = sprite;
-            SetSpriteOffset(distance);
+            SetSpriteOffset(offsetVector);
         }
 
-        public void SetSpriteOffset(float distance)
+        public void SetSpriteOffset(Vector2 shadowVector)
         {
-            Vector2 offsetVector = new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY);
-            offsetVector = offsetVector.normalized * distance;
             SpriteRenderer.transform.localPosition =
-                new Vector3(offsetVector.x, offsetVector.y, 0f);
+                new Vector3(shadowVector.x, shadowVector.y, 0f);
         }
 
         public void TurnIntoShadow()

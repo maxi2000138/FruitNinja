@@ -47,6 +47,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         private CoroutineRunner _coroutineRunner;
     
         private SliceCollidersController _sliceCollidersController;
+        private PhysicalFlightCalculator _physicalFlightCalculator;
 
 
         public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
@@ -55,17 +56,18 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             ResourceObjectsProvider = new ResourceObjectsProvider();
             ProjectileDestroyer = new ProjectileDestroyer();
             _sliceCollidersController = new SliceCollidersController();
+            _physicalFlightCalculator = new PhysicalFlightCalculator(_screenSettingsProvider, _configsInstaller.GravitationConfig);
             _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController);
             DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsInstaller.ProjectileConfig);
             ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, _sliceCollidersController, ResourceObjectsProvider
                 , _configsInstaller.FruitConfig, _configsInstaller.ResourcesConfig, _configsInstaller.ShadowConfig);
             ShootPolicy = new WavesSpawnPolicy(_coroutineRunner, _configsInstaller.SpawnConfig);
-            Shooter = new Shooter(ProjectileFactory, _spawnAreasContainer, _screenSettingsProvider,_configsInstaller.ProjectileConfig
+            Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsInstaller.ProjectileConfig
                 ,_configsInstaller.ShadowConfig , _configsInstaller.FruitConfig, _configsInstaller.GravitationConfig, _configsInstaller.SpawnConfig);
             ShootSystem = new ShootSystem(Shooter, ShootPolicy);
 
-            monoBehaviourSimulator.AddInitializable(Shooter);
             monoBehaviourSimulator.AddInitializable(DestroyTrigger);
+            monoBehaviourSimulator.AddInitializable(_physicalFlightCalculator);
             monoBehaviourSimulator.AddUpdatable(DestroyTrigger);
         }
     }

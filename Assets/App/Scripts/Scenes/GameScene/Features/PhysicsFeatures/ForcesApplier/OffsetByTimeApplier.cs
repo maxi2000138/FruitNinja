@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesData;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using UnityEngine;
@@ -31,12 +32,16 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
             _currentChangedByTimeData = new ChangedByTimeData(startValue, finalValue, flyTime)
             {
                 CurrentTime = 0f,
+                CurrentValue = startValue,
             };
+
+            _isActive = true;
         }
     
         public void StopOffseting()
         {
             _currentChangedByTimeData = null;
+            _isActive = false;
         }
     
         private Vector2 GetOffset(ChangedByTimeData changedByTimeData)

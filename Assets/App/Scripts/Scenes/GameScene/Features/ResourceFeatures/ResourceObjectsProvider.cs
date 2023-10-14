@@ -7,20 +7,20 @@ namespace App.Scripts.Scenes.GameScene.Features.ResourceFeatures
     {
         private readonly Dictionary<string, GameObject> _objectsByPath = new();
 
-        public GameObject GetGameObject(string resourcePath)
+        public T GetObject<T>(string resourcePath)
         {
             GameObject loadGameObject;
+            
             if (_objectsByPath.TryGetValue(resourcePath, out loadGameObject))
-                return loadGameObject;
+                return loadGameObject.GetComponent<T>();
         
             loadGameObject = LoadAndCashGameObject(resourcePath);
-            return loadGameObject;
+            return loadGameObject.GetComponent<T>();
         }
 
         private GameObject LoadAndCashGameObject(string resourcePath)
         {
-            GameObject loadGameObject;
-            loadGameObject = (GameObject)Resources.Load(resourcePath);
+            GameObject loadGameObject = (GameObject)Resources.Load(resourcePath);
             _objectsByPath.Add(resourcePath, loadGameObject);
             return loadGameObject;
         }

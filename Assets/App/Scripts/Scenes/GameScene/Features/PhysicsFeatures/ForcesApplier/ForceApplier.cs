@@ -14,12 +14,19 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
 
         public Vector2 Move(float deltaTime)
         {
-            return _forceVector * deltaTime;
+            if (_forceVector != Vector2.zero)
+            {
+                Vector2 forceVector = _forceVector * deltaTime;
+                Clear();
+                return forceVector;
+            }
+            
+            return Vector2.zero;
         }
 
         public void Clear()
         {
-            _forceVector = Vector3.zero;
-        }
+            _forceVector = Vector2.zero;
+        } 
     }
 }

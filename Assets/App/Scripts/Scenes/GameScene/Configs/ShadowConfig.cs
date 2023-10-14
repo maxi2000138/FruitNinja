@@ -9,12 +9,11 @@ namespace App.Scripts.Scenes.GameScene.Configs
         public float ShadowDirectionX;
         [Range(-1f,1f)]
         public float ShadowDirectionY;
-        [Range(0f,10f)]
+        [Range(0.05f,3f)]
         public float ShadowOffsetScaler;
-        [Range(0f,10f)]
+        [Range(0.05f,3f)]
         public float ShadowScaleScaler;
         [Range(0f, 1f)] 
         public float DefaultShadowOffset;
-
     }
 }
