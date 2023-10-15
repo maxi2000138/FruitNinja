@@ -13,7 +13,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Scal
             _rotaters.AddRange(GetComponents<IScaler>());
         }
     
-        public override void ExecuteOperation(GameObject physicsObject)
+        public override void ExecuteOperation(GameObject physicsObject, float deltaTime)
         {
             Vector2 scaleVector = Vector2.zero;
             foreach (IScaler scaler in _rotaters)

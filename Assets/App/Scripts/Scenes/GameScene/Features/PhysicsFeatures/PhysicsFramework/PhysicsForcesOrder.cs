@@ -13,7 +13,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.PhysicsFramework
             for (int i = 0; i < _physicOperations.Count; i++)
             {
                 if(_physicOperations[i] != null)
-                    _physicOperations[i].ExecuteOperation(_physicsObject);
+                    _physicOperations[i].ExecuteOperation(_physicsObject, Time.deltaTime);
             }
         }
     }

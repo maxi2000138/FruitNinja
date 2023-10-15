@@ -1,9 +1,10 @@
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.Shooter.ProjectileShooter;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.Shooter.ShootPolicy;
+using App.Scripts.Scenes.Infrastructure.MonoInterfaces;
 
 namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ShootSystem
 {
-    public class ShootSystem
+    public class ShootSystem : IInitializable
     {
         private readonly IShooter _shooter;
         private readonly IShootPolicy _shootPolicy;
@@ -12,6 +13,11 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         {
             _shooter = shooter;
             _shootPolicy = shootPolicy;
+        }
+
+        public void Initialize()
+        {
+            StartShooting();
         }
 
         public void StartShooting()

@@ -1,4 +1,5 @@
 using App.Scripts.Scenes.GameScene.Configs;
+using App.Scripts.Scenes.GameScene.Features.ParticleFeatures;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Enum;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Fruit;
@@ -37,76 +38,85 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
         public Fruit CreateFruitWithShadow(FruitType fruitType, Vector2 position, Vector2 scale, out Shadow shadow)
         {
-            Fruit fruit = SpawnFruitWithShadowAndConstruct(fruitType, position, scale, out shadow);
-            Fruit leftPart = SpawnFruitPartWithShadowAndConstruct(ProjectileSide.Left, fruitType, position, scale, out var shadowLeft);
-            Fruit rightPart = SpawnFruitPartWithShadowAndConstruct(ProjectileSide.Right, fruitType, position, scale, out var shadowRight);
-            leftPart.gameObject.SetActive(false);
-            shadowLeft.gameObject.SetActive(false);
-            rightPart.gameObject.SetActive(false);
-            shadowRight.gameObject.SetActive(false);
+            Fruit fruit = SpawnFruitAndShadowAndConstruct(position, scale, out var fruitShadow);
+            fruit.Construct(this, fruitType);
 
+
+            if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out FruitData spriteData))
+            {
+                SetFruitAndShadowSprite(fruit, spriteData.FullSprite, fruitShadow, scale, scale);
+            }
             
-            fruit.GetComponent<SliceObject>().Construct(leftPart.GetComponent<SlicedObject>(), leftPart.GetComponent<SlicedObject>());
+            fruit.GetComponent<SliceObject>().Construct(() => CreateFruitLeftPart(fruitType, fruit.Scale, fruitShadow.Scale).GetComponent<ISliced>()
+                ,() => CreateFruitRightPart(fruitType, fruit.Scale, fruitShadow.Scale).GetComponent<ISliced>(), _destroyTrigger);
+            
             fruit.GetComponent<SliceCircleCollider>().Construct(_sliceCollidersController);
             
-            _destroyTrigger.AddDestroyTriggerListeners(fruit.transform, shadow.transform, leftPart.transform.parent, shadowLeft.transform, shadowRight.transform.parent, shadowRight.transform);
+            _destroyTrigger.AddDestroyTriggerListeners(fruit.transform, fruitShadow.transform);
+            shadow = fruitShadow;
             return fruit;
         }
 
-        private Fruit SpawnFruitWithShadowAndConstruct(FruitType fruitType, Vector2 position, Vector2 scale, out Shadow shadow)
+        public Fruit  CreateFruitLeftPart(FruitType fruitType, Vector2 fruitScale, Vector2 shadowScale)
+        {
+            Fruit leftPart = SpawnFruitPartAndShadowAndConstruct(out var leftFruitShadow);
+            
+            if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out FruitData spriteData))
+            {
+                SetFruitAndShadowSprite(leftPart, spriteData.LeftSprite, leftFruitShadow, fruitScale, shadowScale);
+            }
+            
+            _destroyTrigger.AddDestroyTriggerListeners(leftPart.transform, leftFruitShadow.transform);
+            return leftPart;
+        }
+        
+        public Fruit CreateFruitRightPart(FruitType fruitType, Vector2 fruitScale, Vector2 shadowScale)
+        {
+            Fruit rightPart  = SpawnFruitPartAndShadowAndConstruct(out var rightFruitShadow);
+            
+            if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out FruitData spriteData))
+            {
+                SetFruitAndShadowSprite(rightPart, spriteData.RightSprite, rightFruitShadow, fruitScale, shadowScale);
+            }
+            
+            _destroyTrigger.AddDestroyTriggerListeners(rightPart.transform, rightFruitShadow.transform);
+            return rightPart;
+        }
+
+        
+        private void SetFruitAndShadowSprite(Fruit leftPart, Sprite sprite, Shadow shadow, Vector2 fruitScale, Vector2 shadowScale)
+        {
+            Vector2 shadowVector = new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY) *
+                                   _shadowConfig.DefaultShadowOffset;
+            leftPart.SetSprite(sprite, _sortingOrder++);
+            leftPart.transform.localScale = fruitScale;
+            shadow.transform.localScale = shadowScale;
+            shadow.SetSpriteWithOffset(sprite, shadowVector);
+            shadow.TurnIntoShadow();
+        }
+
+        private Fruit SpawnFruitAndShadowAndConstruct(Vector2 position, Vector2 scale, out Shadow shadow)
         {
             Fruit fruit = SpawnFruit(position, scale, _projectileContainer.transform);
-            shadow = SpawnShadow(position, scale, _shadowContainer.transform);
-            SetFruitAndShadowSprites(fruit, shadow, fruitType);
-
-            fruit.ShadowCloneMover.Construct(shadow.gameObject);
-            fruit.ShadowCloneRotater.Construct(shadow.SpriteRenderer.gameObject);
-            return fruit;
-        }
-        
-        private Fruit SpawnFruitPartWithShadowAndConstruct(ProjectileSide projectileSide, FruitType fruitType, Vector2 position, Vector2 scale, out Shadow shadow)
-        {
-            Fruit fruit = SpawnFruitPart(position, scale, _projectileContainer.transform);
-            shadow = SpawnShadow(position, scale, _shadowContainer.transform);
-            SetFruitPartAndShadowSprites(projectileSide, fruit, shadow, fruitType);
-
-            fruit.ShadowCloneMover.Construct(shadow.gameObject);
-            fruit.ShadowCloneRotater.Construct(shadow.SpriteRenderer.gameObject);
+            SpawnShadowAndConstruct(position, scale, out shadow, fruit);
             return fruit;
         }
 
-        private void SetFruitAndShadowSprites(Fruit fruit, Shadow shadow, FruitType fruitType)
+        private Fruit SpawnFruitPartAndShadowAndConstruct(out Shadow leftShadow)
         {
-            if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out FruitData fruitData))
-            {
-                fruit.SetSprite(fruitData.FullSprite, _sortingOrder++);
-                Vector2 shadowVector = new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY) * _shadowConfig.DefaultShadowOffset;
-                shadow.SetSpriteWithOffset(fruitData.FullSprite, shadowVector);
-                shadow.TurnIntoShadow();
-            }
-        }
-        
-        private void SetFruitPartAndShadowSprites(ProjectileSide projectileSide, Fruit fruit, Shadow shadow, FruitType fruitType)
-        {
-            if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out FruitData fruitData))
-            {
-                Vector2 shadowVector = new Vector2(_shadowConfig.ShadowDirectionX, _shadowConfig.ShadowDirectionY) * _shadowConfig.DefaultShadowOffset;
-                if (projectileSide == ProjectileSide.Left)
-                {
-                    fruit.SetSprite(fruitData.LeftSprite, _sortingOrder++);
-                    shadow.SetSpriteWithOffset(fruitData.LeftSprite, shadowVector);
-                }
-                else
-                {
-                    fruit.SetSprite(fruitData.RightSprite, _sortingOrder++);
-                    shadow.SetSpriteWithOffset(fruitData.RightSprite, shadowVector);
-                }
-                
-                shadow.TurnIntoShadow();
-            }
+            Fruit leftFruit = SpawnFruitPart(new Vector2(-10f,-10f), new Vector2(1f,1f), _projectileContainer.transform);
+            SpawnShadowAndConstruct(new Vector2(-10f,-10f), new Vector2(1f, 1f), out leftShadow, leftFruit);
+            return leftFruit;
         }
 
-        
+        private void SpawnShadowAndConstruct(Vector2 position, Vector2 scale, out Shadow shadow, Fruit fruit1)
+        {
+            shadow = SpawnShadow(position, scale, _shadowContainer.transform);
+            fruit1.ShadowCloneMover.Construct(shadow.gameObject);
+            fruit1.ShadowCloneRotater.Construct(shadow.SpriteRenderer.gameObject);
+        }
+
+
         private Fruit SpawnFruit(Vector2 position, Vector2 scale, Transform parent)
         {
             return SpawnObjectFromResources<Fruit>(_resourcesConfig.FruitPath, position, scale, parent);

@@ -122,10 +122,10 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             return fruit.transform.position.y + (fruit.SpriteMaxHeight/2 * maxScale);
         }
 
-        public void ShootFruit(GameObject fruit, Vector2 moveVector)
+        public void  ShootFruit(GameObject fruit, Vector2 moveVector)
         {
-            ForceApplier forceApplier = fruit.GetComponentInChildren<ForceApplier>();
-            forceApplier.AddForce(moveVector);
+            VelocityApplier velocityApplier = fruit.GetComponentInChildren<VelocityApplier>();
+            velocityApplier.AddVelocity(moveVector);
         }
 
         private void GetRandomTypeScaleAndPosition(SpawnAreaData areaData, SpawnConfig spawnConfig, FruitConfig fruitConfig, out Vector2 position, out FruitType type, out Vector2 scale)

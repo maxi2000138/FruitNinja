@@ -1,4 +1,5 @@
 using App.Scripts.DebugAndGizmosExtensions;
+using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeatures;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures
     public class SliceCircleCollider : MonoBehaviour
     {
         [field:SerializeField] public SliceObject SliceObject { get; private set; }
+        [field:SerializeField] public Mover ForceMover { get; private set; }
         [field:SerializeField] public Transform ColliderObject { get; private set; }
     
         private SliceCollidersController _sliceCollidersController;

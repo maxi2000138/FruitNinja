@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Transform>k__BackingField: {fileID: 3858916285223650547}
-  <ForceApplier>k__BackingField: {fileID: 3929120902188163913}
+  <VelocityApplier>k__BackingField: {fileID: 3929120902188163913}
   <ForceRotater>k__BackingField: {fileID: 1802437889937852349}
 --- !u!1 &5663910126908756341
 GameObject:

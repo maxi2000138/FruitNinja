@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using App.Scripts.Scenes.GameScene.Configs;
 using App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsProvider;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.ProjectileDestroyer;
@@ -46,6 +47,15 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             }
         }
 
+
+        public void TriggerGroup(Transform destroyTransform)
+        {
+            for (int i = 0; i < _destroyListeners.Count; i++)
+            {
+                if (_destroyListeners[i].Contains(destroyTransform))
+                    RemoveGroup(_destroyListeners[i]);
+            }
+        }
         private bool IsAnyTriggered(Transform[] destroyListeners)
         {
             for (int i = 0; i < destroyListeners.Length; i++)

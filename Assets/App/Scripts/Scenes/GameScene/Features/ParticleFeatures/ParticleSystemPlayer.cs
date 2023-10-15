@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.ParticleFeatures
 {
-    public class ParticleSystemController : MonoBehaviour
+    public class ParticleSystemPlayer : MonoBehaviour
     {
         [SerializeField] private List<ParticleSystem> _particleSystems;
 

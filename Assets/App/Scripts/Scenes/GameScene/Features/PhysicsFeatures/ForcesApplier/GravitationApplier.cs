@@ -7,7 +7,6 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
     public class GravitationApplier : MonoBehaviour, IMover
     {
         [SerializeField] private GravitationConfig _gravitationConfig;
-
         public void Clear()
         {
             

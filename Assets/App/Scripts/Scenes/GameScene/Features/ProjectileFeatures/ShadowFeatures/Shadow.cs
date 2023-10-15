@@ -6,6 +6,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeature
     public class Shadow : MonoBehaviour
     {
         public Vector2 Offset => SpriteRenderer.transform.localPosition;
+        public Vector2 Scale => transform.localScale;
         [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
         [field: SerializeField] public ScaleByTimeApplier ScaleByTimeApplier { get; private set; }
         [field: SerializeField] public OffsetByTimeApplier OffsetByTimeApplier { get; private set; }

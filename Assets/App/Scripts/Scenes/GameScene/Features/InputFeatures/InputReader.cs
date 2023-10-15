@@ -1,39 +1,36 @@
 using System;
+using App.Scripts.Scenes.Infrastructure.MonoInterfaces;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
 {
-    public class InputReader : InputActions.IGameSceneActions
+    public class InputReader : IUpdatable
     {
         public event Action SliceStartedEvent; 
         public event Action SliceEndedEvent;
         public Vector2 TouchPosition { get; private set; }
 
-        private readonly InputActions _inputActions;
-    
-        public InputReader()
+       
+        public void Update(float deltaTime)
         {
-            _inputActions = new InputActions();
-            _inputActions.GameScene.SetCallbacks(this);
-            _inputActions.Enable();
-        }
-    
-        public void OnSlice(InputAction.CallbackContext context)
-        {
-            if(context.performed)
+            if(Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
             {
                 SliceStartedEvent?.Invoke();
             }
-            else if (context.canceled)
+            
+            if(Input.GetMouseButton(0))
+            {
+                TouchPosition = Input.mousePosition;
+            }
+            else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+            {
+                TouchPosition = Input.GetTouch(0).position;
+            }
+            
+            if(Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Canceled))
             {
                 SliceEndedEvent?.Invoke();
             }
-        }
-
-        public void OnTouchPosition(InputAction.CallbackContext context)
-        {
-            TouchPosition = context.ReadValue<Vector2>();
         }
     }
 }

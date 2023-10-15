@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace App.Scripts.Scenes.Infrastructure.MonoInterfaces
 {
     public interface IInitializable

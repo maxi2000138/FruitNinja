@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
 {
-    public class ForceApplier : MonoBehaviour, IMover
+    public class VelocityApplier : MonoBehaviour, IMover
     {
-        private Vector2 _forceVector;
+        private Vector2 _velocityVector;
 
-        public void AddForce(Vector2 forceVector)
+        public void AddVelocity(Vector2 forceVector)
         {
-            _forceVector += forceVector;
+             _velocityVector += forceVector;
         }
 
         public Vector2 Move(float deltaTime)
         {
-            if (_forceVector != Vector2.zero)
+            if (_velocityVector != Vector2.zero)
             {
-                Vector2 forceVector = _forceVector * deltaTime;
+                Vector2 forceVector = _velocityVector * deltaTime;
                 Clear();
                 return forceVector;
             }
@@ -26,7 +26,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
 
         public void Clear()
         {
-            _forceVector = Vector2.zero;
+            _velocityVector = Vector2.zero;
         } 
     }
 }

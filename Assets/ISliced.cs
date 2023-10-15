@@ -5,6 +5,6 @@ using UnityEngine;
 public interface ISliced
 {
     Transform Transform { get; }
-    ForceApplier ForceApplier { get;  }
-    ResultForceRotater ForceRotater { get;  }
+    VelocityApplier VelocityApplier { get;  }
+    TorqueApplier TorqueApplier { get;  }
 }

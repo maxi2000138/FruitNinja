@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b5915d3de762f498f2c41245aac09e, type: 3}
   m_Name: ProjectileConfig
   m_EditorClassIdentifier: 
-  ShootVelocityRange: {x: 18.608675, y: 23.596704}
+  ShootVelocityRange: {x: 19.121738, y: 22.6}
   TorqueVelocityRange: {x: -206.97678, y: 211.62784}
   DestroyTriggerOffset: -50
+  SliceForce: 52

@@ -12,7 +12,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Move
             _cloneObject = cloneObject; 
         }
     
-        public override void ExecuteOperation(GameObject physicsObject)
+        public override void ExecuteOperation(GameObject physicsObject, float deltaTime)
         {
             if (_cloneObject != null)
             {

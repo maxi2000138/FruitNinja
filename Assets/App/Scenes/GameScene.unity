@@ -170,52 +170,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &156928950
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 156928951}
-  - component: {fileID: 156928952}
-  m_Layer: 0
-  m_Name: EntryPointInstaller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &156928951
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156928950}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 366945618}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &156928952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156928950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd9457115ecc5b74fb1c45e0ec1fbfea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entryPoint: {fileID: 76596669}
-  _servicesInstaller: {fileID: 2061726059}
 --- !u!1 &192430270
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +394,6 @@ Transform:
   m_Children:
   - {fileID: 751463637}
   - {fileID: 2061726058}
-  - {fileID: 156928951}
   m_Father: {fileID: 76596670}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -457,9 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _order:
-  - {fileID: 751463638}
   - {fileID: 2061726059}
-  - {fileID: 156928952}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +618,7 @@ GameObject:
   - component: {fileID: 751463637}
   - component: {fileID: 751463638}
   m_Layer: 0
-  m_Name: ConfigsInstaller
+  m_Name: ConfigsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -806,8 +757,8 @@ MonoBehaviour:
       ViewportPositionY: 0
       OffsetPositionX: 0
       OffsetPositionY: -1
-      ViewportLeftPosition: {x: 0.03999996, y: -0.100000024}
-      ViewportRightPosition: {x: 0.35, y: -0.100000024}
+      ViewportLeftPosition: {x: 0.039983302, y: -0.099934064}
+      ViewportRightPosition: {x: 0.34985423, y: -0.099934064}
       LineLength: 0.155
       LineAngle: 0
       ShootMinAngle: 68
@@ -822,8 +773,8 @@ MonoBehaviour:
       ViewportPositionY: 0
       OffsetPositionX: 0
       OffsetPositionY: -1
-      ViewportLeftPosition: {x: 0.513, y: -0.100000024}
-      ViewportRightPosition: {x: 0.893, y: -0.100000024}
+      ViewportLeftPosition: {x: 0.5127863, y: -0.099934064}
+      ViewportRightPosition: {x: 0.8926281, y: -0.099934064}
       LineLength: 0.19
       LineAngle: 0
       ShootMinAngle: 88
@@ -838,8 +789,8 @@ MonoBehaviour:
       ViewportPositionY: 0.379
       OffsetPositionX: 1
       OffsetPositionY: 0
-      ViewportLeftPosition: {x: 1.0450001, y: 0.18344444}
-      ViewportRightPosition: {x: 1.0450001, y: 0.5745556}
+      ViewportLeftPosition: {x: 1.0445648, y: 0.18332344}
+      ViewportRightPosition: {x: 1.0445648, y: 0.5741766}
       LineLength: 0.088
       LineAngle: 90
       ShootMinAngle: 33
@@ -854,8 +805,8 @@ MonoBehaviour:
       ViewportPositionY: 0.309
       OffsetPositionX: -1
       OffsetPositionY: 0
-      ViewportLeftPosition: {x: -0.045000017, y: 0.4867778}
-      ViewportRightPosition: {x: -0.045000017, y: 0.13122219}
+      ViewportLeftPosition: {x: -0.044981275, y: 0.48645672}
+      ViewportRightPosition: {x: -0.044981275, y: 0.13113564}
       LineLength: 0.08
       LineAngle: 270
       ShootMinAngle: 156
@@ -1078,14 +1029,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632389564}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.64211917, w: 0.76660484}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1159130070}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 640.1}
 --- !u!114 &1632389566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1322,7 +1273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674f13294c659cd4daad599b33af4061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _configsInstaller: {fileID: 751463638}
+  _configsContainer: {fileID: 751463638}
   _screenSettingsProvider: {fileID: 879768327}
   _spawnAreasContainer: {fileID: 938910096}
   _projectileContainer: {fileID: 610487079}

@@ -15,6 +15,7 @@ using App.Scripts.Scenes.Infrastructure.CompositeRoot;
 using App.Scripts.Scenes.Infrastructure.CoroutineRunner;
 using App.Scripts.Scenes.Infrastructure.MonoBehaviourSimulator;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
 {
@@ -28,11 +29,9 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         public IShootPolicy ShootPolicy { get; private set; }
         public DestroyTrigger DestroyTrigger { get; private set; }
         public ShootSystem ShootSystem { get; private set; }
-    
-        [Header("Installers")] 
+
         [SerializeField]
-        private ConfigsInstaller _configsInstaller;
-        [Header("MonoBehaviourScripts")] 
+        private ConfigsContainer _configsContainer;
         [SerializeField]
         private ScreenSettingsProvider _screenSettingsProvider;
         [SerializeField]
@@ -56,19 +55,21 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             ResourceObjectsProvider = new ResourceObjectsProvider();
             ProjectileDestroyer = new ProjectileDestroyer();
             _sliceCollidersController = new SliceCollidersController();
-            _physicalFlightCalculator = new PhysicalFlightCalculator(_screenSettingsProvider, _configsInstaller.GravitationConfig);
-            _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController);
-            DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsInstaller.ProjectileConfig);
+            _physicalFlightCalculator = new PhysicalFlightCalculator(_screenSettingsProvider, _configsContainer.GravitationConfig);
+            _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController, _configsContainer.ProjectileConfig);
+            DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsContainer.ProjectileConfig);
             ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, _sliceCollidersController, ResourceObjectsProvider
-                , _configsInstaller.FruitConfig, _configsInstaller.ResourcesConfig, _configsInstaller.ShadowConfig);
-            ShootPolicy = new WavesSpawnPolicy(_coroutineRunner, _configsInstaller.SpawnConfig);
-            Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsInstaller.ProjectileConfig
-                ,_configsInstaller.ShadowConfig , _configsInstaller.FruitConfig, _configsInstaller.GravitationConfig, _configsInstaller.SpawnConfig);
+                , _configsContainer.FruitConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig);
+            ShootPolicy = new WavesSpawnPolicy(_coroutineRunner, _configsContainer.SpawnConfig);
+            Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ProjectileConfig
+                ,_configsContainer.ShadowConfig , _configsContainer.FruitConfig, _configsContainer.GravitationConfig, _configsContainer.SpawnConfig);
             ShootSystem = new ShootSystem(Shooter, ShootPolicy);
-
+ 
             monoBehaviourSimulator.AddInitializable(DestroyTrigger);
             monoBehaviourSimulator.AddInitializable(_physicalFlightCalculator);
+            monoBehaviourSimulator.AddInitializable(ShootSystem);
             monoBehaviourSimulator.AddUpdatable(DestroyTrigger);
+            monoBehaviourSimulator.AddUpdatable(InputReader);
         }
     }
 }

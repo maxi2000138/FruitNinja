@@ -1,5 +1,7 @@
+using App.Scripts.Scenes.GameScene.Configs;
 using App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsProvider;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures;
+using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
@@ -11,13 +13,15 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
 
         private SliceCollidersController _sliceCollidersController;
         private ScreenSettingsProvider _screenSettingsProvider;
+        private ProjectileConfig _projectileConfig;
         private InputReader _inputReader;
         private Coroutine _sliceCoroutine;
         private Vector2 _lastWorldPosition;
         private bool _isSlicing;
 
-        public void Construct(InputReader inputReader, ScreenSettingsProvider screenSettingsProvider, SliceCollidersController sliceCollidersController)
+        public void Construct(InputReader inputReader, ScreenSettingsProvider screenSettingsProvider, SliceCollidersController sliceCollidersController, ProjectileConfig projectileConfig)
         {
+            _projectileConfig = projectileConfig;
             _sliceCollidersController = sliceCollidersController;
             _screenSettingsProvider = screenSettingsProvider;
             _inputReader = inputReader;
@@ -31,13 +35,11 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
         
             Vector3 worldPosition = _screenSettingsProvider.ScreenToWorldPosition(_inputReader.TouchPosition);
             worldPosition.z = _zPosition;
-            Vector2 normalizedVector = ((Vector2)worldPosition - _lastWorldPosition).normalized;
-            if(normalizedVector == Vector2.zero)
-                normalizedVector = Vector2.up;
+            Vector2 sliceVector = ((Vector2)worldPosition - _lastWorldPosition).normalized;
         
-            if (_sliceCollidersController.TryGetIntersectionCollider(worldPosition, out SliceCircleCollider collider))
+            if (_sliceCollidersController.TryGetIntersectionCollider(worldPosition, out Mover forceMover, out SliceCircleCollider collider))
             {
-                collider.SliceObject.Slice(worldPosition, normalizedVector, 3f);
+                collider.SliceObject.Slice(forceMover, _projectileConfig.SliceForce);
                 collider.Disable();
             }
         

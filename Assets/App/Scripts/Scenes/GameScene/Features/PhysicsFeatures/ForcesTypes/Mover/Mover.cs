@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover
 {
-    public class ResultForceMover : PhysicsBehaviour
+    public class Mover : PhysicsBehaviour
     {
         public Vector2 MovementVector { get; private set; }
         [SerializeField] private float _mass = 1f;   
@@ -15,7 +15,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Move
             _movers.AddRange(GetComponents<IMover>());
         }
     
-        public override void ExecuteOperation(GameObject physicsObject)
+        public override void ExecuteOperation(GameObject physicsObject, float deltaTime)
         {
             foreach (IMover mover in _movers)
             {

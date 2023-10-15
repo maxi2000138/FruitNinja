@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
 {
-    public class ConfigsInstaller : Installer
+    public class ConfigsContainer : Installer
     {
         [field: SerializeField] 
         public GravitationConfig GravitationConfig { get; private set; }
