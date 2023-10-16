@@ -39,7 +39,7 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
         
             if (_sliceCollidersController.TryGetIntersectionCollider(worldPosition, out Mover forceMover, out SliceCircleCollider collider))
             {
-                collider.SliceObject.Slice(forceMover, collider.transform.position, _projectileConfig.SliceForce);
+                collider.SliceObject.Slice(forceMover, _projectileConfig.SliceForce);
                 collider.Disable();
             }
         

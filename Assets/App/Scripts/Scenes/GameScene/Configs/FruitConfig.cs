@@ -18,8 +18,7 @@ namespace App.Scripts.Scenes.GameScene.Configs
     public class FruitData
     {
         public Sprite FullSprite;
-        public Sprite LeftSprite;
-        public Sprite RightSprite;
+        public Dictionary<ProjectilePartEnum, Sprite> PartSprites;
         public Color SliceColor;
     }
 }

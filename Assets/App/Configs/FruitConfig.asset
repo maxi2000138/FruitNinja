@@ -81,12 +81,68 @@ MonoBehaviour:
     - Name: FullSprite
       Entry: 10
       Data: 0
-    - Name: LeftSprite
+    - Name: PartSprites
+      Entry: 7
+      Data: 3|System.Collections.Generic.Dictionary`2[[FruitPartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 4|System.Collections.Generic.EnumEqualityComparer`1[[FruitPartEnum, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
       Entry: 10
       Data: 1
-    - Name: RightSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
       Entry: 10
       Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -119,16 +175,62 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 3|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+      Data: 5|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
     - Name: FullSprite
       Entry: 10
       Data: 3
-    - Name: LeftSprite
+    - Name: PartSprites
+      Entry: 7
+      Data: 6|System.Collections.Generic.Dictionary`2[[FruitPartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 4
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
       Entry: 10
       Data: 4
-    - Name: RightSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
       Entry: 10
       Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -161,16 +263,62 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 4|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+      Data: 7|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
     - Name: FullSprite
       Entry: 10
       Data: 6
-    - Name: LeftSprite
+    - Name: PartSprites
+      Entry: 7
+      Data: 8|System.Collections.Generic.Dictionary`2[[FruitPartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 4
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
       Entry: 10
       Data: 7
-    - Name: RightSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
       Entry: 10
       Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -203,16 +351,72 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: 5|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+      Data: 9|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
     - Name: FullSprite
       Entry: 10
       Data: 9
-    - Name: LeftSprite
+    - Name: PartSprites
+      Entry: 7
+      Data: 10|System.Collections.Generic.Dictionary`2[[FruitPartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 11|System.Collections.Generic.EnumEqualityComparer`1[[FruitPartEnum,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
       Entry: 10
       Data: 10
-    - Name: RightSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
       Entry: 10
       Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -245,16 +449,62 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: 6|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+      Data: 12|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
     - Name: FullSprite
       Entry: 10
       Data: 12
-    - Name: LeftSprite
+    - Name: PartSprites
+      Entry: 7
+      Data: 13|System.Collections.Generic.Dictionary`2[[FruitPartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
       Entry: 10
       Data: 13
-    - Name: RightSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
       Entry: 10
       Data: 14
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -287,16 +537,62 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: 7|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+      Data: 14|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
     - Name: FullSprite
       Entry: 10
       Data: 15
-    - Name: LeftSprite
+    - Name: PartSprites
+      Entry: 7
+      Data: 15|System.Collections.Generic.Dictionary`2[[FruitPartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
       Entry: 10
       Data: 16
-    - Name: RightSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
       Entry: 10
       Data: 17
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -329,16 +625,62 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: 8|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+      Data: 16|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
     - Name: FullSprite
       Entry: 10
       Data: 18
-    - Name: LeftSprite
+    - Name: PartSprites
+      Entry: 7
+      Data: 17|System.Collections.Generic.Dictionary`2[[FruitPartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
       Entry: 10
       Data: 19
-    - Name: RightSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
       Entry: 10
       Data: 20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 18
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -371,16 +713,62 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: 9|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+      Data: 18|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
     - Name: FullSprite
       Entry: 10
       Data: 21
-    - Name: LeftSprite
+    - Name: PartSprites
+      Entry: 7
+      Data: 19|System.Collections.Generic.Dictionary`2[[FruitPartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
       Entry: 10
       Data: 22
-    - Name: RightSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
       Entry: 10
       Data: 23
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 21
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -413,16 +801,62 @@ MonoBehaviour:
       Data: 8
     - Name: $v
       Entry: 7
-      Data: 10|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+      Data: 20|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
     - Name: FullSprite
       Entry: 10
       Data: 24
-    - Name: LeftSprite
+    - Name: PartSprites
+      Entry: 7
+      Data: 21|System.Collections.Generic.Dictionary`2[[FruitPartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 11
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
       Entry: 10
       Data: 25
-    - Name: RightSprite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
       Entry: 10
       Data: 26
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule

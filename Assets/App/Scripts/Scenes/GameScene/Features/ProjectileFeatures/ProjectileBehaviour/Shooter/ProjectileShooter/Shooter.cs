@@ -48,7 +48,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private void SpawnFruitAndShootByAngle(SpawnAreaData areaData, float angle)
         {
             GetRandomTypeScaleAndPosition(areaData, _spawnConfig,_fruitConfig ,out var position, out var type, out var scale);
-            Fruit fruit = _projectileFactory.CreateFruitWithShadow(type, position, scale, out var shadow);
+            Fruit fruit = _projectileFactory.CreateFruitWithShadow(type, position, scale, scale, out var shadow);
 
             Vector2 finalScale = GetLongestScale(scale, _fruitConfig.FruitScaleRange);
 

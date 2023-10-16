@@ -13,30 +13,30 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         [SerializeField]
         private Transform _rightsPartTransform;
         
-        private ParticleSystemPlayer _particleSystemPlayer;
         private IDestroyTrigger _destroyTrigger;
         private ISliced _leftObject;
         private ISliced _rightObject;
         
         private Func<ISliced> _leftPartSpawnMethod;
         private Func<ISliced> _rightPartSpawnMethod;
+        private ISlicable _slicable;
 
-        public void Construct(Func<ISliced> leftPartSpawnMethod, Func<ISliced> rightPartSpawnMethod, ParticleSystemPlayer particleSystemPlayer, IDestroyTrigger destroyTrigger)
+        public void Construct(Func<ISliced> leftPartSpawnMethod, Func<ISliced> rightPartSpawnMethod, ISlicable slicable, IDestroyTrigger destroyTrigger)
         {
-            _particleSystemPlayer = particleSystemPlayer;
+            _slicable = slicable;
             _destroyTrigger = destroyTrigger;
             _leftPartSpawnMethod = leftPartSpawnMethod;
             _rightPartSpawnMethod = rightPartSpawnMethod;
         }
 
-        public void Slice(Mover mover, Vector2 worldPosition, float sliceForce)
+        public void Slice(Mover mover, float sliceForce)
         {
-            PlayParticles(worldPosition, Color.white);
             SpawnParts(); 
             SetupSlicedPart(_leftObject,_leftPartTransform.position, transform.eulerAngles, transform.localScale);
             SetupSlicedPart(_rightObject ,_rightsPartTransform.position, transform.eulerAngles, transform.localScale);
             SetVelocity(mover, sliceForce);
             DestroyFruit();
+            _slicable.OnSlice();
         }
 
         private void SpawnParts()
@@ -45,12 +45,12 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
             _rightObject = _rightPartSpawnMethod?.Invoke();
         }
 
-        private void SetupSlicedPart(ISliced leftObject, Vector2 position, Vector3 rotation, Vector2 scale)
+        private void SetupSlicedPart(ISliced slicePart, Vector2 position, Vector3 rotation, Vector2 scale)
         {
-            leftObject.Transform.position = position;
-            leftObject.Transform.eulerAngles = rotation;
-            leftObject.Transform.localScale = scale;
-            leftObject.Transform.gameObject.SetActive(true);
+            slicePart.Transform.position = position;
+            slicePart.Transform.eulerAngles = rotation;
+            slicePart.Transform.localScale = scale;
+            slicePart.Transform.gameObject.SetActive(true);
         }
         
         private void DestroyFruit()
@@ -90,11 +90,6 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
                 _rightObject.VelocityApplier.AddVelocity(Quaternion.AngleAxis(15f, new Vector3(0f, 0f, -1f)) *
                                                          mover.MovementVector * sliceForce);
             }
-        }
-
-        private void PlayParticles(Vector2 slicePoint, Color color)
-        {
-            _particleSystemPlayer.PlayAll(slicePoint, color);
         }
     }
 }

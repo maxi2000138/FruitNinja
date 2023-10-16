@@ -1,3 +1,4 @@
+using App.Scripts.Scenes.GameScene.Features.ParticleFeatures;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Rotater;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Fruit
 {
-    public class Fruit : MonoBehaviour
+    public class Fruit : MonoBehaviour, ISlicable
     {
         public float SpriteMaxHeight => SpriteDiagonal();
         public Vector2 Scale => transform.localScale;
@@ -18,21 +19,26 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures
         [field: SerializeField] public TorqueApplier TorqueApplier;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         
-        private IProjectileFactory _projectileFactory;
-        private FruitType _fruitType;
+        private ParticleSystemPlayer _particleSystemPlayer;
+        private Color _sliceColor;
 
-        public void Construct(IProjectileFactory projectileFactory, FruitType fruitType)
+        public void Construct(Color sliceColor, ParticleSystemPlayer particleSystemPlayer)
         {
-            _fruitType = fruitType;
-            _projectileFactory = projectileFactory;
+            _sliceColor = sliceColor;
+            _particleSystemPlayer = particleSystemPlayer;
         }
-        
+
+        public void OnSlice()
+        {
+            _particleSystemPlayer.PlayAll(transform.position, _sliceColor);   
+        }
+
         public void SetSprite(Sprite sprite, int sortingOrder)
         {
             _spriteRenderer.sprite = sprite;
             _spriteRenderer.sortingOrder = sortingOrder;
         }
-        
+
         private float SpriteDiagonal() => new Vector2(_spriteRenderer.sprite.bounds.size.x, _spriteRenderer.sprite.bounds.size.y).magnitude;
     }
 }

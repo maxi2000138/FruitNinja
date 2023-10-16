@@ -7,8 +7,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 {
     public interface IProjectileFactory
     {
-        Fruit CreateFruitWithShadow(FruitType fruitType, Vector2 position, Vector2 scale, out Shadow shadow);
-        Fruit CreateFruitLeftPart(FruitType fruitType, Vector2 fruitScale, Vector2 shadowScale);
-        Fruit CreateFruitRightPart(FruitType fruitType, Vector2 fruitScale, Vector2 shadowScale);
+        Fruit CreateFruitWithShadow(FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow);
+        Fruit  CreateFruitPart(ProjectilePartEnum projectilePart, FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow);
     }
 }

@@ -23,6 +23,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly ResourcesConfig _resourcesConfig;
         private readonly ShadowConfig _shadowConfig;
         private readonly FruitConfig _fruitConfig;
+        private readonly Vector2 _defaultPosition = new(-10f, -10f);
 
         public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectileContainer.ProjectileContainer projectileContainer, ShadowContainer shadowContainer, SliceCollidersController sliceCollidersController
             , ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer, FruitConfig fruitConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig)
@@ -38,53 +39,32 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _shadowConfig = shadowConfig;
         }
 
-        public Fruit CreateFruitWithShadow(FruitType fruitType, Vector2 position, Vector2 scale, out Shadow shadow)
+        public Fruit CreateFruitWithShadow(FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow)
         {
-            Fruit fruit = SpawnFruitAndShadowAndConstruct(position, scale, out var fruitShadow);
-            fruit.Construct(this, fruitType);
-
-
-            if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out FruitData spriteData))
-            {
-                SetFruitAndShadowSprite(fruit, spriteData.FullSprite, fruitShadow, scale, scale);
-            }
-            
-            fruit.GetComponent<SliceObject>().Construct(() => CreateFruitLeftPart(fruitType, fruit.Scale, fruitShadow.Scale).GetComponent<ISliced>()
-                ,() => CreateFruitRightPart(fruitType, fruit.Scale, fruitShadow.Scale).GetComponent<ISliced>(), _particleSystemPlayer, _destroyTrigger);
-            
+            Fruit fruit = CreateFruitPart(ProjectilePartEnum.Whole, fruitType, position, fruitScale, shadowScale, out var createdShadow);
+            fruit.GetComponent<SliceObject>().Construct(
+                () => CreateFruitPart(ProjectilePartEnum.Left, fruitType, _defaultPosition, fruit.Scale, createdShadow.Scale, out var shadowLeft).GetComponent<ISliced>()
+                ,() => CreateFruitPart(ProjectilePartEnum.Right, fruitType, _defaultPosition, fruit.Scale, createdShadow.Scale, out var shadowRight).GetComponent<ISliced>()
+                , fruit, _destroyTrigger);
             fruit.GetComponent<SliceCircleCollider>().Construct(_sliceCollidersController);
-            
+            shadow = createdShadow;
+            return fruit;
+        }
+
+
+        public Fruit  CreateFruitPart(ProjectilePartEnum projectilePart, FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow)
+        {
+            Fruit fruit = SpawnFruitAndShadowAndConstruct(projectilePart, position, fruitScale, out var fruitShadow);
+            if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out FruitData fruitData))
+            {
+                fruit.Construct(fruitData.SliceColor, _particleSystemPlayer);
+                SetFruitAndShadowSprite(fruit, fruitData.PartSprites[projectilePart], fruitShadow, fruitScale, shadowScale);
+            }
             _destroyTrigger.AddDestroyTriggerListeners(fruit.transform, fruitShadow.transform);
             shadow = fruitShadow;
             return fruit;
         }
-
-        public Fruit  CreateFruitLeftPart(FruitType fruitType, Vector2 fruitScale, Vector2 shadowScale)
-        {
-            Fruit leftPart = SpawnFruitPartAndShadowAndConstruct(out var leftFruitShadow);
-            
-            if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out FruitData spriteData))
-            {
-                SetFruitAndShadowSprite(leftPart, spriteData.LeftSprite, leftFruitShadow, fruitScale, shadowScale);
-            }
-            
-            _destroyTrigger.AddDestroyTriggerListeners(leftPart.transform, leftFruitShadow.transform);
-            return leftPart;
-        }
-        
-        public Fruit CreateFruitRightPart(FruitType fruitType, Vector2 fruitScale, Vector2 shadowScale)
-        {
-            Fruit rightPart  = SpawnFruitPartAndShadowAndConstruct(out var rightFruitShadow);
-            
-            if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out FruitData spriteData))
-            {
-                SetFruitAndShadowSprite(rightPart, spriteData.RightSprite, rightFruitShadow, fruitScale, shadowScale);
-            }
-            
-            _destroyTrigger.AddDestroyTriggerListeners(rightPart.transform, rightFruitShadow.transform);
-            return rightPart;
-        }
-
+         
         
         private void SetFruitAndShadowSprite(Fruit leftPart, Sprite sprite, Shadow shadow, Vector2 fruitScale, Vector2 shadowScale)
         {
@@ -97,42 +77,20 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             shadow.TurnIntoShadow();
         }
 
-        private Fruit SpawnFruitAndShadowAndConstruct(Vector2 position, Vector2 scale, out Shadow shadow)
+        private Fruit SpawnFruitAndShadowAndConstruct(ProjectilePartEnum projectilePart, Vector2 position, Vector2 scale, out Shadow shadow)
         {
-            Fruit fruit = SpawnFruit(position, scale, _projectileContainer.transform);
-            SpawnShadowAndConstruct(position, scale, out shadow, fruit);
+            Fruit fruit = SpawnFruit(projectilePart, position, scale, _projectileContainer.transform);
+            shadow = SpawnShadow(position, scale, _shadowContainer.transform);
+            fruit.ShadowCloneMover.Construct(shadow.gameObject);
+            fruit.ShadowCloneRotater.Construct(shadow.SpriteRenderer.gameObject);
             return fruit;
         }
-
-        private Fruit SpawnFruitPartAndShadowAndConstruct(out Shadow leftShadow)
-        {
-            Fruit leftFruit = SpawnFruitPart(new Vector2(-10f,-10f), new Vector2(1f,1f), _projectileContainer.transform);
-            SpawnShadowAndConstruct(new Vector2(-10f,-10f), new Vector2(1f, 1f), out leftShadow, leftFruit);
-            return leftFruit;
-        }
-
-        private void SpawnShadowAndConstruct(Vector2 position, Vector2 scale, out Shadow shadow, Fruit fruit1)
-        {
-            shadow = SpawnShadow(position, scale, _shadowContainer.transform);
-            fruit1.ShadowCloneMover.Construct(shadow.gameObject);
-            fruit1.ShadowCloneRotater.Construct(shadow.SpriteRenderer.gameObject);
-        }
-
-
-        private Fruit SpawnFruit(Vector2 position, Vector2 scale, Transform parent)
-        {
-            return SpawnObjectFromResources<Fruit>(_resourcesConfig.FruitPath, position, scale, parent);
-        }
         
-        private Fruit SpawnFruitPart(Vector2 position, Vector2 scale, Transform parent)
-        {
-            return SpawnObjectFromResources<Fruit>(_resourcesConfig.FruitPartPath, position, scale, parent);
-        }
-    
-        private Shadow SpawnShadow(Vector2 position, Vector2 scale, Transform parent)
-        {
-            return SpawnObjectFromResources<Shadow>(_resourcesConfig.ShadowPath, position, scale, parent);
-        }
+        private Fruit SpawnFruit(ProjectilePartEnum projectilePart, Vector2 position, Vector2 scale, Transform parent) => 
+            SpawnObjectFromResources<Fruit>(_resourcesConfig.FruitsPartPath[projectilePart], position, scale, parent);
+
+        private Shadow SpawnShadow(Vector2 position, Vector2 scale, Transform parent) => 
+            SpawnObjectFromResources<Shadow>(_resourcesConfig.ShadowPath, position, scale, parent);
 
         private T SpawnObjectFromResources<T>(string resourcePath, Vector2 position, Vector2 scale, Transform parent) where T : MonoBehaviour
         {
