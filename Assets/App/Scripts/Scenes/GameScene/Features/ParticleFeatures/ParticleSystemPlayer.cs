@@ -7,21 +7,22 @@ namespace App.Scripts.Scenes.GameScene.Features.ParticleFeatures
     {
         [SerializeField] private List<ParticleSystem> _particleSystems;
 
-        public void SetColor(Color color)
+        public void SetColorAndPosition(Vector2 position, Color color)
         {
             for (int i = 0; i < _particleSystems.Count; i++)
             {
                 ParticleSystem.MainModule mainModule = _particleSystems[i].main;
+                _particleSystems[i].transform.position = position;
                 mainModule.startColor = color;
             }
         }
 
-        public void PlayAll()
+        public void PlayAll(Vector2 position, Color color)
         {
-            for (int i = 0; i < _particleSystems.Count; i++)
-            {
+            SetColorAndPosition(position, color);
+            
+            for (int i = 0; i < _particleSystems.Count; i++) 
                 _particleSystems[i].Play();
-            }
         }
     }
 }

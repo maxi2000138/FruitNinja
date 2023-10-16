@@ -12,25 +12,26 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         private Transform _leftPartTransform;
         [SerializeField]
         private Transform _rightsPartTransform;
-        [SerializeField]
-        private ParticleSystemPlayer _particleSystemPlayer;
         
-        private Func<ISliced> _leftPartSpawnMethod;
-        private Func<ISliced> _rightPartSpawnMethod;
+        private ParticleSystemPlayer _particleSystemPlayer;
         private IDestroyTrigger _destroyTrigger;
         private ISliced _leftObject;
         private ISliced _rightObject;
+        
+        private Func<ISliced> _leftPartSpawnMethod;
+        private Func<ISliced> _rightPartSpawnMethod;
 
-        public void Construct(Func<ISliced> leftPartSpawnMethod, Func<ISliced> rightPartSpawnMethod, IDestroyTrigger destroyTrigger)
+        public void Construct(Func<ISliced> leftPartSpawnMethod, Func<ISliced> rightPartSpawnMethod, ParticleSystemPlayer particleSystemPlayer, IDestroyTrigger destroyTrigger)
         {
+            _particleSystemPlayer = particleSystemPlayer;
             _destroyTrigger = destroyTrigger;
             _leftPartSpawnMethod = leftPartSpawnMethod;
             _rightPartSpawnMethod = rightPartSpawnMethod;
         }
 
-        public void Slice(Mover mover, float sliceForce)
+        public void Slice(Mover mover, Vector2 worldPosition, float sliceForce)
         {
-            PlayParticles();
+            PlayParticles(worldPosition, Color.white);
             SpawnParts(); 
             SetupSlicedPart(_leftObject,_leftPartTransform.position, transform.eulerAngles, transform.localScale);
             SetupSlicedPart(_rightObject ,_rightsPartTransform.position, transform.eulerAngles, transform.localScale);
@@ -91,9 +92,9 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
             }
         }
 
-        private void PlayParticles()
+        private void PlayParticles(Vector2 slicePoint, Color color)
         {
-            _particleSystemPlayer.PlayAll();
+            _particleSystemPlayer.PlayAll(slicePoint, color);
         }
     }
 }

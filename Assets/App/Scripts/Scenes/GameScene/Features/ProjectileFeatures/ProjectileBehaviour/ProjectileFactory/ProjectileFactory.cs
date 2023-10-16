@@ -14,17 +14,18 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
     public class ProjectileFactory : IProjectileFactory
     {
         private int _sortingOrder = 1;
-        private readonly ResourceObjectsProvider _resourceObjectsProvider;
         private readonly ProjectileContainer.ProjectileContainer _projectileContainer;
-        private readonly ShadowContainer _shadowContainer;
         private readonly SliceCollidersController _sliceCollidersController;
+        private readonly ResourceObjectsProvider _resourceObjectsProvider;
+        private readonly ParticleSystemPlayer _particleSystemPlayer;
+        private readonly ShadowContainer _shadowContainer;
         private readonly IDestroyTrigger _destroyTrigger;
         private readonly ResourcesConfig _resourcesConfig;
         private readonly ShadowConfig _shadowConfig;
         private readonly FruitConfig _fruitConfig;
 
         public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectileContainer.ProjectileContainer projectileContainer, ShadowContainer shadowContainer, SliceCollidersController sliceCollidersController
-            , ResourceObjectsProvider resourceObjectsProvider, FruitConfig fruitConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig)
+            , ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer, FruitConfig fruitConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig)
         {
             _destroyTrigger = destroyTrigger;
             _projectileContainer = projectileContainer;
@@ -32,6 +33,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _sliceCollidersController = sliceCollidersController;
             _fruitConfig = fruitConfig;
             _resourceObjectsProvider = resourceObjectsProvider;
+            _particleSystemPlayer = particleSystemPlayer;
             _resourcesConfig = resourcesConfig;
             _shadowConfig = shadowConfig;
         }
@@ -48,7 +50,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             }
             
             fruit.GetComponent<SliceObject>().Construct(() => CreateFruitLeftPart(fruitType, fruit.Scale, fruitShadow.Scale).GetComponent<ISliced>()
-                ,() => CreateFruitRightPart(fruitType, fruit.Scale, fruitShadow.Scale).GetComponent<ISliced>(), _destroyTrigger);
+                ,() => CreateFruitRightPart(fruitType, fruit.Scale, fruitShadow.Scale).GetComponent<ISliced>(), _particleSystemPlayer, _destroyTrigger);
             
             fruit.GetComponent<SliceCircleCollider>().Construct(_sliceCollidersController);
             

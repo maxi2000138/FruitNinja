@@ -1,5 +1,6 @@
 using App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsProvider;
 using App.Scripts.Scenes.GameScene.Features.InputFeatures;
+using App.Scripts.Scenes.GameScene.Features.ParticleFeatures;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileContainer;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.DestroyTrigger;
@@ -38,6 +39,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         private SpawnAreasContainer _spawnAreasContainer;
         [SerializeField] 
         private ProjectileContainer _projectileContainer;
+        [SerializeField] 
+        private ParticleSystemPlayer _particleSystemPlayer;
         [SerializeField]
         private Slicer _slicer;
         [SerializeField] 
@@ -58,7 +61,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             _physicalFlightCalculator = new PhysicalFlightCalculator(_screenSettingsProvider, _configsContainer.GravitationConfig);
             _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController, _configsContainer.ProjectileConfig);
             DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsContainer.ProjectileConfig);
-            ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, _sliceCollidersController, ResourceObjectsProvider
+            ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
                 , _configsContainer.FruitConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig);
             ShootPolicy = new WavesSpawnPolicy(_coroutineRunner, _configsContainer.SpawnConfig);
             Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ProjectileConfig
