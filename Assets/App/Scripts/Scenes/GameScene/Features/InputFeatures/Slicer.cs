@@ -1,3 +1,4 @@
+using System;
 using App.Scripts.Scenes.GameScene.Configs;
 using App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsProvider;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures;
@@ -8,6 +9,8 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
 {
     public class Slicer : MonoBehaviour
     {
+        public event Action OnSlice;
+        
         [SerializeField] private TrailRenderer _trailRenderer;
         [SerializeField] private float _zPosition;
 
@@ -41,6 +44,7 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
             {
                 collider.SliceObject.Slice(forceMover, _projectileConfig.SliceForce);
                 collider.Disable();
+                OnSlice?.Invoke();
             }
         
             _trailRenderer.transform.position = worldPosition;

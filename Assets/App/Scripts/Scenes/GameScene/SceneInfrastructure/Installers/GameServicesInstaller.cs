@@ -16,44 +16,52 @@ using App.Scripts.Scenes.Infrastructure.CompositeRoot;
 using App.Scripts.Scenes.Infrastructure.CoroutineRunner;
 using App.Scripts.Scenes.Infrastructure.MonoBehaviourSimulator;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
 {
-    public class ServicesInstaller : Installer
+    public class GameServicesInstaller : InstallerBehaviour
     {
-        public InputReader InputReader { get; private set; }
         public ResourceObjectsProvider ResourceObjectsProvider { get; private set; }
         public ProjectileDestroyer ProjectileDestroyer { get; private set; }
         public ProjectileFactory ProjectileFactory { get; private set; }
-        public Shooter Shooter { get; private set; }
-        public IShootPolicy ShootPolicy { get; private set; }
         public DestroyTrigger DestroyTrigger { get; private set; }
+        public IShootPolicy ShootPolicy { get; private set; }
         public ShootSystem ShootSystem { get; private set; }
+        public InputReader InputReader { get; private set; }
+        public Shooter Shooter { get; private set; }
+        public ScoreSystem ScoreSystem { get; private set; }
 
         [SerializeField]
-        private ConfigsContainer _configsContainer;
-        [SerializeField]
         private ScreenSettingsProvider _screenSettingsProvider;
+        [SerializeField] 
+        private ParticleSystemPlayer _particleSystemPlayer;
         [SerializeField]
         private SpawnAreasContainer _spawnAreasContainer;
         [SerializeField] 
         private ProjectileContainer _projectileContainer;
-        [SerializeField] 
-        private ParticleSystemPlayer _particleSystemPlayer;
         [SerializeField]
-        private Slicer _slicer;
+        private ConfigsContainer _configsContainer;
         [SerializeField] 
         private ShadowContainer _shadowContainer;
         [SerializeField]
         private CoroutineRunner _coroutineRunner;
+        [SerializeField]
+        private Slicer _slicer;
+
+        [Header("Views")] 
+        [SerializeField]
+        private ScoreView _currentScoreView;
+        [SerializeField]
+        private ScoreView _highScoreView;
     
         private SliceCollidersController _sliceCollidersController;
         private PhysicalFlightCalculator _physicalFlightCalculator;
 
 
-        public override void Compose(MonoBehaviourSimulator monoBehaviourSimulator)
+        public override void InstallBindings(MonoBehaviourSimulator monoBehaviourSimulator)
         {
+            ProjectInstaller projectInstaller = FindObjectOfType<ProjectInstaller>();
+
             InputReader = new InputReader();
             ResourceObjectsProvider = new ResourceObjectsProvider();
             ProjectileDestroyer = new ProjectileDestroyer();
@@ -67,12 +75,15 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ProjectileConfig
                 ,_configsContainer.ShadowConfig , _configsContainer.FruitConfig, _configsContainer.GravitationConfig, _configsContainer.SpawnConfig);
             ShootSystem = new ShootSystem(Shooter, ShootPolicy);
+            ScoreSystem = new ScoreSystem(projectInstaller.ScoreStateContainer, _slicer, _currentScoreView,
+                _highScoreView);
  
             monoBehaviourSimulator.AddInitializable(DestroyTrigger);
             monoBehaviourSimulator.AddInitializable(_physicalFlightCalculator);
             monoBehaviourSimulator.AddInitializable(ShootSystem);
             monoBehaviourSimulator.AddUpdatable(DestroyTrigger);
             monoBehaviourSimulator.AddUpdatable(InputReader);
+            monoBehaviourSimulator.AddDestroyable(ScoreSystem);
         }
     }
 }

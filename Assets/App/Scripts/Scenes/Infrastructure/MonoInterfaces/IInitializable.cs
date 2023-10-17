@@ -1,4 +1,3 @@
-using UnityEngine;
 
 namespace App.Scripts.Scenes.Infrastructure.MonoInterfaces
 {

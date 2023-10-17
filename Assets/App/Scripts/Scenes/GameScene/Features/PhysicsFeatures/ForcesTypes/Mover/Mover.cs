@@ -7,7 +7,6 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Move
     public class Mover : PhysicsBehaviour
     {
         public Vector2 MovementVector { get; private set; }
-        [SerializeField] private float _mass = 1f;   
         private List<IMover> _movers = new();
 
         private void Awake()

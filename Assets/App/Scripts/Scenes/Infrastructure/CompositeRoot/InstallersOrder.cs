@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.Infrastructure.CompositeRoot
 {
-    class CompositionOrder : MonoBehaviour
+    class InstallersOrder : MonoBehaviour
     {
         [SerializeField] 
-        private List<Installer> _order;
+        private List<InstallerBehaviour> _order;
 
         public void CompositeAll(MonoBehaviourSimulator.MonoBehaviourSimulator monoBehaviourSimulator)
         {
-            foreach (var compositionRoot in _order)
+            foreach (var installer in _order)
             {
-                compositionRoot.Compose(monoBehaviourSimulator);
+                installer.InstallBindings(monoBehaviourSimulator);
             }
         }
     }
