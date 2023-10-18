@@ -22,11 +22,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly IDestroyTrigger _destroyTrigger;
         private readonly ResourcesConfig _resourcesConfig;
         private readonly ShadowConfig _shadowConfig;
+        private readonly HealthSystem _healthSystem;
         private readonly FruitConfig _fruitConfig;
-        private readonly Vector2 _defaultPosition = new(-10f, -10f);
+        private readonly Vector2 _defaultPosition = new(100f, 100f);
 
         public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectileContainer.ProjectileContainer projectileContainer, ShadowContainer shadowContainer, SliceCollidersController sliceCollidersController
-            , ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer, FruitConfig fruitConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig)
+            , ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer, FruitConfig fruitConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig
+            , HealthSystem healthSystem)
         {
             _destroyTrigger = destroyTrigger;
             _projectileContainer = projectileContainer;
@@ -37,11 +39,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _particleSystemPlayer = particleSystemPlayer;
             _resourcesConfig = resourcesConfig;
             _shadowConfig = shadowConfig;
+            _healthSystem = healthSystem;
         }
 
         public Fruit CreateFruitWithShadow(FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow)
         {
             Fruit fruit = CreateFruitPart(ProjectilePartEnum.Whole, fruitType, position, fruitScale, shadowScale, out var createdShadow);
+            fruit.DestroyNotSliced += _healthSystem.LooseLife;
             fruit.GetComponent<SliceObject>().Construct(
                 () => CreateFruitPart(ProjectilePartEnum.Left, fruitType, _defaultPosition, fruit.Scale, createdShadow.Scale, out var shadowLeft).GetComponent<ISliced>()
                 ,() => CreateFruitPart(ProjectilePartEnum.Right, fruitType, _defaultPosition, fruit.Scale, createdShadow.Scale, out var shadowRight).GetComponent<ISliced>()

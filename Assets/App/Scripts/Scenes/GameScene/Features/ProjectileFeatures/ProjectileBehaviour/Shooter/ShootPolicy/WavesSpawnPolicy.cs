@@ -9,10 +9,10 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
     public class WavesSpawnPolicy : IShootPolicy
     {
         private Coroutine _shootCoroutine;
-        private readonly CoroutineRunner _coroutineRunner;
+        private readonly ICoroutineRunner _coroutineRunner;
         private readonly SpawnConfig _spawnConfig;
 
-        public WavesSpawnPolicy(CoroutineRunner coroutineRunner, SpawnConfig spawnConfig)
+        public WavesSpawnPolicy(ICoroutineRunner coroutineRunner, SpawnConfig spawnConfig)
         {
             _coroutineRunner = coroutineRunner;
             _spawnConfig = spawnConfig;

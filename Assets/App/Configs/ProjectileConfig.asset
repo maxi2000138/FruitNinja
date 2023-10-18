@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShootVelocityRange: {x: 19.121738, y: 22.6}
   TorqueVelocityRange: {x: -206.97678, y: 211.62784}
-  DestroyTriggerOffset: -50
+  DestroyTriggerOffset: -4.4
   SliceForce: 52

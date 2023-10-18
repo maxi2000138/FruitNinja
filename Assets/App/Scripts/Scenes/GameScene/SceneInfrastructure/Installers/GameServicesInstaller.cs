@@ -12,6 +12,7 @@ using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehavio
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeatures;
 using App.Scripts.Scenes.GameScene.Features.ResourceFeatures;
 using App.Scripts.Scenes.GameScene.Features.SpawnAreaFeatures;
+using App.Scripts.Scenes.GameScene.SceneInfrastructure.EntryPoint;
 using App.Scripts.Scenes.Infrastructure.CompositeRoot;
 using App.Scripts.Scenes.Infrastructure.CoroutineRunner;
 using App.Scripts.Scenes.Infrastructure.MonoBehaviourSimulator;
@@ -44,39 +45,44 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         [SerializeField] 
         private ShadowContainer _shadowContainer;
         [SerializeField]
-        private CoroutineRunner _coroutineRunner;
-        [SerializeField]
         private Slicer _slicer;
+        [SerializeField] 
+        private GameEntryPoint _gameEntryPoint;
 
         [Header("Views")] 
         [SerializeField]
         private ScoreView _currentScoreView;
         [SerializeField]
         private ScoreView _highScoreView;
+        [SerializeField]
+        private HealthView _healthView;
     
         private SliceCollidersController _sliceCollidersController;
         private PhysicalFlightCalculator _physicalFlightCalculator;
+        private GameStateObserver _gameStateObserver;
+        private HealthSystem _healthSystem;
 
-
-        public override void InstallBindings(MonoBehaviourSimulator monoBehaviourSimulator)
+        public override void OnInstallBindings(MonoBehaviourSimulator monoBehaviourSimulator, ProjectInstaller projectInstaller)
         {
-            ProjectInstaller projectInstaller = FindObjectOfType<ProjectInstaller>();
-
             InputReader = new InputReader();
             ResourceObjectsProvider = new ResourceObjectsProvider();
             ProjectileDestroyer = new ProjectileDestroyer();
             _sliceCollidersController = new SliceCollidersController();
+            _gameStateObserver = new GameStateObserver();
+            _healthSystem = new HealthSystem(_configsContainer.HealthConfig, _healthView);
             _physicalFlightCalculator = new PhysicalFlightCalculator(_screenSettingsProvider, _configsContainer.GravitationConfig);
             _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController, _configsContainer.ProjectileConfig);
             DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsContainer.ProjectileConfig);
             ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
-                , _configsContainer.FruitConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig);
-            ShootPolicy = new WavesSpawnPolicy(_coroutineRunner, _configsContainer.SpawnConfig);
+                , _configsContainer.FruitConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig, _healthSystem);
+            ShootPolicy = new WavesSpawnPolicy(projectInstaller.CoroutineRunner, _configsContainer.SpawnConfig);
             Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ProjectileConfig
                 ,_configsContainer.ShadowConfig , _configsContainer.FruitConfig, _configsContainer.GravitationConfig, _configsContainer.SpawnConfig);
             ShootSystem = new ShootSystem(Shooter, ShootPolicy);
             ScoreSystem = new ScoreSystem(projectInstaller.ScoreStateContainer, _slicer, _currentScoreView,
-                _highScoreView);
+                _highScoreView); 
+            _gameEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
+
  
             monoBehaviourSimulator.AddInitializable(DestroyTrigger);
             monoBehaviourSimulator.AddInitializable(_physicalFlightCalculator);
@@ -84,6 +90,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             monoBehaviourSimulator.AddUpdatable(DestroyTrigger);
             monoBehaviourSimulator.AddUpdatable(InputReader);
             monoBehaviourSimulator.AddDestroyable(ScoreSystem);
+            
+            _gameStateObserver.AddObserver(_slicer);
         }
     }
 }

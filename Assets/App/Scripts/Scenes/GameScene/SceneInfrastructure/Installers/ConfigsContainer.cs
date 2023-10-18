@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
 {
-    public class ConfigsContainer : InstallerBehaviour
+    public class ConfigsContainer : MonoBehaviour
     {
         [field: SerializeField] 
         public GravitationConfig GravitationConfig { get; private set; }
@@ -18,12 +18,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         [field: SerializeField] 
         public ShadowConfig ShadowConfig { get; private set; }
         [field: SerializeField] 
+        public HealthConfig HealthConfig { get; private set; }
+        [field: SerializeField] 
         public SpawnConfig SpawnConfig { get; private set; }
-
-
-        public override void InstallBindings(MonoBehaviourSimulator monoBehaviourSimulator)
-        {
-           
-        }
     }
 }

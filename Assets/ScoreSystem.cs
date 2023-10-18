@@ -4,13 +4,13 @@ public class ScoreSystem : IDestroyable
 {
     private readonly ScoreView _currentScoreView;
     private readonly ScoreView _highScoreView;
-    private readonly SaveDataContainer<ScoreState> _scoreContainer;
+    private readonly SaveDataContainer<ScoreData> _scoreContainer;
     private readonly Slicer _slicer;
 
     private int _currentScore = 0;
     private int _highScore = 0;
 
-    public ScoreSystem(SaveDataContainer<ScoreState> scoreContainer, Slicer slicer, ScoreView currentScoreView, ScoreView highScoreView)
+    public ScoreSystem(SaveDataContainer<ScoreData> scoreContainer, Slicer slicer, ScoreView currentScoreView, ScoreView highScoreView)
     {
         _currentScoreView = currentScoreView;
         _highScoreView = highScoreView;
@@ -45,14 +45,14 @@ public class ScoreSystem : IDestroyable
 
     private void OnScoreDataLoaded()
     {
-        ScoreState scoreState = _scoreContainer.ReadData();
-        _highScore = scoreState.HighScore;
+        ScoreData scoreData = _scoreContainer.ReadData();
+        _highScore = scoreData.HighScore;
         UpdateScores();
     }
 
     private void UpdateScores()
     {
-        _currentScoreView.UpdateText("Score: " + _currentScore);
-        _highScoreView.UpdateText("High Score: " + _highScore);
+        _currentScoreView.UpdateText(_currentScore.ToString());
+        _highScoreView.UpdateText("Лучший: " + _highScore);
     }
 }

@@ -1,25 +1,36 @@
 using System.Collections.Generic;
 using App.Scripts.Scenes.Infrastructure.CompositeRoot;
+using App.Scripts.Scenes.Infrastructure.CoroutineRunner;
 using App.Scripts.Scenes.Infrastructure.MonoBehaviourSimulator;
+using CodeBase.Infrastructure;
+using CodeBase.Logic;
 using UnityEngine;
 
 public class ProjectInstaller : InstallerBehaviour
 {
+    [field:SerializeField] 
+    public CoroutineRunner CoroutineRunner { get; private set; }
+    [field:SerializeField] 
+    public LoadingCurtain LoadingCurtain { get; private set; }
     [SerializeField] 
     private SaveDataKeysConfig _saveDataKeysConfig;
-    
+
     public SaveLoadService SaveLoadService { get; private set; }
     public PersistantDataSaver PersistantDataSaver { get; private set; }
     public List<ISaveDataContainer> SavedDataContainers { get; private set; }
     public List<ISavedTrigger> SavedTriggers { get; private set; }
-    public SaveDataContainer<ScoreState> ScoreStateContainer { get; private set; }
+    public SaveDataContainer<ScoreData> ScoreStateContainer { get; private set; }
     public SaveTimeTrigger SaveTimeTrigger { get; private set; }
+    public SceneLoaderWithCurtains SceneLoaderWithCurtains { get; private set; }
     
-    public override void InstallBindings(MonoBehaviourSimulator monoBehaviourSimulator)
+    private SceneLoader SceneLoader;
+    
+
+    public override void OnInstallBindings(MonoBehaviourSimulator monoBehaviourSimulator, ProjectInstaller projectInstaller)
     {
         SaveLoadService = new SaveLoadService();
         
-        ScoreStateContainer = new SaveDataContainer<ScoreState>(SaveLoadService, _saveDataKeysConfig.GetDataKey<ScoreState>());
+        ScoreStateContainer = new SaveDataContainer<ScoreData>(SaveLoadService, _saveDataKeysConfig.GetDataKey<ScoreData>());
         SaveTimeTrigger = new SaveTimeTrigger();
         
         SavedTriggers = new List<ISavedTrigger>()
@@ -33,7 +44,11 @@ public class ProjectInstaller : InstallerBehaviour
         
         PersistantDataSaver = new PersistantDataSaver(SavedDataContainers,SavedTriggers);
         
+        SceneLoader = new SceneLoader(CoroutineRunner);
+        SceneLoaderWithCurtains = new SceneLoaderWithCurtains(SceneLoader, LoadingCurtain);
+        
         monoBehaviourSimulator.AddInitializable(PersistantDataSaver);
         monoBehaviourSimulator.AddUpdatable(SaveTimeTrigger);
+        
     }
 }

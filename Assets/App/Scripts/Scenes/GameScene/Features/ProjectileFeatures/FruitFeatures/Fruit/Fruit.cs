@@ -1,15 +1,16 @@
+using System;
 using App.Scripts.Scenes.GameScene.Features.ParticleFeatures;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Rotater;
-using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Enum;
-using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileFactory;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Fruit
 {
     public class Fruit : MonoBehaviour, ISlicable
     {
+        public event Action DestroyNotSliced;
+        
         public float SpriteMaxHeight => SpriteDiagonal();
         public Vector2 Scale => transform.localScale;
 
@@ -21,6 +22,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures
         
         private ParticleSystemPlayer _particleSystemPlayer;
         private Color _sliceColor;
+        private bool _sliced;
 
         public void Construct(Color sliceColor, ParticleSystemPlayer particleSystemPlayer)
         {
@@ -30,6 +32,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures
 
         public void OnSlice()
         {
+            _sliced = true;
             _particleSystemPlayer.PlayAll(transform.position, _sliceColor);   
         }
 
@@ -37,6 +40,12 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures
         {
             _spriteRenderer.sprite = sprite;
             _spriteRenderer.sortingOrder = sortingOrder;
+        }
+
+        private void OnDestroy()
+        {
+            if(!_sliced)
+                DestroyNotSliced?.Invoke();
         }
 
         private float SpriteDiagonal() => new Vector2(_spriteRenderer.sprite.bounds.size.x, _spriteRenderer.sprite.bounds.size.y).magnitude;
