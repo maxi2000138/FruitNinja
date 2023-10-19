@@ -37,5 +37,15 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 yield return new WaitForSeconds(Random.Range(1f, 1.5f));
             }
         }
+
+        public void OnWinGame()
+        {
+            StopWorking();
+        }
+
+        public void OnLooseGame()
+        {
+            StopWorking();
+        }
     }
 }

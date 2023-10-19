@@ -4,7 +4,7 @@ using App.Scripts.Scenes.Infrastructure.MonoInterfaces;
 
 namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ShootSystem
 {
-    public class ShootSystem : IInitializable
+    public class ShootSystem : IInitializable, ILooseGameListener, IRestartGameListener
     {
         private readonly IShooter _shooter;
         private readonly IShootPolicy _shootPolicy;
@@ -18,6 +18,16 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         public void Initialize()
         {
             StartShooting();
+        }
+
+        public void OnRestartGame()
+        {
+            StartShooting();
+        }
+
+        public void OnLooseGame()
+        {
+            StopShooting();
         }
 
         public void StartShooting()

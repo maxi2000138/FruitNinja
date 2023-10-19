@@ -61,34 +61,35 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         private void SetVelocity(Mover mover, float sliceForce)
         {
             float rotationZ = (transform.eulerAngles.z % 360f);
-
-            if ((rotationZ < 90f || rotationZ > 270f) && mover.MovementVector.y > 0f)
+            Vector2 movementVector = mover.MovementVector.normalized;
+            
+            if ((rotationZ < 90f || rotationZ > 270f) && movementVector.y > 0f)
             {
                 _leftObject.VelocityApplier.AddVelocity(Quaternion.AngleAxis(-15f, new Vector3(0f, 0f, -1f)) *
-                                                        mover.MovementVector * sliceForce);
+                                                        movementVector * sliceForce);
                 _rightObject.VelocityApplier.AddVelocity(Quaternion.AngleAxis(15f, new Vector3(0f, 0f, -1f)) *
-                                                         mover.MovementVector * sliceForce);
+                                                         movementVector * sliceForce);
             }
-            else if (mover.MovementVector.y > 0f)
+            else if (movementVector.y > 0f)
             {
                 _leftObject.VelocityApplier.AddVelocity(Quaternion.AngleAxis(15f, new Vector3(0f, 0f, -1f)) *
-                                                        mover.MovementVector * sliceForce);
+                                                        movementVector * sliceForce);
                 _rightObject.VelocityApplier.AddVelocity(Quaternion.AngleAxis(-15f, new Vector3(0f, 0f, -1f)) *
-                                                         mover.MovementVector * sliceForce);
+                                                         movementVector * sliceForce);
             }
-            else if ((rotationZ < 90f || rotationZ > 270f) && mover.MovementVector.y <= 0f)
+            else if ((rotationZ < 90f || rotationZ > 270f) && movementVector.y <= 0f)
             {
                 _leftObject.VelocityApplier.AddVelocity(Quaternion.AngleAxis(15f, new Vector3(0f, 0f, -1f)) *
-                                                        mover.MovementVector * sliceForce);
+                                                        movementVector * sliceForce);
                 _rightObject.VelocityApplier.AddVelocity(Quaternion.AngleAxis(-15f, new Vector3(0f, 0f, -1f)) *
-                                                         mover.MovementVector * sliceForce);
+                                                         movementVector * sliceForce);
             }
-            else if (mover.MovementVector.y <= 0f)
+            else if (movementVector.y <= 0f)
             {
                 _leftObject.VelocityApplier.AddVelocity(Quaternion.AngleAxis(-15f, new Vector3(0f, 0f, -1f)) *
-                                                        mover.MovementVector * sliceForce);
+                                                        movementVector * sliceForce);
                 _rightObject.VelocityApplier.AddVelocity(Quaternion.AngleAxis(15f, new Vector3(0f, 0f, -1f)) *
-                                                         mover.MovementVector * sliceForce);
+                                                         movementVector * sliceForce);
             }
         }
     }

@@ -10,13 +10,15 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 {
     public class DestroyTrigger : IInitializable, IUpdatable, IDestroyTrigger
     {
+        public int DestroyGropCount =>
+            _destroyListeners.Count;
+        
         private float _yDestroyValue;
         private readonly IScreenSettingsProvider _screenSettingsProvider;
         private readonly IProjectileDestroyer _projectileDestroyer;
         private readonly ProjectileConfig _projectileConfig;
         private readonly List<Transform[]> _destroyListeners = new ();
-
-
+        
         public DestroyTrigger(IScreenSettingsProvider screenSettingsProvider, IProjectileDestroyer projectileDestroyer, ProjectileConfig projectileConfig)
         {
             _screenSettingsProvider = screenSettingsProvider;
@@ -39,10 +41,10 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         {
             for (int i = 0; i < _destroyListeners.Count; i++)
             {
-                for (int j = 0; j < _destroyListeners[i].Length; j++)
+                if (IsAnyTriggered(_destroyListeners[i]))
                 {
-                    if(IsAnyTriggered(_destroyListeners[i]))
-                        RemoveGroup(_destroyListeners[i]);
+                    RemoveGroupAt(i);
+                    i--;
                 }
             }
         }
@@ -53,7 +55,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             for (int i = 0; i < _destroyListeners.Count; i++)
             {
                 if (_destroyListeners[i].Contains(destroyTransform))
-                    RemoveGroup(_destroyListeners[i]);
+                    RemoveGroupAt(i);
             }
         }
         private bool IsAnyTriggered(Transform[] destroyListeners)
@@ -69,15 +71,18 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             return false;
         }
 
-        private void RemoveGroup(Transform[] destroyListeners)
+        private void RemoveGroupAt(int index)
         {
-            for (int i = 0; i < destroyListeners.Length; i++)
+            for (int i = 0; i < _destroyListeners[index].Length; i++)
             {
-                if (destroyListeners[i] != null)
+                Transform destroyListener = _destroyListeners[index][i];
+                if (destroyListener != null)
                 {
-                    _projectileDestroyer.DestroyProjectile(destroyListeners[i].gameObject);
+                    _projectileDestroyer.DestroyProjectile(destroyListener.gameObject);
                 }
             }
+            
+            _destroyListeners.RemoveAt(index);
         }
     }
 }

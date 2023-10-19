@@ -6,5 +6,6 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
     {
         void AddDestroyTriggerListeners(params Transform[] objectTransform);
         void TriggerGroup(Transform destroyTransform);
+        int DestroyGropCount { get; }
     }
 }

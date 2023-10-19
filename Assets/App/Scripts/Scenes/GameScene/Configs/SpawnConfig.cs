@@ -8,7 +8,7 @@ namespace App.Scripts.Scenes.GameScene.Configs
     [CreateAssetMenu(fileName = "new SpawnConfig", menuName = "Configs/Spawn Config")]
     public class SpawnConfig : ScriptableObject
     {
-        [MinMaxSlider(1,10)]
+        [MinMaxSlider(1,25)]
         public Vector2Int FruitsAmountRange;
         [MinMaxSlider(1f,10f)]
         public Vector2 GroupSpawnDelayRange;

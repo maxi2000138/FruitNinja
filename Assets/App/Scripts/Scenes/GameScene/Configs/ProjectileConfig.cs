@@ -12,7 +12,7 @@ namespace App.Scripts.Scenes.GameScene.Configs
         public Vector2 TorqueVelocityRange = new (1f,1f);
         [Range(-50f,0f)]
         public float DestroyTriggerOffset = 2f;
-        [Range(20f, 100f)] 
-        public float SliceForce = 45f;
+        [Range(5f, 20f)] 
+        public float SliceForce = 1f;
     }
 }

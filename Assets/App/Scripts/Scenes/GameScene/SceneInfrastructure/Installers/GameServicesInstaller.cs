@@ -56,11 +56,18 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         private ScoreView _highScoreView;
         [SerializeField]
         private HealthView _healthView;
+        [SerializeField]
+        private LoosePanelView _loosePanelView;
+        [SerializeField]
+        private CustomButton _restartButton;
+        [SerializeField]
+        private CustomButton _exitMenuButton;
     
         private SliceCollidersController _sliceCollidersController;
         private PhysicalFlightCalculator _physicalFlightCalculator;
         private GameStateObserver _gameStateObserver;
         private HealthSystem _healthSystem;
+        private HealthOverLoosePolicy _healthOverLoosePolicy;
 
         public override void OnInstallBindings(MonoBehaviourSimulator monoBehaviourSimulator, ProjectInstaller projectInstaller)
         {
@@ -69,29 +76,42 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             ProjectileDestroyer = new ProjectileDestroyer();
             _sliceCollidersController = new SliceCollidersController();
             _gameStateObserver = new GameStateObserver();
-            _healthSystem = new HealthSystem(_configsContainer.HealthConfig, _healthView);
             _physicalFlightCalculator = new PhysicalFlightCalculator(_screenSettingsProvider, _configsContainer.GravitationConfig);
             _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController, _configsContainer.ProjectileConfig);
             DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsContainer.ProjectileConfig);
+            _healthSystem = new HealthSystem(_configsContainer.HealthConfig, _healthView);
             ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
                 , _configsContainer.FruitConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig, _healthSystem);
-            ShootPolicy = new WavesSpawnPolicy(projectInstaller.CoroutineRunner, _configsContainer.SpawnConfig);
+            ShootPolicy = new WavesSpawnPolicy(_configsContainer.SpawnConfig);
             Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ProjectileConfig
                 ,_configsContainer.ShadowConfig , _configsContainer.FruitConfig, _configsContainer.GravitationConfig, _configsContainer.SpawnConfig);
             ShootSystem = new ShootSystem(Shooter, ShootPolicy);
+            _healthOverLoosePolicy = new HealthOverLoosePolicy(_healthSystem, DestroyTrigger);
             ScoreSystem = new ScoreSystem(projectInstaller.ScoreStateContainer, _slicer, _currentScoreView,
                 _highScoreView); 
             _gameEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
 
- 
+            RestartGameButton restartGameButton = new RestartGameButton(projectInstaller.SceneLoaderWithCurtains);
+            _restartButton.Construct(restartGameButton);
+            _exitMenuButton.Construct(new ExitToMenuButton(projectInstaller.SceneLoaderWithCurtains));
+            
             monoBehaviourSimulator.AddInitializable(DestroyTrigger);
             monoBehaviourSimulator.AddInitializable(_physicalFlightCalculator);
             monoBehaviourSimulator.AddInitializable(ShootSystem);
             monoBehaviourSimulator.AddUpdatable(DestroyTrigger);
+            monoBehaviourSimulator.AddUpdatable(_healthOverLoosePolicy);
             monoBehaviourSimulator.AddUpdatable(InputReader);
             monoBehaviourSimulator.AddDestroyable(ScoreSystem);
             
             _gameStateObserver.AddObserver(_slicer);
+            _gameStateObserver.AddObserver(_loosePanelView);
+            _gameStateObserver.AddObserver(ShootSystem);
+            _gameStateObserver.AddObserver(_healthSystem);
+            _gameStateObserver.AddObserver(ScoreSystem);
+            _gameStateObserver.AddObserver(_healthOverLoosePolicy);
+            
+            _gameStateObserver.AddPolicy(restartGameButton);
+            _gameStateObserver.AddPolicy(_healthOverLoosePolicy);
         }
     }
 }

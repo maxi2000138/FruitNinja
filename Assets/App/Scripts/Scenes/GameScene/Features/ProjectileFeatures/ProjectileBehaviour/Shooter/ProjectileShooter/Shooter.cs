@@ -134,7 +134,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 .ViewportToWorldPosition((areaData.ViewportLeftPosition, areaData.ViewportRightPosition)
                     .GetRandomPointBetween());
             type = spawnConfig.FruitTypes.GetRandomItem();
-            float randomScaleValue = fruitConfig.FruitScaleRange.GetRandomFloatBetween();
+            float randomScaleValue = fruitConfig.FruitScaleRange.GetRandomBound();
             scale = new Vector2(randomScaleValue, randomScaleValue);
         }
 

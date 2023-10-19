@@ -1,35 +1,44 @@
 using System;
-using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using App.Scripts.Scenes.GameScene.Configs;
-using App.Scripts.Scenes.Infrastructure.CoroutineRunner;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.Shooter.ShootPolicy
 {
     public class WavesSpawnPolicy : IShootPolicy
     {
-        private Coroutine _shootCoroutine;
-        private readonly ICoroutineRunner _coroutineRunner;
+        private CancellationTokenSource cts;
         private readonly SpawnConfig _spawnConfig;
 
-        public WavesSpawnPolicy(ICoroutineRunner coroutineRunner, SpawnConfig spawnConfig)
+        public WavesSpawnPolicy(SpawnConfig spawnConfig)
         {
-            _coroutineRunner = coroutineRunner;
             _spawnConfig = spawnConfig;
         }
         public event Action NeedShoot;
         public void StartWorking()
         {
-            _shootCoroutine = _coroutineRunner.StartCoroutine(ShootCoroutine());
+            cts = new CancellationTokenSource();
+            ShootTask(cts.Token);
         }
 
         public void StopWorking()
-        { 
-            if(_shootCoroutine != null)
-                _coroutineRunner.StopCoroutine(_shootCoroutine);
+        {
+            if(cts != null)
+                cts.Cancel();
         }
 
-        private IEnumerator ShootCoroutine()
+        public void OnWinGame()
+        {
+            StopWorking();   
+        }
+
+        public void OnLooseGame()
+        {
+            StopWorking();   
+        }
+
+        private async Task ShootTask(CancellationToken token)
         {
             float fruitsAmountRange = _spawnConfig.FruitsAmountRange.x;
             float fruitsInGroupSpawnDelay = _spawnConfig.FruitsInGroupSpawnDelayRange.y;
@@ -43,11 +52,17 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 int spawnAmount = (int)fruitsAmountRange;
                 for (int i = 0; i < spawnAmount; i++)
                 {
+                    if(token.IsCancellationRequested)
+                        return;
+                    
                     NeedShoot?.Invoke();
-                    yield return new WaitForSeconds(fruitsInGroupSpawnDelay);
+                    await Task.Delay((int)(fruitsInGroupSpawnDelay*1000), token);
                 }
 
-                yield return new WaitForSeconds(groupSpawnDelayRange);
+                if(token.IsCancellationRequested)
+                    return;
+
+                await Task.Delay((int)(groupSpawnDelayRange * 1000), token);
 
                 fruitsAmountRange = Mathf.Lerp(_spawnConfig.FruitsAmountRange.x, _spawnConfig.FruitsAmountRange.y
                     ,(float)groupNumber / _spawnConfig.AverageAmountSpawnGroups);
@@ -57,5 +72,6 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                     ,(float)groupNumber / _spawnConfig.AverageAmountSpawnGroups);
             }
         }
+
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
 {
-    public class Slicer : MonoBehaviour, ILooseGameListener, IPauseGameListener, IWinGameListener, IResumeGameListener
+    public class Slicer : MonoBehaviour, ILooseGameListener, IRestartGameListener
     {
         public event Action OnSlice;
         
@@ -38,7 +38,6 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
         
             Vector3 worldPosition = _screenSettingsProvider.ScreenToWorldPosition(_inputReader.TouchPosition);
             worldPosition.z = _zPosition;
-            Vector2 sliceVector = ((Vector2)worldPosition - _lastWorldPosition).normalized;
         
             if (_sliceCollidersController.TryGetIntersectionCollider(worldPosition, out Mover forceMover, out SliceCircleCollider collider))
             {
@@ -56,6 +55,16 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
             Disable();
         }
 
+        public void OnRestartGame()
+        {
+            Enable();
+        }
+        
+        public void OnLooseGame()
+        {
+            Disable();
+        }
+        
         private void StartSlicing()
         {
             _trailRenderer.Clear();
@@ -79,26 +88,8 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
         {
             _inputReader.SliceStartedEvent -= StartSlicing;
             _inputReader.SliceEndedEvent -= EndSlicing;
+            EndSlicing();
         }
 
-        public void OnPauseGame()
-        {
-            Disable();
-        }
-
-        public void OnResumeGame()
-        {
-            Enable();
-        }
-
-        public void OnWinGame()
-        {
-            Disable();
-        }
-
-        public void OnLooseGame()
-        {
-            Disable();
-        }
     }
 }

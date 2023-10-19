@@ -64,6 +64,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 fruit.Construct(fruitData.SliceColor, _particleSystemPlayer);
                 SetFruitAndShadowSprite(fruit, fruitData.PartSprites[projectilePart], fruitShadow, fruitScale, shadowScale);
             }
+            
             _destroyTrigger.AddDestroyTriggerListeners(fruit.transform, fruitShadow.transform);
             shadow = fruitShadow;
             return fruit;
