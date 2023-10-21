@@ -42,54 +42,54 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         {
             SpawnAreaData areaData = _spawnAreasContainer.SpawnAreaHandlers.GetRandomItemByProbability(data => data.Probability);
             float angle = (areaData.ShootMinAngle, areaData.ShootMaxAngle).GetRandomFloatBetween();
-            SpawnFruitAndShootByAngle(areaData, angle);
+            SpawnProjectileAndShootByAngle(areaData, angle);
         }
 
-        private void SpawnFruitAndShootByAngle(SpawnAreaData areaData, float angle)
+        private void SpawnProjectileAndShootByAngle(SpawnAreaData areaData, float angle)
         {
             GetRandomTypeScaleAndPosition(areaData, _spawnConfig,_fruitConfig ,out var position, out var type, out var scale);
-            Fruit fruit = _projectileFactory.CreateFruitWithShadow(type, position, scale, scale, out var shadow);
+
+            int n = Random.Range(0, 5);
+            ShootObject shootObject;
+            Shadow shadow;
+            if (n < 1)
+            {
+                shootObject = _projectileFactory.CreateFruit(type, position, scale, scale, out shadow).GetComponent<ShootObject>();
+            }
+            else if (n < 2)
+            {
+                shootObject = _projectileFactory.CreateHeart(position, scale, scale, out shadow).GetComponent<ShootObject>();
+            }
+            else
+            {
+                shootObject = _projectileFactory.CreateBomb(position, scale, scale, out shadow).GetComponent<ShootObject>();
+            }
 
             Vector2 finalScale = GetLongestScale(scale, _fruitConfig.FruitScaleRange);
 
             float flyTime = _physicalFlightCalculator.GetFlyTimeFromYPosition(position.y);
-            fruit.ScaleByTimeApplier.StartScaling(scale,finalScale, flyTime);
+            shootObject.ScaleByTimeApplier.StartScaling(scale,finalScale, flyTime);
             
             SetShadowOffseting(shadow,finalScale/scale, flyTime);
             SetShadowScaling(shadow, finalScale/scale, flyTime);
             
-            RotateFruit(fruit);
+            RotateProjectile(shootObject);
             
-            //ShootFruit(areaData, angle, fruit, (finalValue.magnitude > (fruit.transform.localScale.x)) ? finalValue.magnitude : (fruit.transform.localScale.x));
-            ShootFruit(areaData, angle, fruit, 1f);
+            ShootProjectile(areaData, angle, shootObject, 1f);
         }
 
-        private void ShootFruit(SpawnAreaData areaData, float angle, Fruit fruit, float maxScale)
+        private void ShootProjectile(SpawnAreaData areaData, float angle, ShootObject shootObject, float maxScale)
         {
             Vector2 moveVector = GetRandomMovementVector(areaData, angle);
-            moveVector = _physicalFlightCalculator.ConstrainSpeed(FruitSpriteHeight(fruit, maxScale), moveVector);
-            ShootFruit(fruit.gameObject, moveVector);
+            moveVector = _physicalFlightCalculator.ConstrainSpeed(FruitSpriteHeight(shootObject, maxScale), moveVector);
+            ShootProjectile(shootObject, moveVector);
         }
-
-
-        /*
-        private void StartChangingShadowSpriteScale(Vector2 startScale, Vector2 finalScale, float flyTime)
-        {
-            Shadow.ScaleByTimeApplier.StartScaling(startScale, finalScale, flyTime);
-        }
-
-        private void StartChangingShadowOffset(Vector2 startOffset, Vector2 finalOffset, float flyTime)
-        {
-            Shadow.OffsetByTimeApplier.StartOffseting(startOffset,finalOffset, flyTime);
-        }
-        */
-
-
         
-        private void RotateFruit(Fruit fruit)
+        
+        private void RotateProjectile(ShootObject shootObject)
         {
             float torqueValue = _projectileConfig.TorqueVelocityRange.GetRandomFloatBetween();
-            fruit.TorqueApplier.AddTorque(torqueValue);
+            shootObject.TorqueApplier.AddTorque(torqueValue);
         }
         
         private void SetShadowScaling(Shadow shadow, Vector2 scaleRatio, float flyTime)
@@ -117,14 +117,14 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             shadow.OffsetByTimeApplier.StartOffseting(startOffset, finalOffset, flyTime);
         }
 
-        private float FruitSpriteHeight(Fruit fruit, float maxScale)
+        private float FruitSpriteHeight(ShootObject shootObject, float maxScale)
         {
-            return fruit.transform.position.y + (fruit.SpriteMaxHeight/2 * maxScale);
+            return shootObject.transform.position.y + (shootObject.ProjectileObject.SpriteDiagonal()/2 * maxScale);
         }
 
-        public void  ShootFruit(GameObject fruit, Vector2 moveVector)
+        public void ShootProjectile(ShootObject shootObject, Vector2 moveVector)
         {
-            VelocityApplier velocityApplier = fruit.GetComponentInChildren<VelocityApplier>();
+            VelocityApplier velocityApplier = shootObject.VelocityApplier;
             velocityApplier.AddVelocity(moveVector);
         }
 

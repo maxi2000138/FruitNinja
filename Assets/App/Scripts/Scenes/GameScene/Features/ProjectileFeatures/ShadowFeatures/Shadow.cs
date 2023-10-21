@@ -12,8 +12,9 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeature
         [field: SerializeField] public OffsetByTimeApplier OffsetByTimeApplier { get; private set; }
     
     
-        public void SetSpriteWithOffset(Sprite sprite, Vector2 offsetVector)
+        public void SetSpriteWithOffsetAndScale(Sprite sprite, Vector2 offsetVector, Vector2 scale)
         {
+            transform.localScale = scale;
             SpriteRenderer.sprite = sprite;
             SetSpriteOffset(offsetVector);
         }

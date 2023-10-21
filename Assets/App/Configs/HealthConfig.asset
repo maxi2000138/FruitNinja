@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealthConfig
   m_EditorClassIdentifier: 
   Health: 3
-  SpriteOffset: -125
-  UpOffset: -40
-  RightOffset: -40
-  HeartPrefab: {fileID: 7559965892540929802, guid: 89928458e58940d43a0f6b5a8de78028, type: 3}
+  SpriteOffset: -110
+  UpOffset: -90
+  RightOffset: -90
+  HeartPrefab: {fileID: 4452693726230284643, guid: 89928458e58940d43a0f6b5a8de78028, type: 3}

@@ -1,5 +1,4 @@
 using System;
-using App.Scripts.Scenes.GameScene.Features.ParticleFeatures;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.DestroyTrigger;
 using UnityEngine;

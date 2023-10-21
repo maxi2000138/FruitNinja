@@ -5,6 +5,7 @@ namespace App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsPro
     public class ScreenSettingsProvider : MonoBehaviour, IScreenSettingsProvider
     {
         public Vector2 CameraStartPoint => _camera.ScreenToWorldPoint(Vector2.zero);
+        public Vector2 CameraCenter => _camera.transform.position;
         public float CameraHeight => _camera.orthographicSize * 2;
         public float CameraWidth => CameraHeight * _camera.aspect;
     
@@ -22,11 +23,25 @@ namespace App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsPro
             Vector2 point = _camera.WorldToViewportPoint(worldPosition);
             return point;
         }
+        
+        public Vector2 WorldToScreenPosition(Vector2 worldPosition)
+        {
+            Vector2 point = _camera.WorldToScreenPoint(worldPosition);
+            return point;
+        }
+
     
         public Vector2 ScreenToWorldPosition(Vector2 worldPosition)
         {
             Vector2 point = _camera.ScreenToWorldPoint(worldPosition);
             return point;
         }
+        
+        public Vector2 ViewportToScreenPosition(Vector2 worldPosition)
+        {
+            Vector2 point = _camera.ViewportToScreenPoint(worldPosition);
+            return point;
+        }
+
     }
 }   

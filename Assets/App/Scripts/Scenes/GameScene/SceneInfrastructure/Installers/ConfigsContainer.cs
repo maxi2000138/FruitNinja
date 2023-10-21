@@ -21,5 +21,9 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         public HealthConfig HealthConfig { get; private set; }
         [field: SerializeField] 
         public SpawnConfig SpawnConfig { get; private set; }
+        [field: SerializeField] 
+        public ComboConfig ComboConfig { get; private set; }
+        [field: SerializeField] 
+        public BonusesConfig BonusesConfig { get; private set; }
     }
 }

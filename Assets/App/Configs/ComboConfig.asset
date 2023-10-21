@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7c24d655538de4689a11ea7db28d82, type: 3}
+  m_Name: ComboConfig
+  m_EditorClassIdentifier: 
+  ComboPrefab: {fileID: 8008553291520642646, guid: 6e2378398c93453449aedc61580b2383, type: 3}
+  Scale: {x: 3, y: 3, z: 3}
+  DelayComboDestroy: 0.53
+  ComboLifeTime: 1

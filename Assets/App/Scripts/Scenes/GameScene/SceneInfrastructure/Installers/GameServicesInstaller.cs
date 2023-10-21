@@ -14,7 +14,6 @@ using App.Scripts.Scenes.GameScene.Features.ResourceFeatures;
 using App.Scripts.Scenes.GameScene.Features.SpawnAreaFeatures;
 using App.Scripts.Scenes.GameScene.SceneInfrastructure.EntryPoint;
 using App.Scripts.Scenes.Infrastructure.CompositeRoot;
-using App.Scripts.Scenes.Infrastructure.CoroutineRunner;
 using App.Scripts.Scenes.Infrastructure.MonoBehaviourSimulator;
 using UnityEngine;
 
@@ -40,6 +39,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         private SpawnAreasContainer _spawnAreasContainer;
         [SerializeField] 
         private ProjectileContainer _projectileContainer;
+        [SerializeField] 
+        private ComboContainer _comboContainer;
         [SerializeField]
         private ConfigsContainer _configsContainer;
         [SerializeField] 
@@ -80,8 +81,10 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController, _configsContainer.ProjectileConfig);
             DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsContainer.ProjectileConfig);
             _healthSystem = new HealthSystem(_configsContainer.HealthConfig, _healthView);
-            ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer, _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
-                , _configsContainer.FruitConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig, _healthSystem);
+            ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer,
+                _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
+                , _configsContainer.FruitConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig,
+                _healthSystem, _configsContainer.BonusesConfig);
             ShootPolicy = new WavesSpawnPolicy(_configsContainer.SpawnConfig);
             Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ProjectileConfig
                 ,_configsContainer.ShadowConfig , _configsContainer.FruitConfig, _configsContainer.GravitationConfig, _configsContainer.SpawnConfig);
@@ -90,6 +93,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             ScoreSystem = new ScoreSystem(projectInstaller.ScoreStateContainer, _slicer, _currentScoreView,
                 _highScoreView); 
             _gameEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
+            ComboSystem comboSystem = new ComboSystem(_slicer, _configsContainer.ComboConfig, _comboContainer, _screenSettingsProvider);
 
             RestartGameButton restartGameButton = new RestartGameButton(projectInstaller.SceneLoaderWithCurtains);
             _restartButton.Construct(restartGameButton);

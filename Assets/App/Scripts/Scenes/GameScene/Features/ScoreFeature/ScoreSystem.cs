@@ -1,4 +1,5 @@
 using App.Scripts.Scenes.GameScene.Features.InputFeatures;
+using UnityEngine;
 
 public class ScoreSystem : IRestartGameListener, IDestroyable
 {
@@ -36,7 +37,7 @@ public class ScoreSystem : IRestartGameListener, IDestroyable
         UpdateScores();
     }
 
-    private void OnSlice()
+    private void OnSlice(Vector2 projectilePosition)
     {
         _currentScore += 20;
         

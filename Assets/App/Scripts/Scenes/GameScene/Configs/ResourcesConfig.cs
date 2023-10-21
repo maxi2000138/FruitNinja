@@ -8,6 +8,8 @@ namespace App.Scripts.Scenes.GameScene.Configs
     public class ResourcesConfig : SerializedScriptableObject
     {
         public Dictionary<ProjectilePartEnum, string> FruitsPartPath;
+        public Dictionary<ProjectilePartEnum, string> BombPartPath;
+        public Dictionary<ProjectilePartEnum, string> HeartPartPath;
         public string ShadowPath = "Prefabs/Shadow";
     }
 }
