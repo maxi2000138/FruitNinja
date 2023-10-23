@@ -16,6 +16,7 @@ using App.Scripts.Scenes.GameScene.SceneInfrastructure.EntryPoint;
 using App.Scripts.Scenes.Infrastructure.CompositeRoot;
 using App.Scripts.Scenes.Infrastructure.MonoBehaviourSimulator;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
 {
@@ -56,14 +57,24 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         [SerializeField]
         private ScoreView _highScoreView;
         [SerializeField]
-        private HealthView _healthView;
+        private HealthController _healthController;
         [SerializeField]
         private LoosePanelView _loosePanelView;
         [SerializeField]
+        private PausePanelView _pausePanelView;
+        [SerializeField]
+        private ScoreView _scoreView;
+        [SerializeField]
         private CustomButton _restartButton;
         [SerializeField]
-        private CustomButton _exitMenuButton;
-    
+        private CustomButton _looseExitMenuButton;
+        [SerializeField]
+        private CustomButton _pauseExitMenuButton;
+        [SerializeField]
+        private CustomButton _resumeGameButton;
+        [SerializeField]
+        private CustomButton _pauseGameButton;
+        
         private SliceCollidersController _sliceCollidersController;
         private PhysicalFlightCalculator _physicalFlightCalculator;
         private GameStateObserver _gameStateObserver;
@@ -77,17 +88,23 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             ProjectileDestroyer = new ProjectileDestroyer();
             _sliceCollidersController = new SliceCollidersController();
             _gameStateObserver = new GameStateObserver();
-            _physicalFlightCalculator = new PhysicalFlightCalculator(_screenSettingsProvider, _configsContainer.GravitationConfig);
-            _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController, _configsContainer.ProjectileConfig);
-            DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsContainer.ProjectileConfig);
-            _healthSystem = new HealthSystem(_configsContainer.HealthConfig, _healthView);
+            
+            _loosePanelView.Construct(projectInstaller.TweenCore);
+            _scoreView.Construct(projectInstaller.TweenCore);
+            _highScoreView.Construct(projectInstaller.TweenCore);
+
+            
+            _physicalFlightCalculator = new PhysicalFlightCalculator(_screenSettingsProvider, _configsContainer.PhysicsConfig);
+            _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController, _configsContainer.ShootConfig);
+            DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsContainer.ShootConfig);
+            _healthSystem = new HealthSystem(_configsContainer.HealthConfig, _healthController, projectInstaller.TweenCore);
             ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer,
                 _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
-                , _configsContainer.FruitConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig,
-                _healthSystem, _configsContainer.BonusesConfig);
+                , _configsContainer.ProjectileConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig,
+                _healthSystem);
             ShootPolicy = new WavesSpawnPolicy(_configsContainer.SpawnConfig);
-            Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ProjectileConfig
-                ,_configsContainer.ShadowConfig , _configsContainer.FruitConfig, _configsContainer.GravitationConfig, _configsContainer.SpawnConfig);
+            Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ShootConfig
+                ,_configsContainer.ShadowConfig , _configsContainer.ProjectileConfig, _configsContainer.PhysicsConfig, _configsContainer.SpawnConfig);
             ShootSystem = new ShootSystem(Shooter, ShootPolicy);
             _healthOverLoosePolicy = new HealthOverLoosePolicy(_healthSystem, DestroyTrigger);
             ScoreSystem = new ScoreSystem(projectInstaller.ScoreStateContainer, _slicer, _currentScoreView,
@@ -95,9 +112,17 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             _gameEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
             ComboSystem comboSystem = new ComboSystem(_slicer, _configsContainer.ComboConfig, _comboContainer, _screenSettingsProvider);
 
+            PauseController pauseController = new PauseController(_configsContainer.PhysicsConfig);
             RestartGameButton restartGameButton = new RestartGameButton(projectInstaller.SceneLoaderWithCurtains);
             _restartButton.Construct(restartGameButton);
-            _exitMenuButton.Construct(new ExitToMenuButton(projectInstaller.SceneLoaderWithCurtains));
+            _looseExitMenuButton.Construct(new ExitToMenuButton(projectInstaller.SceneLoaderWithCurtains));
+            _pauseExitMenuButton.Construct(new ExitToMenuButton(projectInstaller.SceneLoaderWithCurtains));
+            _pauseGameButton.Construct(new PauseButton(pauseController, _pausePanelView));
+            _resumeGameButton.Construct(new ResumeButton(pauseController, _pausePanelView));
+
+            LoosePanelController loosePanelController = new LoosePanelController(_loosePanelView, ScoreSystem);
+            
+            
             
             monoBehaviourSimulator.AddInitializable(DestroyTrigger);
             monoBehaviourSimulator.AddInitializable(_physicalFlightCalculator);
@@ -108,7 +133,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             monoBehaviourSimulator.AddDestroyable(ScoreSystem);
             
             _gameStateObserver.AddObserver(_slicer);
-            _gameStateObserver.AddObserver(_loosePanelView);
+            _gameStateObserver.AddObserver(loosePanelController);
             _gameStateObserver.AddObserver(ShootSystem);
             _gameStateObserver.AddObserver(_healthSystem);
             _gameStateObserver.AddObserver(ScoreSystem);

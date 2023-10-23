@@ -2,6 +2,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using App.Scripts.Scenes.GameScene.Configs;
+using App.Scripts.Scenes.Infrastructure.MonoInterfaces;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.Shooter.ShootPolicy
@@ -40,8 +42,8 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
         private async Task ShootTask(CancellationToken token)
         {
-            float fruitsAmountRange = _spawnConfig.FruitsAmountRange.x;
-            float fruitsInGroupSpawnDelay = _spawnConfig.FruitsInGroupSpawnDelayRange.y;
+            float fruitsAmountRange = _spawnConfig.BlocksAmountRange.x;
+            float fruitsInGroupSpawnDelay = _spawnConfig.BlocksInGroupSpawnDelayRange.y;
             float groupSpawnDelayRange = _spawnConfig.GroupSpawnDelayRange.y;
 
             int groupNumber = 0;
@@ -56,22 +58,19 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                         return;
                     
                     NeedShoot?.Invoke();
-                    await Task.Delay((int)(fruitsInGroupSpawnDelay*1000), token);
+                    await UniTask.Delay((int)(fruitsInGroupSpawnDelay * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, cts.Token);
                 }
 
                 if(token.IsCancellationRequested)
                     return;
-
-                await Task.Delay((int)(groupSpawnDelayRange * 1000), token);
-
-                fruitsAmountRange = Mathf.Lerp(_spawnConfig.FruitsAmountRange.x, _spawnConfig.FruitsAmountRange.y
+                await UniTask.Delay((int)(groupSpawnDelayRange * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, token);
+                fruitsAmountRange = Mathf.Lerp(_spawnConfig.BlocksAmountRange.x, _spawnConfig.BlocksAmountRange.y
                     ,(float)groupNumber / _spawnConfig.AverageAmountSpawnGroups);
-                fruitsInGroupSpawnDelay = Mathf.Lerp(_spawnConfig.FruitsInGroupSpawnDelayRange.y, _spawnConfig.FruitsInGroupSpawnDelayRange.x
+                fruitsInGroupSpawnDelay = Mathf.Lerp(_spawnConfig.BlocksInGroupSpawnDelayRange.y, _spawnConfig.BlocksInGroupSpawnDelayRange.x
                     ,(float)groupNumber / _spawnConfig.AverageAmountSpawnGroups);
                 groupSpawnDelayRange = Mathf.Lerp(_spawnConfig.GroupSpawnDelayRange.y, _spawnConfig.GroupSpawnDelayRange.x
                     ,(float)groupNumber / _spawnConfig.AverageAmountSpawnGroups);
             }
         }
-
     }
 }

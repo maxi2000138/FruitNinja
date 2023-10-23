@@ -14,7 +14,7 @@ public class ProjectInitializer : MonoBehaviour
         InstallerBehaviour installerPrefab = ((GameObject)Resources.Load(PROJECT_COMPOSITE_ROOT_PATH)).GetComponent<InstallerBehaviour>();
         InstallerBehaviour installer = Instantiate(installerPrefab);
         _monoBehaviourSimulator = installer.GetComponentInChildren<MonoBehaviourSimulator>();
-        DontDestroyOnLoad(installer.gameObject);
+        DontDestroyOnLoad(installer.transform.root);
         installer.InstallBindings(_monoBehaviourSimulator);
         _monoBehaviourSimulator.InitializeAll();
         SetGameSettings();

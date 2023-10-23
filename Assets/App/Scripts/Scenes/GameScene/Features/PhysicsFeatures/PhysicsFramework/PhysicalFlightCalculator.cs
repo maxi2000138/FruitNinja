@@ -6,14 +6,14 @@ using UnityEngine;
 public class PhysicalFlightCalculator : IInitializable
 {
     private float _highestYValue;
-    private readonly GravitationConfig _gravitationConfig;
+    private readonly PhysicsConfig _physicsConfig;
     private readonly ScreenSettingsProvider _screenSettingsProvider;
 
 
-    public PhysicalFlightCalculator(ScreenSettingsProvider screenSettingsProvider, GravitationConfig gravitationConfig)
+    public PhysicalFlightCalculator(ScreenSettingsProvider screenSettingsProvider, PhysicsConfig physicsConfig)
     {
         _screenSettingsProvider = screenSettingsProvider;
-        _gravitationConfig = gravitationConfig;
+        _physicsConfig = physicsConfig;
 
     }
 
@@ -40,11 +40,11 @@ public class PhysicalFlightCalculator : IInitializable
         GetFlyTimeFromVelocity(GetNeededYVelocityForHeight(GetPathHeight(yPosition)));
 
     private float GetFlyTimeFromVelocity(float yVelocity) => 
-        yVelocity * 2 / Mathf.Abs(_gravitationConfig.StartGravityValue);
+        yVelocity * 2 / Mathf.Abs(_physicsConfig.StartGravityValue);
 
     private float GetPathHeight(float positionY) => 
         _highestYValue - positionY;
 
     private float GetNeededYVelocityForHeight(float maxHeight) => 
-        Mathf.Sqrt(2 * Mathf.Abs(_gravitationConfig.StartGravityValue * maxHeight));
+        Mathf.Sqrt(2 * Mathf.Abs(_physicsConfig.StartGravityValue * maxHeight));
 }

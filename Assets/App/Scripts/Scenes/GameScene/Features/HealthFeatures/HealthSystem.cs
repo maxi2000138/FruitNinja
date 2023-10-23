@@ -5,21 +5,23 @@ public class HealthSystem : IRestartGameListener
     public int Health { get; private set; }
     
     private HealthConfig _healthConfig;
-    private readonly HealthView _healthView;
+    private readonly HealthController _healthController;
+    private TweenCore _tweenCore;
 
-    public HealthSystem(HealthConfig healthConfig, HealthView healthView)
+    public HealthSystem(HealthConfig healthConfig, HealthController healthController, TweenCore tweenCore)
     {
+        _tweenCore = tweenCore;
         _healthConfig = healthConfig;
-        _healthView = healthView;
+        _healthController = healthController;
 
-        _healthView.Construct(_healthConfig);
+        _healthController.Construct(_healthConfig, _tweenCore);
         OnRestartGame();
     }
 
     public void OnRestartGame()
     {
         Health = _healthConfig.Health;
-        _healthView.SetupHealth(Health);
+        _healthController.SetupHealth(Health);
     }
 
     public void LooseLife()
@@ -28,7 +30,7 @@ public class HealthSystem : IRestartGameListener
             return;
 
         if(Health > 0)
-            _healthView.LooseHealth();
+            _healthController.LooseHealth();
         
         Health = Mathf.Clamp(Health - 1, 0, Health);
     }

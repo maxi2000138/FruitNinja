@@ -23,25 +23,23 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly ResourcesConfig _resourcesConfig;
         private readonly ShadowConfig _shadowConfig;
         private readonly HealthSystem _healthSystem;
-        private readonly BonusesConfig _bonusesConfig;
-        private readonly FruitConfig _fruitConfig;
+        private readonly ProjectileConfig _projectileConfig;
         private readonly Vector2 _defaultPosition = new(100f, 100f);
 
         public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectileContainer.ProjectileContainer projectileContainer, ShadowContainer shadowContainer, SliceCollidersController sliceCollidersController
-            , ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer, FruitConfig fruitConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig
-            , HealthSystem healthSystem, BonusesConfig bonusesConfig)
+            , ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer, ProjectileConfig projectileConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig
+            , HealthSystem healthSystem)
         {
             _destroyTrigger = destroyTrigger;
             _projectileContainer = projectileContainer;
             _shadowContainer = shadowContainer;
             _sliceCollidersController = sliceCollidersController;
-            _fruitConfig = fruitConfig;
+            _projectileConfig = projectileConfig;
             _resourceObjectsProvider = resourceObjectsProvider;
             _particleSystemPlayer = particleSystemPlayer;
             _resourcesConfig = resourcesConfig;
             _shadowConfig = shadowConfig;
             _healthSystem = healthSystem;
-            _bonusesConfig = bonusesConfig;
         }
 
         public Fruit CreateFruit(FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow)
@@ -95,7 +93,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             projectileObject = fruit.GetComponent<ProjectileObject>();
             shadow = SpawnShadowAndConstruct(projectileObject, position, fruitScale);
             
-            if (_fruitConfig.FruitDictionary.TryGetValue(fruitType, out FruitData fruitData))
+            if (_projectileConfig.FruitDictionary.TryGetValue(fruitType, out FruitData fruitData))
             {
                 fruit.Construct(fruitData.SliceColor, _particleSystemPlayer);
                 SetProjectileAndShadowSprite(projectileObject, fruitData.PartSprites[projectilePart], shadow, fruitScale, shadowScale);
@@ -113,7 +111,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             
             bomb.Construct(_particleSystemPlayer);
             
-            if (_bonusesConfig.BonusData.TryGetValue(BonusType.Bomb, out BonusData bonusData))
+            if (_projectileConfig.BonusesDictionary.TryGetValue(BonusesType.Bomb, out BonusData bonusData))
             {
                 SetProjectileAndShadowSprite(projectileObject, bonusData.PartSprites[projectilePart], shadow, projectileScale, shadowScale);
             }
@@ -130,7 +128,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             
             heart.Construct(_particleSystemPlayer);
             
-            if (_bonusesConfig.BonusData.TryGetValue(BonusType.Heart, out BonusData bonusData))
+            if (_projectileConfig.BonusesDictionary.TryGetValue(BonusesType.Bomb, out BonusData bonusData))
             {
                 SetProjectileAndShadowSprite(projectileObject, bonusData.PartSprites[projectilePart], shadow, projectileScale, shadowScale);
             }

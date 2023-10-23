@@ -1,53 +1,42 @@
-using System;
-using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace CodeBase.Logic
 {
   public class LoadingCurtain : MonoBehaviour
   {
-    private const float AlphaChangeDelta = 0.03f;
-    private const float HideSpeed = 0.2f;
-    private const float FadeSpeed = 0.03f;
-    public event Action OnHide;
-
     public CanvasGroup Curtain;
-    
 
+    private TweenCore _tweenCore;
+
+
+    public void Construct(TweenCore tweenCore)
+    {
+        _tweenCore = tweenCore;
+    }
+    
     private void Awake()
     {
-      DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);
     }
 
-    public void Show()
+    public async Task Show()
     {
       gameObject.SetActive(true);
-      StartCoroutine(DoHideIn());
+      await _tweenCore.TweenByTime(SetAlpha, 0f, 1f, 0.6f, CustomEase.Linear, new CancellationToken());
     }
 
-    public void Hide() => StartCoroutine(DoFadeIn());
-
-    private IEnumerator DoFadeIn()
+    private void SetAlpha(float value)
     {
-      while (Curtain.alpha > 0)
-      {
-        Curtain.alpha -= FadeSpeed;
-        yield return new WaitForSeconds(AlphaChangeDelta);
-      }
+      Curtain.alpha = value;
+    }
 
+    public async Task Hide()
+    {
+      await _tweenCore.TweenByTime(SetAlpha, 1f, 0f, 0.8f, CustomEase.Linear, new CancellationToken());
       gameObject.SetActive(false);
     }
-
-    private IEnumerator DoHideIn()
-    {
-      while (Curtain.alpha < 1)
-      {
-        Curtain.alpha += HideSpeed;
-        yield return new WaitForSeconds(AlphaChangeDelta);
-      }
-
-      OnHide?.Invoke();
-    }
-
+    
   }
 }

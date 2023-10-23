@@ -18,7 +18,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Scal
             Vector2 scaleVector = Vector2.zero;
             foreach (IScaler scaler in _rotaters)
             {
-                scaleVector += scaler.Scale(Time.fixedDeltaTime);
+                scaleVector += scaler.Scale(deltaTime);
             }
 
             Vector2 transformLocalScale = physicsObject.transform.localScale;

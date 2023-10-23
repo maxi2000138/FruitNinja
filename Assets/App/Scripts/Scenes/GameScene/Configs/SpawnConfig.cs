@@ -2,21 +2,23 @@ using System.Collections.Generic;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Enum;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace App.Scripts.Scenes.GameScene.Configs
 {
     [CreateAssetMenu(fileName = "new SpawnConfig", menuName = "Configs/Spawn Config")]
-    public class SpawnConfig : ScriptableObject
+    public class SpawnConfig : SerializedScriptableObject
     {
-        [MinMaxSlider(1,25)]
-        public Vector2Int FruitsAmountRange;
+        [FormerlySerializedAs("FruitsAmountRange")] [MinMaxSlider(1,25)]
+        public Vector2Int BlocksAmountRange;
         [MinMaxSlider(1f,10f)]
         public Vector2 GroupSpawnDelayRange;
-        [MinMaxSlider(0f,2f)]
-        public Vector2 FruitsInGroupSpawnDelayRange;
+        [FormerlySerializedAs("FruitsInGroupSpawnDelayRange")] [MinMaxSlider(0f,2f)]
+        public Vector2 BlocksInGroupSpawnDelayRange;
         [Range(2,100)]
         public int AverageAmountSpawnGroups;
-        public List<FruitType> FruitTypes;
-
+        [FormerlySerializedAs("FruitTypes")] public List<FruitType> ActiveFruitTypes;
+        public List<BonusesType> ActiveBonusesTypes;
+        public Dictionary<ProjectileType, float> ProjectileSpawnProbability;
     }
 }

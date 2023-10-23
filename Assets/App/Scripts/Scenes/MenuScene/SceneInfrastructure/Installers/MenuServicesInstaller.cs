@@ -9,7 +9,7 @@ public class MenuServicesInstaller : InstallerBehaviour
     [SerializeField] private MenuEntryPoint _menuEntryPoint;
     [SerializeField] private CustomButton _playButtonBehaviour;
     [SerializeField] private CustomButton _exitButtonBehaviour;
-    [SerializeField] private ScoreView _highScoreView;
+    [SerializeField] private SetupTextView _highScoreView;
 
     public override void OnInstallBindings(MonoBehaviourSimulator monoBehaviourSimulator, ProjectInstaller projectInstaller)
     {
@@ -19,7 +19,7 @@ public class MenuServicesInstaller : InstallerBehaviour
             _exitButtonBehaviour.Construct(new DeviceExitButton());
         
         _playButtonBehaviour.Construct(new PlayButton(projectInstaller.SceneLoaderWithCurtains));
-        _menuHighScoreController = new MenuHighScoreController(_highScoreView, projectInstaller.ScoreStateContainer);
+        _menuHighScoreController.Construct(_highScoreView, projectInstaller.ScoreStateContainer);
 
         _menuEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
     }

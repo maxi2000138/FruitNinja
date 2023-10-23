@@ -25,7 +25,6 @@ public class PersistantDataSaver : IInitializable
 
     private void SaveAll()
     {
-        Debug.Log("Save");
         foreach (ISaveDataContainer saveDataContainer in _saveDataContainers)
         {
             if(saveDataContainer.IsChanged)

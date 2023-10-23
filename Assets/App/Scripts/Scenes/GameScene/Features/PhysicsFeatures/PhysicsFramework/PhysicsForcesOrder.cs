@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using App.Scripts.Scenes.GameScene.Configs;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.PhysicsFramework

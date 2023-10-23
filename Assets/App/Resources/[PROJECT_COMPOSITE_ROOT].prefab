@@ -343,6 +343,7 @@ MonoBehaviour:
   <CoroutineRunner>k__BackingField: {fileID: 7978460393000723312}
   <LoadingCurtain>k__BackingField: {fileID: 9192443881353153554}
   _saveDataKeysConfig: {fileID: 11400000, guid: aa69ea2e587d0994eb07d0f64ef3651c, type: 2}
+  _animationConfig: {fileID: 11400000, guid: 33ff4735645c78344a3ed6e41887aaf7, type: 2}
 --- !u!1 &8597991942021041504
 GameObject:
   m_ObjectHideFlags: 0

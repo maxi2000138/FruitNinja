@@ -5,7 +5,7 @@ using App.Scripts.Scenes.GameScene.Features.InputFeatures;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class ComboSystem : MonoBehaviour
+public class ComboSystem
 {
     private CancellationTokenSource _cts;
     private bool _comboStarted;
@@ -28,7 +28,7 @@ public class ComboSystem : MonoBehaviour
     
     public void SpawnComboPrefab(int comboCount)
     {
-        ComboPrefab comboPrefab = Instantiate(_comboConfig.ComboPrefab, ConstrainPosition(_projectilePosition, _comboConfig.ComboPrefab.GetComponent<RectTransform>().sizeDelta * _comboConfig.Scale), quaternion.identity, _comboContainer.transform);
+        ComboPrefab comboPrefab = GameObject.Instantiate(_comboConfig.ComboPrefab, ConstrainPosition(_projectilePosition, _comboConfig.ComboPrefab.GetComponent<RectTransform>().sizeDelta * _comboConfig.Scale), quaternion.identity, _comboContainer.transform);
         comboPrefab.transform.localScale = _comboConfig.Scale; 
         comboPrefab.Construct(_comboConfig, comboCount);
     }

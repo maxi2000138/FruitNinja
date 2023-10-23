@@ -16,14 +16,14 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private float _yDestroyValue;
         private readonly IScreenSettingsProvider _screenSettingsProvider;
         private readonly IProjectileDestroyer _projectileDestroyer;
-        private readonly ProjectileConfig _projectileConfig;
+        private readonly ShootConfig _shootConfig;
         private readonly List<Transform[]> _destroyListeners = new ();
         
-        public DestroyTrigger(IScreenSettingsProvider screenSettingsProvider, IProjectileDestroyer projectileDestroyer, ProjectileConfig projectileConfig)
+        public DestroyTrigger(IScreenSettingsProvider screenSettingsProvider, IProjectileDestroyer projectileDestroyer, ShootConfig shootConfig)
         {
             _screenSettingsProvider = screenSettingsProvider;
             _projectileDestroyer = projectileDestroyer;
-            _projectileConfig = projectileConfig;
+            _shootConfig = shootConfig;
         }
     
         public void AddDestroyTriggerListeners(params Transform[] objectTransforms)
@@ -34,7 +34,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         public void Initialize()
         {
             Vector2 zeroCameraPoint = _screenSettingsProvider.ViewportToWorldPosition(Vector2.zero);
-            _yDestroyValue = zeroCameraPoint.y + _projectileConfig.DestroyTriggerOffset;
+            _yDestroyValue = zeroCameraPoint.y + _shootConfig.DestroyTriggerOffset;
         }
 
         public void Update(float deltaTime)

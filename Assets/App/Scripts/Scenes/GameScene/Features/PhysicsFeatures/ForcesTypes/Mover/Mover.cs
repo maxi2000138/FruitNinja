@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using App.Scripts.Scenes.GameScene.Configs;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.PhysicsFramework;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Move
     public class Mover : PhysicsBehaviour
     {
         public Vector2 MovementVector { get; private set; }
+        
         private List<IMover> _movers = new();
 
         private void Awake()
@@ -18,10 +20,10 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Move
         {
             foreach (IMover mover in _movers)
             {
-                MovementVector += mover.Move(Time.fixedDeltaTime);
+                MovementVector += mover.Move(deltaTime);
             }
             
-            physicsObject.transform.Translate(MovementVector, Space.World);
+            physicsObject.transform.Translate(MovementVector * Time.timeScale, Space.World);
         }
     }
 }

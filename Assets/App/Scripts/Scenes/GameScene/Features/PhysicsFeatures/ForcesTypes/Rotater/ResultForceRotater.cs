@@ -18,7 +18,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Rota
             Vector3 rotationVector = Vector3.zero;
             foreach (IRotater mover in _rotaters)
             {
-                rotationVector += mover.Rotate(Time.fixedDeltaTime);
+                rotationVector += mover.Rotate(deltaTime);
             }
 
             physicsObject.transform.Rotate(rotationVector, Space.World);

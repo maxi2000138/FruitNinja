@@ -1,12 +1,12 @@
-using System;
 using UnityEngine;
 
 public class MenuHighScoreController : MonoBehaviour, IDestroyable
 {
-    private ScoreView _scoreView;
-    private readonly SaveDataContainer<ScoreData> _scoreDataContainer;
+    private SetupTextView _scoreView;
+    private int _lastScore;
+    private SaveDataContainer<ScoreData> _scoreDataContainer;
 
-    public MenuHighScoreController(ScoreView scoreView, SaveDataContainer<ScoreData> scoreDataContainer)
+    public void Construct(SetupTextView scoreView, SaveDataContainer<ScoreData> scoreDataContainer)
     {
         _scoreView = scoreView;
         _scoreDataContainer = scoreDataContainer;
@@ -22,6 +22,6 @@ public class MenuHighScoreController : MonoBehaviour, IDestroyable
 
     private void SetScore()
     {
-        _scoreView.UpdateText(_scoreDataContainer.ReadData().HighScore.ToString());
+        _scoreView.SetupText(_scoreDataContainer.ReadData().HighScore.ToString());
     }
 }

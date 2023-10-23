@@ -18,23 +18,23 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly SpawnAreasContainer _spawnAreasContainer;
         private readonly IProjectileFactory _projectileFactory;
         private readonly PhysicalFlightCalculator _physicalFlightCalculator;
-        private readonly GravitationConfig _gravitationConfig;
+        private readonly PhysicsConfig _physicsConfig;
         private readonly SpawnConfig _spawnConfig;
-        private readonly ProjectileConfig _projectileConfig;
+        private readonly ShootConfig _shootConfig;
         private readonly ShadowConfig _shadowConfig;
-        private readonly FruitConfig _fruitConfig;
+        private readonly ProjectileConfig _projectileConfig;
 
         public Shooter(IProjectileFactory projectileFactory, PhysicalFlightCalculator physicalFlightCalculator, SpawnAreasContainer spawnAreasContainer, IScreenSettingsProvider screenSettingsProvider
-            , ProjectileConfig projectileConfig, ShadowConfig shadowConfig, FruitConfig fruitConfig, GravitationConfig gravitationConfig, SpawnConfig spawnConfig)
+            , ShootConfig shootConfig, ShadowConfig shadowConfig, ProjectileConfig projectileConfig, PhysicsConfig physicsConfig, SpawnConfig spawnConfig)
         {
             _projectileFactory = projectileFactory;
             _physicalFlightCalculator = physicalFlightCalculator;
             _spawnAreasContainer = spawnAreasContainer;
             _screenSettingsProvider = screenSettingsProvider;
-            _projectileConfig = projectileConfig;
+            _shootConfig = shootConfig;
             _shadowConfig = shadowConfig;
-            _fruitConfig = fruitConfig;
-            _gravitationConfig = gravitationConfig;
+            _projectileConfig = projectileConfig;
+            _physicsConfig = physicsConfig;
             _spawnConfig = spawnConfig;
         }
         
@@ -47,25 +47,29 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
         private void SpawnProjectileAndShootByAngle(SpawnAreaData areaData, float angle)
         {
-            GetRandomTypeScaleAndPosition(areaData, _spawnConfig,_fruitConfig ,out var position, out var type, out var scale);
 
-            int n = Random.Range(0, 5);
-            ShootObject shootObject;
-            Shadow shadow;
-            if (n < 1)
-            {
-                shootObject = _projectileFactory.CreateFruit(type, position, scale, scale, out shadow).GetComponent<ShootObject>();
-            }
-            else if (n < 2)
-            {
-                shootObject = _projectileFactory.CreateHeart(position, scale, scale, out shadow).GetComponent<ShootObject>();
-            }
-            else
-            {
-                shootObject = _projectileFactory.CreateBomb(position, scale, scale, out shadow).GetComponent<ShootObject>();
-            }
+            ShootObject shootObject = null;
+            Shadow shadow = null;
+            var (projectileType, value) = _spawnConfig.ProjectileSpawnProbability.GetRandomItemByProbability(data => data.Value);
+            GetRandomScaleAndPosition(areaData, projectileType,_projectileConfig ,out var position, out var scale);
 
-            Vector2 finalScale = GetLongestScale(scale, _fruitConfig.FruitScaleRange);
+            switch (projectileType)
+            {
+                case(ProjectileType.Fruit):
+                    var type = _spawnConfig.ActiveFruitTypes.GetRandomItem();
+                    shootObject = _projectileFactory.CreateFruit(type, position, scale, scale, out shadow).GetComponent<ShootObject>();
+                    break;
+                case(ProjectileType.Bomb):
+                    shootObject = _projectileFactory.CreateBomb(position, scale, scale, out shadow).GetComponent<ShootObject>();
+                    break;                    
+                case(ProjectileType.Heart):
+                    shootObject = _projectileFactory.CreateHeart(position, scale, scale, out shadow).GetComponent<ShootObject>();
+                    break;                    
+                    
+            }
+            
+            Vector2 finalScale = GetLongestScale(scale, _projectileConfig.ProjectileScales[projectileType].Scale);
+
 
             float flyTime = _physicalFlightCalculator.GetFlyTimeFromYPosition(position.y);
             shootObject.ScaleByTimeApplier.StartScaling(scale,finalScale, flyTime);
@@ -88,7 +92,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         
         private void RotateProjectile(ShootObject shootObject)
         {
-            float torqueValue = _projectileConfig.TorqueVelocityRange.GetRandomFloatBetween();
+            float torqueValue = _shootConfig.TorqueVelocityRange.GetRandomFloatBetween();
             shootObject.TorqueApplier.AddTorque(torqueValue);
         }
         
@@ -128,13 +132,12 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             velocityApplier.AddVelocity(moveVector);
         }
 
-        private void GetRandomTypeScaleAndPosition(SpawnAreaData areaData, SpawnConfig spawnConfig, FruitConfig fruitConfig, out Vector2 position, out FruitType type, out Vector2 scale)
+        private void GetRandomScaleAndPosition(SpawnAreaData areaData, ProjectileType projectileType, ProjectileConfig projectileConfig, out Vector2 position, out Vector2 scale)
         {
             position = _screenSettingsProvider
                 .ViewportToWorldPosition((areaData.ViewportLeftPosition, areaData.ViewportRightPosition)
                     .GetRandomPointBetween());
-            type = spawnConfig.FruitTypes.GetRandomItem();
-            float randomScaleValue = fruitConfig.FruitScaleRange.GetRandomBound();
+            float randomScaleValue = projectileConfig.ProjectileScales[projectileType].Scale.GetRandomBound();
             scale = new Vector2(randomScaleValue, randomScaleValue);
         }
 
@@ -143,7 +146,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             Vector2 moveVector = new Vector2(1, 1);
             moveVector.x *= Mathf.Cos(Mathf.Deg2Rad * (areaData.LineAngle + angle));
             moveVector.y *= Mathf.Sin(Mathf.Deg2Rad * (areaData.LineAngle + angle));
-            moveVector *= _projectileConfig.ShootVelocityRange.GetRandomFloatBetween();
+            moveVector *= _shootConfig.ShootVelocityRange.GetRandomFloatBetween();
             return moveVector;
         }
     

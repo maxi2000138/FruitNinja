@@ -16,15 +16,15 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
 
         private SliceCollidersController _sliceCollidersController;
         private ScreenSettingsProvider _screenSettingsProvider;
-        private ProjectileConfig _projectileConfig;
+        private ShootConfig _shootConfig;
         private InputReader _inputReader;
         private Coroutine _sliceCoroutine;
         private Vector2 _lastWorldPosition;
         private bool _isSlicing;
 
-        public void Construct(InputReader inputReader, ScreenSettingsProvider screenSettingsProvider, SliceCollidersController sliceCollidersController, ProjectileConfig projectileConfig)
+        public void Construct(InputReader inputReader, ScreenSettingsProvider screenSettingsProvider, SliceCollidersController sliceCollidersController, ShootConfig shootConfig)
         {
-            _projectileConfig = projectileConfig;
+            _shootConfig = shootConfig;
             _sliceCollidersController = sliceCollidersController;
             _screenSettingsProvider = screenSettingsProvider;
             _inputReader = inputReader;
@@ -41,7 +41,7 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
         
             if (_sliceCollidersController.TryGetIntersectionCollider(worldPosition, out Mover forceMover, out SliceCircleCollider collider))
             {
-                collider.SliceObject.Slice(forceMover, _projectileConfig.SliceForce);
+                collider.SliceObject.Slice(forceMover, _shootConfig.SliceForce);
                 collider.Disable();
                 OnSlice?.Invoke(worldPosition);
             }

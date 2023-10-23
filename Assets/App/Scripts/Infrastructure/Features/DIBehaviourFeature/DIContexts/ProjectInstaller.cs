@@ -14,7 +14,6 @@ public class ProjectInstaller : InstallerBehaviour
     public LoadingCurtain LoadingCurtain { get; private set; }
     [SerializeField] 
     private SaveDataKeysConfig _saveDataKeysConfig;
-
     public SaveLoadService SaveLoadService { get; private set; }
     public PersistantDataSaver PersistantDataSaver { get; private set; }
     public List<ISaveDataContainer> SavedDataContainers { get; private set; }
@@ -22,12 +21,15 @@ public class ProjectInstaller : InstallerBehaviour
     public SaveDataContainer<ScoreData> ScoreStateContainer { get; private set; }
     public SaveTimeTrigger SaveTimeTrigger { get; private set; }
     public SceneLoaderWithCurtains SceneLoaderWithCurtains { get; private set; }
+    public TweenCore TweenCore { get; private set; }
     
     private SceneLoader SceneLoader;
     
 
     public override void OnInstallBindings(MonoBehaviourSimulator monoBehaviourSimulator, ProjectInstaller projectInstaller)
     {
+        TweenCore = new TweenCore();
+        
         SaveLoadService = new SaveLoadService();
         
         ScoreStateContainer = new SaveDataContainer<ScoreData>(SaveLoadService, _saveDataKeysConfig.GetDataKey<ScoreData>());
@@ -45,6 +47,7 @@ public class ProjectInstaller : InstallerBehaviour
         PersistantDataSaver = new PersistantDataSaver(SavedDataContainers,SavedTriggers);
         
         SceneLoader = new SceneLoader(CoroutineRunner);
+        LoadingCurtain.Construct(TweenCore);
         SceneLoaderWithCurtains = new SceneLoaderWithCurtains(SceneLoader, LoadingCurtain);
         
         monoBehaviourSimulator.AddInitializable(PersistantDataSaver);

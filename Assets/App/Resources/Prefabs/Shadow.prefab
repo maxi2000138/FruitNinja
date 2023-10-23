@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e5209564c6efd4497a087c2cc92edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mass: 1
+  _physicsConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
 --- !u!114 &3582187527697598645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +192,7 @@ MonoBehaviour:
   _physicOperations:
   - {fileID: 4240301736134597701}
   - {fileID: 3412754426066515445}
+  _physicsConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
 --- !u!1 &5972649582037435542
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,7 +32,6 @@ public class SaveDataContainer<T> : ISaveDataContainer<T> where T : ISavedData, 
     
     public void Load()
     {
-        Debug.Log("Load: " + KEY);
         T data = _saveLoadService.LoadProgress<T>(KEY);
         if (data != null)
         {
@@ -46,7 +45,6 @@ public class SaveDataContainer<T> : ISaveDataContainer<T> where T : ISavedData, 
 
     public void Save()
     {
-        Debug.Log("Save: " + KEY);
         _saveLoadService.SaveProgress(DataValue, KEY);
         IsChanged = false;
     }

@@ -223,6 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 310060741}
+  - component: {fileID: 310060742}
   m_Layer: 5
   m_Name: Texts
   m_TagString: Untagged
@@ -252,6 +253,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &310060742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310060740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0209ec3cc06bfb54a8d18a611841803a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &325984450
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,7 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9993e13f2f50e7140b21351d0a7a8b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuHighScoreController: {fileID: 0}
+  _menuHighScoreController: {fileID: 310060742}
   _menuEntryPoint: {fileID: 1266706794}
   _playButtonBehaviour: {fileID: 1688289132}
   _exitButtonBehaviour: {fileID: 1629022212}
@@ -1186,8 +1199,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1633571858}
   - component: {fileID: 1633571860}
-  - component: {fileID: 1633571859}
   - component: {fileID: 1633571861}
+  - component: {fileID: 1633571859}
   m_Layer: 5
   m_Name: HighScoreValueText
   m_TagString: Untagged
@@ -1321,7 +1334,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1633571857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4c2b15138233345b68553cf12e6dda, type: 3}
+  m_Script: {fileID: 11500000, guid: c8f9de2eca146f14f87c3efa56c5d6f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 1633571859}
