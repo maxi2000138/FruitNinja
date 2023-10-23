@@ -14,11 +14,11 @@ public class MenuServicesInstaller : InstallerBehaviour
     public override void OnInstallBindings(MonoBehaviourSimulator monoBehaviourSimulator, ProjectInstaller projectInstaller)
     {
         if (Application.isEditor)
-            _exitButtonBehaviour.Construct(new EditorExitButton());
+            _exitButtonBehaviour.Construct(new EditorExitButton(), projectInstaller.TweenCore);
         else
-            _exitButtonBehaviour.Construct(new DeviceExitButton());
+            _exitButtonBehaviour.Construct(new DeviceExitButton(), projectInstaller.TweenCore);
         
-        _playButtonBehaviour.Construct(new PlayButton(projectInstaller.SceneLoaderWithCurtains));
+        _playButtonBehaviour.Construct(new PlayButton(projectInstaller.SceneLoaderWithCurtains), projectInstaller.TweenCore);
         _menuHighScoreController.Construct(_highScoreView, projectInstaller.ScoreStateContainer);
 
         _menuEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);

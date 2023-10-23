@@ -9,7 +9,7 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
 {
     public class Slicer : MonoBehaviour, ILooseGameListener, IRestartGameListener
     {
-        public event Action<Vector2> OnSlice;
+        public event Action<Vector2, ProjectileType> OnSlice;
         
         [SerializeField] private TrailRenderer _trailRenderer;
         [SerializeField] private float _zPosition;
@@ -43,7 +43,7 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
             {
                 collider.SliceObject.Slice(forceMover, _shootConfig.SliceForce);
                 collider.Disable();
-                OnSlice?.Invoke(worldPosition);
+                OnSlice?.Invoke(worldPosition, collider.SliceObject.ProjectileType);
             }
         
             _trailRenderer.transform.position = worldPosition;

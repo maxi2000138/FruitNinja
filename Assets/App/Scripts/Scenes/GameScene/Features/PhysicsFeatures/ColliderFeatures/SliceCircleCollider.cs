@@ -10,7 +10,8 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures
         [field:SerializeField] public SliceObject SliceObject { get; private set; }
         [field:SerializeField] public Mover ForceMover { get; private set; }
         [field:SerializeField] public Transform ColliderObject { get; private set; }
-    
+        [SerializeField] private float _colliderRadiusOffset;
+        
         private SliceCollidersController _sliceCollidersController;
         private bool _isActive;
 
@@ -38,7 +39,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures
 
         private void Update()
         {
-            DebugAndGizmosDrawer.DrawCircleDebug(ColliderObject.transform.position, ColliderObject.transform.localScale.magnitude, 100, Color.black);
+            DebugAndGizmosDrawer.DrawCircleDebug(ColliderObject.transform.position, ColliderObject.transform.localScale.magnitude + _colliderRadiusOffset, 100, Color.black);
         }
 
         public bool IsPointInsideCollider(Vector2 point)
@@ -46,7 +47,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures
             if (!_isActive)
                 return false;
         
-            return (point - (Vector2)ColliderObject.transform.position).magnitude <= ColliderObject.transform.localScale.magnitude;
+            return (point - (Vector2)ColliderObject.transform.position).magnitude <= ColliderObject.transform.localScale.magnitude + + _colliderRadiusOffset;
         }
     }
 }

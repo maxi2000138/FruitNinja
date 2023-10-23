@@ -11,9 +11,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mover
       objectReference: {fileID: 0}
+    - target: {fileID: 1432272586602424981, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
+      propertyPath: _colliderRadiusOffset
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2473002728416569575, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
       propertyPath: m_Name
       value: Scaler
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744350060873640662, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
+      propertyPath: ProjectileType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3036667634212875339, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
       propertyPath: m_LocalScale.x

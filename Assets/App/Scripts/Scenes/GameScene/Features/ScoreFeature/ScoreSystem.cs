@@ -9,13 +9,15 @@ public class ScoreSystem : IRestartGameListener, IDestroyable
     private readonly ScoreView _currentScoreView;
     private readonly ScoreView _highScoreView;
     private readonly SaveDataContainer<ScoreData> _scoreContainer;
+    private readonly ScoreConfig _scoreConfig;
     private readonly Slicer _slicer;
 
     private int _previousScore = 0;
     private int _previousHighScore = 0;
 
-    public ScoreSystem(SaveDataContainer<ScoreData> scoreContainer, Slicer slicer, ScoreView currentScoreView, ScoreView highScoreView)
+    public ScoreSystem(SaveDataContainer<ScoreData> scoreContainer, Slicer slicer, ScoreView currentScoreView, ScoreView highScoreView, ScoreConfig scoreConfig)
     {
+        _scoreConfig = scoreConfig;
         _currentScoreView = currentScoreView;
         _highScoreView = highScoreView;
         _scoreContainer = scoreContainer;
@@ -40,18 +42,26 @@ public class ScoreSystem : IRestartGameListener, IDestroyable
         ResetScores();
     }
 
-    private void OnSlice(Vector2 projectilePosition)
+    private void OnSlice(Vector2 projectilePosition, ProjectileType projectileType)
+    {
+        if(projectileType != ProjectileType.Fruit)
+            return;
+
+        AddSliceScore(_scoreConfig.SliceScore);
+    }
+
+    public void AddSliceScore(int currentScore)
     {
         _previousScore = CurrentScore;
-        CurrentScore += 20;
-        
+        CurrentScore += currentScore;
+
         if (HighScore < CurrentScore)
         {
             _previousHighScore = HighScore;
             HighScore = CurrentScore;
             _scoreContainer.WriteData().HighScore = HighScore;
         }
-        
+
         UpdateScores();
     }
 

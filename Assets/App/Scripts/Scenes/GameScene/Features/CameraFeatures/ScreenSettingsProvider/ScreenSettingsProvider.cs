@@ -14,18 +14,27 @@ namespace App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsPro
     
         public Vector2 ViewportToWorldPosition(Vector2 viewportPosition)
         {
+            if (_camera == null)
+                return Vector2.zero;
+            
             Vector2 point = _camera.ViewportToWorldPoint(viewportPosition);
             return point;
         }
     
         public Vector2 WorldToViewportPosition(Vector2 worldPosition)
         {
+            if (_camera == null)
+                return Vector2.zero;
+
             Vector2 point = _camera.WorldToViewportPoint(worldPosition);
             return point;
         }
         
         public Vector2 WorldToScreenPosition(Vector2 worldPosition)
         {
+            if (_camera == null)
+                return Vector2.zero;
+
             Vector2 point = _camera.WorldToScreenPoint(worldPosition);
             return point;
         }
@@ -33,12 +42,18 @@ namespace App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsPro
     
         public Vector2 ScreenToWorldPosition(Vector2 worldPosition)
         {
+            if (_camera == null)
+                return Vector2.zero;
+
             Vector2 point = _camera.ScreenToWorldPoint(worldPosition);
             return point;
         }
         
         public Vector2 ViewportToScreenPosition(Vector2 worldPosition)
         {
+            if (_camera == null)
+                return Vector2.zero;
+
             Vector2 point = _camera.ViewportToScreenPoint(worldPosition);
             return point;
         }

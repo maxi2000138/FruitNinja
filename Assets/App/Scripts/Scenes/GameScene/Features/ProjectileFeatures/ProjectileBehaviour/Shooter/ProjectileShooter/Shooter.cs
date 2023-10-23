@@ -23,6 +23,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly ShootConfig _shootConfig;
         private readonly ShadowConfig _shadowConfig;
         private readonly ProjectileConfig _projectileConfig;
+        private const float _spriteHeightOffset = 2f;
 
         public Shooter(IProjectileFactory projectileFactory, PhysicalFlightCalculator physicalFlightCalculator, SpawnAreasContainer spawnAreasContainer, IScreenSettingsProvider screenSettingsProvider
             , ShootConfig shootConfig, ShadowConfig shadowConfig, ProjectileConfig projectileConfig, PhysicsConfig physicsConfig, SpawnConfig spawnConfig)
@@ -79,7 +80,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             
             RotateProjectile(shootObject);
             
-            ShootProjectile(areaData, angle, shootObject, 1f);
+            ShootProjectile(areaData, angle, shootObject, finalScale.x > scale.x ? finalScale.x : scale.x);
         }
 
         private void ShootProjectile(SpawnAreaData areaData, float angle, ShootObject shootObject, float maxScale)
@@ -123,7 +124,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
         private float FruitSpriteHeight(ShootObject shootObject, float maxScale)
         {
-            return shootObject.transform.position.y + (shootObject.ProjectileObject.SpriteDiagonal()/2 * maxScale);
+            return shootObject.transform.position.y + _spriteHeightOffset;
         }
 
         public void ShootProjectile(ShootObject shootObject, Vector2 moveVector)

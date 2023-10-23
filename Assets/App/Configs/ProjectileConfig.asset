@@ -1087,10 +1087,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.4898448
+      Data: 0.7188574
     - Name: 
       Entry: 4
-      Data: 1.264673
+      Data: 0.9360002
     - Name: 
       Entry: 8
       Data: 
@@ -1114,10 +1114,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.6283812
+      Data: 0.4732345
     - Name: 
       Entry: 4
-      Data: 1.58742881
+      Data: 0.5916321
     - Name: 
       Entry: 8
       Data: 
@@ -1141,10 +1141,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1.08995688
+      Data: 0.5017145
     - Name: 
       Entry: 4
-      Data: 1.44698548
+      Data: 0.646476448
     - Name: 
       Entry: 8
       Data: 

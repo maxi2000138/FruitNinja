@@ -108,17 +108,17 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             ShootSystem = new ShootSystem(Shooter, ShootPolicy);
             _healthOverLoosePolicy = new HealthOverLoosePolicy(_healthSystem, DestroyTrigger);
             ScoreSystem = new ScoreSystem(projectInstaller.ScoreStateContainer, _slicer, _currentScoreView,
-                _highScoreView); 
+                _highScoreView, _configsContainer.ScoreConfig); 
             _gameEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
-            ComboSystem comboSystem = new ComboSystem(_slicer, _configsContainer.ComboConfig, _comboContainer, _screenSettingsProvider);
+            ComboSystem comboSystem = new ComboSystem(_slicer, _configsContainer.ComboConfig, _comboContainer, _screenSettingsProvider, ScoreSystem, _configsContainer.ScoreConfig);
 
             PauseController pauseController = new PauseController(_configsContainer.PhysicsConfig);
             RestartGameButton restartGameButton = new RestartGameButton(projectInstaller.SceneLoaderWithCurtains);
-            _restartButton.Construct(restartGameButton);
-            _looseExitMenuButton.Construct(new ExitToMenuButton(projectInstaller.SceneLoaderWithCurtains));
-            _pauseExitMenuButton.Construct(new ExitToMenuButton(projectInstaller.SceneLoaderWithCurtains));
-            _pauseGameButton.Construct(new PauseButton(pauseController, _pausePanelView));
-            _resumeGameButton.Construct(new ResumeButton(pauseController, _pausePanelView));
+            _restartButton.Construct(restartGameButton, projectInstaller.TweenCore);
+            _looseExitMenuButton.Construct(new ExitToMenuButton(projectInstaller.SceneLoaderWithCurtains), projectInstaller.TweenCore);
+            _pauseExitMenuButton.Construct(new ExitToMenuButton(projectInstaller.SceneLoaderWithCurtains), projectInstaller.TweenCore);
+            _pauseGameButton.Construct(new PauseButton(pauseController, _pausePanelView), projectInstaller.TweenCore);
+            _resumeGameButton.Construct(new ResumeButton(pauseController, _pausePanelView), projectInstaller.TweenCore);
 
             LoosePanelController loosePanelController = new LoosePanelController(_loosePanelView, ScoreSystem);
             

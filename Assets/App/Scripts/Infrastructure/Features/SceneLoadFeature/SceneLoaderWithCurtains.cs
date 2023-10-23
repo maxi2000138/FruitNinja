@@ -16,7 +16,7 @@ public class SceneLoaderWithCurtains
     public async void ShowCurtainsAndLoad(string name, Action onLoaded = null)
     {
         await _loadingCurtain.Show();
-        _sceneLoader.Load(name, onLoaded);
+        await _sceneLoader.Load(name, onLoaded);
     }
 
     public void HideCurtains()

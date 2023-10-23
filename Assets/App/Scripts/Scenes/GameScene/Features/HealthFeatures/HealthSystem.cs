@@ -1,4 +1,5 @@
 using UnityEngine;
+using Vector3 = System.Numerics.Vector3;
 
 public class HealthSystem : IRestartGameListener
 {
@@ -33,5 +34,15 @@ public class HealthSystem : IRestartGameListener
             _healthController.LooseHealth();
         
         Health = Mathf.Clamp(Health - 1, 0, Health);
+    }
+    
+    public void HealLife(Vector2 startAnimationPoint)
+    {
+        if(Health >= _healthConfig.Health)
+            return;
+
+        _healthController.HealthHealth(startAnimationPoint);
+        
+        Health = Mathf.Clamp(Health + 1, 0, _healthConfig.Health);
     }
 }

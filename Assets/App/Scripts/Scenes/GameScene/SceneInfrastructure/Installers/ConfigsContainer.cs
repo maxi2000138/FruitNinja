@@ -23,5 +23,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         public SpawnConfig SpawnConfig { get; private set; }
         [field: SerializeField] 
         public ComboConfig ComboConfig { get; private set; }
+        [field: SerializeField] 
+        public ScoreConfig ScoreConfig { get; private set; }
+
     }
 }

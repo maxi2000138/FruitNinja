@@ -109,7 +109,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             projectileObject = bomb.GetComponent<ProjectileObject>();
             shadow = SpawnShadowAndConstruct(projectileObject, position, projectileScale);
             
-            bomb.Construct(_particleSystemPlayer);
+            bomb.Construct(_particleSystemPlayer, _healthSystem);
             
             if (_projectileConfig.BonusesDictionary.TryGetValue(BonusesType.Bomb, out BonusData bonusData))
             {
@@ -126,9 +126,9 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             projectileObject = heart.GetComponent<ProjectileObject>();
             shadow = SpawnShadowAndConstruct(projectileObject, position, projectileScale);
             
-            heart.Construct(_particleSystemPlayer);
+            heart.Construct(_particleSystemPlayer, _healthSystem);
             
-            if (_projectileConfig.BonusesDictionary.TryGetValue(BonusesType.Bomb, out BonusData bonusData))
+            if (_projectileConfig.BonusesDictionary.TryGetValue(BonusesType.Heart, out BonusData bonusData))
             {
                 SetProjectileAndShadowSprite(projectileObject, bonusData.PartSprites[projectilePart], shadow, projectileScale, shadowScale);
             }

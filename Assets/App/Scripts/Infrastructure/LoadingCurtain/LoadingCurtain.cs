@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CodeBase.Logic
@@ -21,7 +22,7 @@ namespace CodeBase.Logic
         DontDestroyOnLoad(this);
     }
 
-    public async Task Show()
+    public async UniTask Show()
     {
       gameObject.SetActive(true);
       await _tweenCore.TweenByTime(SetAlpha, 0f, 1f, 0.6f, CustomEase.Linear, new CancellationToken());
@@ -32,7 +33,7 @@ namespace CodeBase.Logic
       Curtain.alpha = value;
     }
 
-    public async Task Hide()
+    public async UniTask Hide()
     {
       await _tweenCore.TweenByTime(SetAlpha, 1f, 0f, 0.8f, CustomEase.Linear, new CancellationToken());
       gameObject.SetActive(false);

@@ -11,6 +11,8 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         private Transform _leftPartTransform;
         [SerializeField]
         private Transform _rightsPartTransform;
+        [field: SerializeField] 
+        public ProjectileType ProjectileType;
         
         private IDestroyTrigger _destroyTrigger;
         private ISliced _leftObject;

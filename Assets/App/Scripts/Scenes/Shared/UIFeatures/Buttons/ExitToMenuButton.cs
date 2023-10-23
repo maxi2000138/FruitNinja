@@ -1,3 +1,6 @@
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
 public class ExitToMenuButton : IButton
 {
     private readonly SceneLoaderWithCurtains _sceneLoaderWithCurtains;
@@ -8,6 +11,7 @@ public class ExitToMenuButton : IButton
     }
     public void OnClick()
     {
+        Time.timeScale = 1f;
         _sceneLoaderWithCurtains.ShowCurtainsAndLoad("MenuScene");
     }
 }

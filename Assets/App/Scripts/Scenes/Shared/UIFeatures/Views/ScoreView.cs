@@ -26,7 +26,7 @@ public class ScoreView : MonoBehaviour
             _cts.Cancel();
 
         _cts = new CancellationTokenSource();
-        _tweenCore.TweenByTime(SetText, startScore, newScore, 1f, CustomEase.OutQuad, _cts.Token);
+        _tweenCore.TweenByTime<float>(SetText, startScore, newScore, 1f, CustomEase.OutQuad, _cts.Token);
     }
 
     private void SetText(float value)
