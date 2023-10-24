@@ -1852,8 +1852,8 @@ MonoBehaviour:
       ViewportPositionY: 0
       OffsetPositionX: 0
       OffsetPositionY: -1
-      ViewportLeftPosition: {x: 0.03999999, y: -0.100000024}
-      ViewportRightPosition: {x: 0.35000002, y: -0.100000024}
+      ViewportLeftPosition: {x: 0.03999996, y: -0.100000024}
+      ViewportRightPosition: {x: 0.35, y: -0.100000024}
       LineLength: 0.155
       LineAngle: 0
       ShootMinAngle: 68
@@ -1884,8 +1884,8 @@ MonoBehaviour:
       ViewportPositionY: 0.6
       OffsetPositionX: 1
       OffsetPositionY: 0
-      ViewportLeftPosition: {x: 1.0562226, y: 0.51106775}
-      ViewportRightPosition: {x: 1.0562226, y: 0.68893224}
+      ViewportLeftPosition: {x: 1.0450001, y: 0.48888895}
+      ViewportRightPosition: {x: 1.0450001, y: 0.7111111}
       LineLength: 0.05
       LineAngle: 90
       ShootMinAngle: 50.2
@@ -1900,8 +1900,8 @@ MonoBehaviour:
       ViewportPositionY: 0.6
       OffsetPositionX: -1
       OffsetPositionY: 0
-      ViewportLeftPosition: {x: -0.056222554, y: 0.68893224}
-      ViewportRightPosition: {x: -0.056222554, y: 0.51106775}
+      ViewportLeftPosition: {x: -0.045000017, y: 0.7111111}
+      ViewportRightPosition: {x: -0.045000017, y: 0.48888895}
       LineLength: 0.05
       LineAngle: 270
       ShootMinAngle: 124.9
@@ -2247,6 +2247,7 @@ Transform:
   - {fileID: 1876780703}
   - {fileID: 879768326}
   - {fileID: 3428538276546030683}
+  - {fileID: 1607660315}
   m_Father: {fileID: 2010714977}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2530,6 +2531,50 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1607660314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1607660315}
+  - component: {fileID: 1607660316}
+  m_Layer: 0
+  m_Name: MagnetSuction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1607660315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607660314}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1168949567}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1607660316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607660314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b967414c2243b64e9c0266e4d5de9b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1632389564
 GameObject:
   m_ObjectHideFlags: 0
@@ -3598,6 +3643,7 @@ MonoBehaviour:
   _shadowParenter: {fileID: 1632389566}
   _slicer: {fileID: 2119743383}
   _gameEntryPoint: {fileID: 76596669}
+  _magnetSuction: {fileID: 1607660316}
   _currentScoreView: {fileID: 124141822}
   _highScoreView: {fileID: 1075713470}
   _healthController: {fileID: 1995831769}

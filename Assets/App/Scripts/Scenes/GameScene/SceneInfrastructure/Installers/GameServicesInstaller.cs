@@ -49,6 +49,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         private Slicer _slicer;
         [SerializeField] 
         private GameEntryPoint _gameEntryPoint;
+        [SerializeField] 
+        private MagnetSuction _magnetSuction;
 
         [Header("Views")] 
         [SerializeField]
@@ -112,6 +114,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
                 _highScoreView, _configsContainer.ScoreConfig); 
             _gameEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
             ComboSystem comboSystem = new ComboSystem(_slicer, _configsContainer.ComboConfig, _comboParenter, _screenSettingsProvider, ScoreSystem, _configsContainer.ScoreConfig);
+            _magnetSuction.Construct(_projectileContainer, _configsContainer.BonusesConfig);
 
             PauseController pauseController = new PauseController(_configsContainer.PhysicsConfig);
             RestartGameButton restartGameButton = new RestartGameButton(projectInstaller.SceneLoaderWithCurtains);

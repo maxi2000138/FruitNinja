@@ -21,4 +21,14 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  MagnetTime: 5
+  MagnetSuction: {fileID: 0}
+  MagnetTime: 9
+  FarthestMagnetDistance: 8
+  ClosestMagnetDistance: 0
+  ForceVelocity: 1
+  MaxVelocity: 0
+  ScaleFactor: 0.2
+  StopingDistance: 4
+  DirectionScaleFactor: 0.07
+  scaleLitleFactor: 0.1
+  ScaleFactorDistance: 0.6

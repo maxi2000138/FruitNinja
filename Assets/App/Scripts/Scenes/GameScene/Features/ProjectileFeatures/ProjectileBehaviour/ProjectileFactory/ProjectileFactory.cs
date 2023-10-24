@@ -45,7 +45,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _bonusesConfig = bonusesConfig;
             _projectileContainer = projectileContainer;
         }
-
+        
         public Magnet CreateMagnet(Vector2 position, Vector2 magnetSclae, Vector2 shadowScale, out Shadow shadow)
         {
             Magnet magnet = CreateMagnetPart(ProjectilePartEnum.Whole, BonusesType.Magnet, position, magnetSclae, shadowScale, out shadow, out var projectileObject);
@@ -105,7 +105,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             projectileObject = magnet.GetComponent<ProjectileObject>();
             _projectileContainer.AddToDictionary(ProjectileType.Magnet, projectileObject);
             
-            shadow = SpawnShadowAndConstruct(projectileObject, position, fruitScale);
+            shadow = SpawnShadowAndConstructProjectileObject(projectileObject, projectilePart, position, fruitScale);
             
             if (_projectileConfig.BonusesDictionary.TryGetValue(bonusesType, out BonusData bonusData))
             {
@@ -123,7 +123,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             Fruit fruit = SpawnFruit(projectilePart, position, fruitScale, _projectileParenter.transform);
             projectileObject = fruit.GetComponent<ProjectileObject>();
             _projectileContainer.AddToDictionary(ProjectileType.Fruit, projectileObject);
-            shadow = SpawnShadowAndConstruct(projectileObject, position, fruitScale);
+            shadow = SpawnShadowAndConstructProjectileObject(projectileObject,projectilePart, position, fruitScale);
             
             if (_projectileConfig.FruitDictionary.TryGetValue(fruitType, out FruitData fruitData))
             {
@@ -140,7 +140,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             Bomb bomb = SpawnBomb(projectilePart, position, projectileScale, _projectileParenter.transform);
             projectileObject = bomb.GetComponent<ProjectileObject>();
             _projectileContainer.AddToDictionary(ProjectileType.Bomb, projectileObject);
-            shadow = SpawnShadowAndConstruct(projectileObject, position, projectileScale);
+            shadow = SpawnShadowAndConstructProjectileObject(projectileObject,projectilePart, position, projectileScale);
             
             bomb.Construct(_particleSystemPlayer, _healthSystem);
             
@@ -158,7 +158,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             Heart heart = SpawnHeart(projectilePart, position, projectileScale, _projectileParenter.transform);
             projectileObject = heart.GetComponent<ProjectileObject>();
             _projectileContainer.AddToDictionary(ProjectileType.Heart, projectileObject);
-            shadow = SpawnShadowAndConstruct(projectileObject, position, projectileScale);
+            shadow = SpawnShadowAndConstructProjectileObject(projectileObject,projectilePart, position, projectileScale);
             
             heart.Construct(_particleSystemPlayer, _healthSystem);
             
@@ -171,10 +171,10 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             return heart;
         }
 
-        private Shadow SpawnShadowAndConstruct(ProjectileObject projectileObject, Vector2 position, Vector2 scale)
+        private Shadow SpawnShadowAndConstructProjectileObject(ProjectileObject projectileObject, ProjectilePartEnum partEnum, Vector2 position, Vector2 scale)
         {
             Shadow shadow = SpawnShadow(position, scale, _shadowParenter.transform);
-            projectileObject.Construct(shadow);
+            projectileObject.Construct(partEnum, shadow);
             projectileObject.ShadowCloneMover.Construct(shadow.gameObject);
             projectileObject.ShadowCloneRotater.Construct(shadow.SpriteRenderer.gameObject);
             return shadow;

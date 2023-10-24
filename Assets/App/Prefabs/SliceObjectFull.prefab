@@ -349,6 +349,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShadowCloneMover: {fileID: 8211949792612434536}
   ShadowCloneRotater: {fileID: 3130353344283311927}
+  Mover: {fileID: 8976041037518006046}
+  GravitationApplier: {fileID: 5892379175246256098}
   _spriteRenderer: {fileID: 6093624603544318279}
 --- !u!114 &8876249635012475864
 MonoBehaviour:
@@ -362,7 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8515af2b3c1984b9eb44100b1cdb47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectileObject: {fileID: 6285487841706855841}
   ScaleByTimeApplier: {fileID: 2174210399844158461}
   TorqueApplier: {fileID: 4343094047579919435}
   VelocityApplier: {fileID: 3929120902188163913}
@@ -381,6 +382,7 @@ MonoBehaviour:
   _leftPartTransform: {fileID: 6722138447275389989}
   _rightsPartTransform: {fileID: 4856010670053284055}
   <ProjectileType>k__BackingField: 0
+  <ProjectileObject>k__BackingField: {fileID: 6285487841706855841}
 --- !u!114 &1432272586602424981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,16 +395,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575e29bddf614d84890bb6c4c03773e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TwoPartsSliceObject>k__BackingField:
-    rid: -2
   <ForceMover>k__BackingField: {fileID: 8976041037518006046}
   <ColliderObject>k__BackingField: {fileID: 3858916285223650547}
   _colliderRadiusOffset: 0
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!1 &5663910126908756341
 GameObject:
   m_ObjectHideFlags: 0

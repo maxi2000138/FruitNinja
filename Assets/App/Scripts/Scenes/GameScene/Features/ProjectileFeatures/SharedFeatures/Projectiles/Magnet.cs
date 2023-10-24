@@ -23,6 +23,6 @@ public class Magnet : MonoBehaviour, ISlicable
     public async void OnSlice()
     {
         _particleSystemPlayer.PlayMagnetSliceParticlesTime(transform.position,(int)(_bonusesConfig.MagnetTime*1000));
-        
+        FindObjectOfType<MagnetSuction>().StartSuction(transform.position, (int)(_bonusesConfig.MagnetTime*1000));
     }
 }

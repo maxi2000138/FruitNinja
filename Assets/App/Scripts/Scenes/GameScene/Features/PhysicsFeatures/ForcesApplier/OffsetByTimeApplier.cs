@@ -10,7 +10,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
         private ChangedByTimeData _currentChangedByTimeData;
         private bool _isActive = false;
  
-        public Vector2 Move(float deltaTime)
+        public Vector2 Move(Vector2 movementVector, float deltaTime)
         {
             if (_isActive)
             {

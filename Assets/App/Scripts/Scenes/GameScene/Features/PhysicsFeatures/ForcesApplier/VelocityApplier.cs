@@ -13,7 +13,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
              _velocityVector += forceVector;
         }
 
-        public Vector2 Move(float deltaTime)
+        public Vector2 Move(Vector2 movementVector, float deltaTime)
         {
             if (_velocityVector != Vector2.zero)
             {
