@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2744350060873640662, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
+      propertyPath: <ProjectileObject>k__BackingField
+      value: 
+      objectReference: {fileID: 2876923095503430730}
     - target: {fileID: 3858916285223650547, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -57,6 +61,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
+--- !u!114 &2876923095503430730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6285487841706855841, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
+  m_PrefabInstance: {fileID: 8130804597252958699}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997856877604367645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7e54ab90740cb40834deadef32455f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4997856877604367645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3858916285223650550, guid: 148e9d542b49121429001ea5e80af46e, type: 3}

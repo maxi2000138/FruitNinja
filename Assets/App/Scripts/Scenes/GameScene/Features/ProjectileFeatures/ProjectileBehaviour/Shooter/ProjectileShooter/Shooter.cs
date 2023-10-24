@@ -65,8 +65,10 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                     break;                    
                 case(ProjectileType.Heart):
                     shootObject = _projectileFactory.CreateHeart(position, scale, scale, out shadow).GetComponent<ShootObject>();
-                    break;                    
-                    
+                    break;       
+                case(ProjectileType.Magnet):
+                    shootObject = _projectileFactory.CreateMagnet(position, scale, scale, out shadow).GetComponent<ShootObject>();
+                    break;       
             }
             
             Vector2 finalScale = GetLongestScale(scale, _projectileConfig.ProjectileScales[projectileType].Scale);

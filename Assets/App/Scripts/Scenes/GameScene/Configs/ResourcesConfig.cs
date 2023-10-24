@@ -10,6 +10,7 @@ namespace App.Scripts.Scenes.GameScene.Configs
         public Dictionary<ProjectilePartEnum, string> FruitsPartPath;
         public Dictionary<ProjectilePartEnum, string> BombPartPath;
         public Dictionary<ProjectilePartEnum, string> HeartPartPath;
+        public Dictionary<ProjectilePartEnum, string> MagnetPartPath;
         public string ShadowPath = "Prefabs/Shadow";
     }
 }

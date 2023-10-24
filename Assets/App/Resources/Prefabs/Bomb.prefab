@@ -23,6 +23,14 @@ PrefabInstance:
       propertyPath: ProjectileType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2744350060873640662, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
+      propertyPath: <ProjectileType>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744350060873640662, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
+      propertyPath: <ProjectileObject>k__BackingField
+      value: 
+      objectReference: {fileID: 2221571438824731353}
     - target: {fileID: 3036667634212875339, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -169,6 +177,17 @@ PrefabInstance:
       objectReference: {fileID: 4042163476632026384}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
+--- !u!114 &2221571438824731353 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6285487841706855841, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
+  m_PrefabInstance: {fileID: 5327215852644499320}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8963163254160210830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7e54ab90740cb40834deadef32455f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3519167220843668231 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8734878154665073791, guid: 148e9d542b49121429001ea5e80af46e, type: 3}

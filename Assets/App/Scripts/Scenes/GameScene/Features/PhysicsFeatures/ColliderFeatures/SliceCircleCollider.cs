@@ -1,13 +1,16 @@
+using System;
 using App.Scripts.DebugAndGizmosExtensions;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeatures;
+using Sirenix.Serialization;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures
 {
+    [RequireComponent(typeof(IFullSliceObject))]
     public class SliceCircleCollider : MonoBehaviour
     {
-        [field:SerializeField] public SliceObject SliceObject { get; private set; }
+        public IFullSliceObject SliceObject { get; private set; }
         [field:SerializeField] public Mover ForceMover { get; private set; }
         [field:SerializeField] public Transform ColliderObject { get; private set; }
         [SerializeField] private float _colliderRadiusOffset;
@@ -15,11 +18,17 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures
         private SliceCollidersController _sliceCollidersController;
         private bool _isActive;
 
+
         public void Construct(SliceCollidersController sliceCollidersController)
         {
             _sliceCollidersController = sliceCollidersController;
             _sliceCollidersController.AddCollider(this);
             Enable();
+        }
+
+        private void Awake()
+        {
+            SliceObject = GetComponent<IFullSliceObject>();
         }
 
         public void Enable()

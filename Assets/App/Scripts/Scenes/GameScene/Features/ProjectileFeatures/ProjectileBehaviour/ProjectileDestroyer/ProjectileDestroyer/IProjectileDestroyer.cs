@@ -4,6 +4,6 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 {
     public interface IProjectileDestroyer
     {
-        void DestroyProjectile(GameObject projectile);
+        void DestroyProjectiles(params GameObject[] projectile);
     }
 }

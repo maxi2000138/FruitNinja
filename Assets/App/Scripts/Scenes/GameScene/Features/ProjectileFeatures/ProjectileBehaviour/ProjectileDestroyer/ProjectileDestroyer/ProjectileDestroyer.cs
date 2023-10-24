@@ -4,9 +4,10 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 {
     public class ProjectileDestroyer : IProjectileDestroyer
     {
-        public void DestroyProjectile(GameObject projectile)
+        public void DestroyProjectiles(params GameObject[] projectiles)
         {
-            Object.Destroy(projectile);   
+            for(int i = 0; i < projectiles.Length; i++)
+                Object.Destroy(projectiles[i]);   
         }
     }
 }

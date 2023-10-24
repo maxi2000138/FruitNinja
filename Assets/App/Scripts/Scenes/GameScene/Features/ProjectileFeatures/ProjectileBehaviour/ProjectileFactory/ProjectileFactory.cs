@@ -14,11 +14,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
     public class ProjectileFactory : IProjectileFactory
     {
         private int _sortingOrder = 1;
-        private readonly ProjectileContainer.ProjectileContainer _projectileContainer;
+        private readonly ProjectilesParenter _projectileParenter;
         private readonly SliceCollidersController _sliceCollidersController;
         private readonly ResourceObjectsProvider _resourceObjectsProvider;
         private readonly ParticleSystemPlayer _particleSystemPlayer;
-        private readonly ShadowContainer _shadowContainer;
+        private readonly BonusesConfig _bonusesConfig;
+        private readonly ProjectileContainer _projectileContainer;
+        private readonly ShadowParenter _shadowParenter;
         private readonly IDestroyTrigger _destroyTrigger;
         private readonly ResourcesConfig _resourcesConfig;
         private readonly ShadowConfig _shadowConfig;
@@ -26,13 +28,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly ProjectileConfig _projectileConfig;
         private readonly Vector2 _defaultPosition = new(100f, 100f);
 
-        public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectileContainer.ProjectileContainer projectileContainer, ShadowContainer shadowContainer, SliceCollidersController sliceCollidersController
+        public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectilesParenter projectileParenter, ShadowParenter shadowParenter, SliceCollidersController sliceCollidersController
             , ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer, ProjectileConfig projectileConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig
-            , HealthSystem healthSystem)
+            , HealthSystem healthSystem, BonusesConfig bonusesConfig, ProjectileContainer projectileContainer)
         {
             _destroyTrigger = destroyTrigger;
-            _projectileContainer = projectileContainer;
-            _shadowContainer = shadowContainer;
+            _projectileParenter = projectileParenter;
+            _shadowParenter = shadowParenter;
             _sliceCollidersController = sliceCollidersController;
             _projectileConfig = projectileConfig;
             _resourceObjectsProvider = resourceObjectsProvider;
@@ -40,6 +42,16 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _resourcesConfig = resourcesConfig;
             _shadowConfig = shadowConfig;
             _healthSystem = healthSystem;
+            _bonusesConfig = bonusesConfig;
+            _projectileContainer = projectileContainer;
+        }
+
+        public Magnet CreateMagnet(Vector2 position, Vector2 magnetSclae, Vector2 shadowScale, out Shadow shadow)
+        {
+            Magnet magnet = CreateMagnetPart(ProjectilePartEnum.Whole, BonusesType.Magnet, position, magnetSclae, shadowScale, out shadow, out var projectileObject);
+            magnet.GetComponent<DestroySliceObject>().Construct(magnet, _destroyTrigger);
+            magnet.GetComponent<SliceCircleCollider>().Construct(_sliceCollidersController);
+            return magnet;
         }
 
         public Fruit CreateFruit(FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow)
@@ -48,7 +60,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             
             fruit.DestroyNotSliced += _healthSystem.LooseLife;
             
-            fruit.GetComponent<SliceObject>().Construct(
+            fruit.GetComponent<TwoPartsSliceObject>().Construct(
                 () => CreateFruitPart(ProjectilePartEnum.Left, fruitType, _defaultPosition, projectileObject.Scale, createdShadow.Scale, out var shadowLeft, out var leftProjectile).GetComponent<ISliced>()
                 ,() => CreateFruitPart(ProjectilePartEnum.Right, fruitType, _defaultPosition, projectileObject.Scale, createdShadow.Scale, out var shadowRight, out var leftProjectile).GetComponent<ISliced>()
                 , fruit, _destroyTrigger);
@@ -62,7 +74,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         {
             Bomb bomb = CreateBombPart(ProjectilePartEnum.Whole, position, fruitScale, shadowScale, out var createdShadow, out var projectileObject);
             
-            bomb.GetComponent<SliceObject>().Construct(
+            bomb.GetComponent<TwoPartsSliceObject>().Construct(
                 () => CreateBombPart(ProjectilePartEnum.Left, _defaultPosition, projectileObject.Scale, createdShadow.Scale, out var shadowLeft, out var rightProjectile).GetComponent<ISliced>()
                 ,() => CreateBombPart(ProjectilePartEnum.Right, _defaultPosition, projectileObject.Scale, createdShadow.Scale, out var shadowRight, out var rightProjectile).GetComponent<ISliced>()
                 , bomb, _destroyTrigger);
@@ -76,7 +88,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         {
             Heart heart = CreateHeartPart(ProjectilePartEnum.Whole, position, fruitScale, shadowScale, out var createdShadow, out var projectileObject);
             
-            heart.GetComponent<SliceObject>().Construct(
+            heart.GetComponent<TwoPartsSliceObject>().Construct(
                 () => CreateHeartPart(ProjectilePartEnum.Left, _defaultPosition, projectileObject.Scale, createdShadow.Scale, out var shadowLeft, out var rightProjectile).GetComponent<ISliced>()
                 ,() => CreateHeartPart(ProjectilePartEnum.Right, _defaultPosition, projectileObject.Scale, createdShadow.Scale, out var shadowRight, out var rightProjectile).GetComponent<ISliced>()
                 , heart, _destroyTrigger);
@@ -87,10 +99,30 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         }
 
 
+        private Magnet CreateMagnetPart(ProjectilePartEnum projectilePart, BonusesType bonusesType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow, out ProjectileObject projectileObject)
+        {
+            Magnet magnet = SpawnMagnet(projectilePart, position, fruitScale, _projectileParenter.transform);
+            projectileObject = magnet.GetComponent<ProjectileObject>();
+            _projectileContainer.AddToDictionary(ProjectileType.Magnet, projectileObject);
+            
+            shadow = SpawnShadowAndConstruct(projectileObject, position, fruitScale);
+            
+            if (_projectileConfig.BonusesDictionary.TryGetValue(bonusesType, out BonusData bonusData))
+            {
+                magnet.Construct(_particleSystemPlayer, _bonusesConfig);
+                SetProjectileAndShadowSprite(projectileObject, bonusData.PartSprites[projectilePart], shadow, fruitScale, shadowScale);
+            }
+            
+            _destroyTrigger.AddDestroyTriggerListeners(projectileObject);
+            return magnet;
+        }
+
+        
         private Fruit CreateFruitPart(ProjectilePartEnum projectilePart, FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow, out ProjectileObject projectileObject)
         {
-            Fruit fruit = SpawnFruit(projectilePart, position, fruitScale, _projectileContainer.transform);
+            Fruit fruit = SpawnFruit(projectilePart, position, fruitScale, _projectileParenter.transform);
             projectileObject = fruit.GetComponent<ProjectileObject>();
+            _projectileContainer.AddToDictionary(ProjectileType.Fruit, projectileObject);
             shadow = SpawnShadowAndConstruct(projectileObject, position, fruitScale);
             
             if (_projectileConfig.FruitDictionary.TryGetValue(fruitType, out FruitData fruitData))
@@ -99,14 +131,15 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 SetProjectileAndShadowSprite(projectileObject, fruitData.PartSprites[projectilePart], shadow, fruitScale, shadowScale);
             }
             
-            _destroyTrigger.AddDestroyTriggerListeners(fruit.transform, shadow.transform);
+            _destroyTrigger.AddDestroyTriggerListeners(projectileObject);
             return fruit;
         }
         
         public Bomb CreateBombPart(ProjectilePartEnum projectilePart, Vector2 position, Vector2 projectileScale, Vector2 shadowScale, out Shadow shadow, out ProjectileObject projectileObject)
         {
-            Bomb bomb = SpawnBomb(projectilePart, position, projectileScale, _projectileContainer.transform);
+            Bomb bomb = SpawnBomb(projectilePart, position, projectileScale, _projectileParenter.transform);
             projectileObject = bomb.GetComponent<ProjectileObject>();
+            _projectileContainer.AddToDictionary(ProjectileType.Bomb, projectileObject);
             shadow = SpawnShadowAndConstruct(projectileObject, position, projectileScale);
             
             bomb.Construct(_particleSystemPlayer, _healthSystem);
@@ -116,14 +149,15 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 SetProjectileAndShadowSprite(projectileObject, bonusData.PartSprites[projectilePart], shadow, projectileScale, shadowScale);
             }
             
-            _destroyTrigger.AddDestroyTriggerListeners(bomb.transform, shadow.transform);
+            _destroyTrigger.AddDestroyTriggerListeners(projectileObject);
             return bomb;
         }
         
         public Heart CreateHeartPart(ProjectilePartEnum projectilePart, Vector2 position, Vector2 projectileScale, Vector2 shadowScale, out Shadow shadow, out ProjectileObject projectileObject)
         {
-            Heart heart = SpawnHeart(projectilePart, position, projectileScale, _projectileContainer.transform);
+            Heart heart = SpawnHeart(projectilePart, position, projectileScale, _projectileParenter.transform);
             projectileObject = heart.GetComponent<ProjectileObject>();
+            _projectileContainer.AddToDictionary(ProjectileType.Heart, projectileObject);
             shadow = SpawnShadowAndConstruct(projectileObject, position, projectileScale);
             
             heart.Construct(_particleSystemPlayer, _healthSystem);
@@ -133,13 +167,14 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 SetProjectileAndShadowSprite(projectileObject, bonusData.PartSprites[projectilePart], shadow, projectileScale, shadowScale);
             }
             
-            _destroyTrigger.AddDestroyTriggerListeners(heart.transform, shadow.transform);
+            _destroyTrigger.AddDestroyTriggerListeners(projectileObject);
             return heart;
         }
 
         private Shadow SpawnShadowAndConstruct(ProjectileObject projectileObject, Vector2 position, Vector2 scale)
         {
-            Shadow shadow = SpawnShadow(position, scale, _shadowContainer.transform);
+            Shadow shadow = SpawnShadow(position, scale, _shadowParenter.transform);
+            projectileObject.Construct(shadow);
             projectileObject.ShadowCloneMover.Construct(shadow.gameObject);
             projectileObject.ShadowCloneRotater.Construct(shadow.SpriteRenderer.gameObject);
             return shadow;
@@ -154,6 +189,9 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             shadow.TurnIntoShadow();
         }
 
+        private Magnet SpawnMagnet(ProjectilePartEnum projectilePart, Vector2 position, Vector2 scale, Transform parent) =>
+            SpawnObjectFromResources<Magnet>(_resourcesConfig.MagnetPartPath[projectilePart], position, scale, parent);
+        
         private Heart SpawnHeart(ProjectilePartEnum projectilePart, Vector2 position, Vector2 scale, Transform parent) =>
             SpawnObjectFromResources<Heart>(_resourcesConfig.HeartPartPath[projectilePart], position, scale, parent);
         

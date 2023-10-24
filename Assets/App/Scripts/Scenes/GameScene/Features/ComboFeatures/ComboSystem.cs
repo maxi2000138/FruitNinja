@@ -15,15 +15,15 @@ public class ComboSystem
     private readonly ComboConfig _comboConfig;
     private Vector2 _projectilePosition;
     private ScreenSettingsProvider _screenSettingsProvider;
-    private ComboContainer _comboContainer;
+    private ComboParenter _comboParenter;
     private ScoreSystem _scoreSystem;
     private readonly ScoreConfig _scoreConfig;
 
-    public ComboSystem(Slicer slicer, ComboConfig comboConfig, ComboContainer comboContainer, ScreenSettingsProvider screenSettingsProvider, ScoreSystem scoreSystem, ScoreConfig scoreConfig)
+    public ComboSystem(Slicer slicer, ComboConfig comboConfig, ComboParenter comboParenter, ScreenSettingsProvider screenSettingsProvider, ScoreSystem scoreSystem, ScoreConfig scoreConfig)
     {
         _scoreSystem = scoreSystem;
         _scoreConfig = scoreConfig;
-        _comboContainer = comboContainer;
+        _comboParenter = comboParenter;
         _screenSettingsProvider = screenSettingsProvider;
         _slicer = slicer;
         _comboConfig = comboConfig;
@@ -32,7 +32,7 @@ public class ComboSystem
     
     public void SpawnComboPrefab(int comboCount)
     {
-        ComboPrefab comboPrefab = GameObject.Instantiate(_comboConfig.ComboPrefab, ConstrainPosition(_projectilePosition, _comboConfig.ComboPrefab.GetComponent<RectTransform>().sizeDelta * _comboConfig.Scale), quaternion.identity, _comboContainer.transform);
+        ComboPrefab comboPrefab = GameObject.Instantiate(_comboConfig.ComboPrefab, ConstrainPosition(_projectilePosition, _comboConfig.ComboPrefab.GetComponent<RectTransform>().sizeDelta * _comboConfig.Scale), quaternion.identity, _comboParenter.transform);
         comboPrefab.transform.localScale = _comboConfig.Scale; 
         comboPrefab.Construct(_comboConfig, comboCount);
     }

@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e5209564c6efd4497a087c2cc92edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _physicsConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
 --- !u!114 &5892379175246256098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPartTransform: {fileID: 6722138447275389989}
   _rightsPartTransform: {fileID: 4856010670053284055}
+  <ProjectileType>k__BackingField: 0
 --- !u!114 &1432272586602424981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,9 +393,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575e29bddf614d84890bb6c4c03773e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SliceObject>k__BackingField: {fileID: 2744350060873640662}
+  <TwoPartsSliceObject>k__BackingField:
+    rid: -2
   <ForceMover>k__BackingField: {fileID: 8976041037518006046}
   <ColliderObject>k__BackingField: {fileID: 3858916285223650547}
+  _colliderRadiusOffset: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &5663910126908756341
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,7 +456,6 @@ MonoBehaviour:
   - {fileID: 8734878154665073791}
   - {fileID: 8211949792612434536}
   - {fileID: 3130353344283311927}
-  _physicsConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
 --- !u!1 &8052994494534078452
 GameObject:
   m_ObjectHideFlags: 0

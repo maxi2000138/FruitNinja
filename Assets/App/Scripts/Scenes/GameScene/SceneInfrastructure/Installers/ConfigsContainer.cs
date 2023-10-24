@@ -25,6 +25,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         public ComboConfig ComboConfig { get; private set; }
         [field: SerializeField] 
         public ScoreConfig ScoreConfig { get; private set; }
+        [field: SerializeField] 
+        public BonusesConfig BonusesConfig { get; private set; }
 
     }
 }

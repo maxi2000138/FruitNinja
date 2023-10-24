@@ -1,55 +1,69 @@
-    using System.Collections.Generic;
-    using CartoonFX;
-    using UnityEngine;
+using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
+using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.ParticleFeatures
 {
-    public class ParticleSystemPlayer : MonoBehaviour
+    public class ParticleSystemPlayer : SerializedMonoBehaviour
     {
-        [SerializeField] private List<ParticleSystem> _sliceFruitParticles;
-        [SerializeField] private List<ParticleSystem> _sliceBombParticles;
-        [SerializeField] private List<ParticleSystem> _sliceHeartParticles;
-        [SerializeField] private CFXR_Effect _cfxrEffect;
+        [OdinSerialize] private Dictionary<ProjectileType, ParticleSystem> _projectileParticles;
+        
+        private TokenController _tokenController;
+        private BonusesConfig _bonusesConfig;
 
-        
-        
+
+        private void Awake()
+        {
+            _tokenController = new TokenController();
+        }
+
         public void PlayHeartParticles(Vector2 position)
         {
-            SetPosition(_sliceHeartParticles, position);
-            PlayParticles(_sliceHeartParticles);
+            PlayParticles(_projectileParticles[ProjectileType.Heart], position);
         }
         
         public void PlayBombSliceParticles(Vector2 position)
         {
-            _cfxrEffect.enabled = false;
-            _cfxrEffect.enabled = true;
-            SetPosition(_sliceBombParticles, position);
-            PlayParticles(_sliceBombParticles);
+            //_cfxrEffect.enabled = false;
+            //_cfxrEffect.enabled = true;
+            PlayParticles(_projectileParticles[ProjectileType.Bomb], position);
         }
 
         public void PlayFruitSliceParticles(Vector2 position, Color color)
         {
-            SetPosition(_sliceFruitParticles, position);
-            SetColor(_sliceFruitParticles, color);
-            PlayParticles(_sliceFruitParticles);
+            ParticleSystem particles = PlayParticles(_projectileParticles[ProjectileType.Fruit], position);
+            SetColor(particles, color);
         }
 
-        private void PlayParticles(List<ParticleSystem> particles)
+        public async void PlayMagnetSliceParticlesTime(Vector2 position, int milisecPlayTime)
         {
-            particles[0].Play(true);
+            ParticleSystem particles = PlayParticles(_projectileParticles[ProjectileType.Magnet], position);
+            await UniTask.Delay(milisecPlayTime, false, PlayerLoopTiming.Update, _tokenController.CreateCancellationToken());
+            StopParticles(particles);
         }
-        private void SetColor(List<ParticleSystem> particleSystems, Color color)
+
+        private ParticleSystem PlayParticles(ParticleSystem particles, Vector2 position) => 
+            Instantiate(particles, position, Quaternion.identity, transform);
+
+        private void StopParticles(ParticleSystem particles) => 
+            Destroy(particles.gameObject);
+        private void StopParticles(List<ParticleSystem> particles)
         {
-            for (int i = 0; i < particleSystems.Count; i++)
+            particles[0].Stop(true);
+        }
+
+        
+        private void SetColor(ParticleSystem particleSystems, Color color)
+        {
+            ParticleSystem[] componentsInChildren = particleSystems.GetComponentsInChildren<ParticleSystem>();
+            for (int i = 0; i < componentsInChildren.Length; i++)
             {
-                ParticleSystem.MainModule mainModule = particleSystems[i].main;
+                ParticleSystem.MainModule mainModule = componentsInChildren[i].main;
                 mainModule.startColor = color;
             }
-        }
-
-        private void SetPosition(List<ParticleSystem> particleSystems, Vector2 position)
-        {
-            particleSystems[0].transform.position = position;
         }
     }
 }

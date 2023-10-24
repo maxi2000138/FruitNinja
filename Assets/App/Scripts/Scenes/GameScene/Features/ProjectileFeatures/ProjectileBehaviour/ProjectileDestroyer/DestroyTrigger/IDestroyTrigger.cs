@@ -4,8 +4,8 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 {
     public interface IDestroyTrigger
     {
-        void AddDestroyTriggerListeners(params Transform[] objectTransform);
-        void TriggerGroup(Transform destroyTransform);
+        void AddDestroyTriggerListeners(ProjectileObject projectileObject);
+        void TriggerGroup(ProjectileObject projectileObject);
         int DestroyGropCount { get; }
     }
 }

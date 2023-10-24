@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using App.Scripts.Scenes.GameScene.Configs;
 using App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsProvider;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.ProjectileDestroyer;
@@ -15,20 +14,22 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         
         private float _yDestroyValue;
         private readonly IScreenSettingsProvider _screenSettingsProvider;
+        private readonly ProjectileContainer _projectileContainer;
         private readonly IProjectileDestroyer _projectileDestroyer;
         private readonly ShootConfig _shootConfig;
-        private readonly List<Transform[]> _destroyListeners = new ();
+        private readonly List<ProjectileObject> _destroyListeners = new ();
         
-        public DestroyTrigger(IScreenSettingsProvider screenSettingsProvider, IProjectileDestroyer projectileDestroyer, ShootConfig shootConfig)
+        public DestroyTrigger(IScreenSettingsProvider screenSettingsProvider, ProjectileContainer projectileContainer, IProjectileDestroyer projectileDestroyer, ShootConfig shootConfig)
         {
             _screenSettingsProvider = screenSettingsProvider;
+            _projectileContainer = projectileContainer;
             _projectileDestroyer = projectileDestroyer;
             _shootConfig = shootConfig;
         }
     
-        public void AddDestroyTriggerListeners(params Transform[] objectTransforms)
+        public void AddDestroyTriggerListeners(ProjectileObject projectileObject)
         {
-            _destroyListeners.Add(objectTransforms);
+            _destroyListeners.Add(projectileObject);
         }
 
         public void Initialize()
@@ -41,48 +42,39 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         {
             for (int i = 0; i < _destroyListeners.Count; i++)
             {
-                if (IsAnyTriggered(_destroyListeners[i]))
+                if (IsTriggered(_destroyListeners[i]))
                 {
-                    RemoveGroupAt(i);
+                    RemoveGroup(_destroyListeners[i]);
                     i--;
                 }
             }
         }
 
 
-        public void TriggerGroup(Transform destroyTransform)
+        public void TriggerGroup(ProjectileObject projectileObject)
         {
-            for (int i = 0; i < _destroyListeners.Count; i++)
-            {
-                if (_destroyListeners[i].Contains(destroyTransform))
-                    RemoveGroupAt(i);
-            }
+            if(_destroyListeners.Contains(projectileObject))
+                RemoveGroup(projectileObject);
         }
-        private bool IsAnyTriggered(Transform[] destroyListeners)
+        private bool IsTriggered(ProjectileObject destroyListener)
         {
-            for (int i = 0; i < destroyListeners.Length; i++)
+            if (destroyListener != null && destroyListener.transform.position.y <= _yDestroyValue)
             {
-                if (destroyListeners[i] != null && destroyListeners[i].position.y <= _yDestroyValue)
-                {
-                    return true;
-                }
+                return true;
             }
 
             return false;
         }
 
-        private void RemoveGroupAt(int index)
+        private void RemoveGroup(ProjectileObject projectileObject)
         {
-            for (int i = 0; i < _destroyListeners[index].Length; i++)
-            {
-                Transform destroyListener = _destroyListeners[index][i];
-                if (destroyListener != null)
-                {
-                    _projectileDestroyer.DestroyProjectile(destroyListener.gameObject);
-                }
-            }
+            _destroyListeners.Remove(projectileObject);
+            _projectileContainer.RemoveFromDictionary(projectileObject);
             
-            _destroyListeners.RemoveAt(index);
+            if (projectileObject != null)
+            {
+                _projectileDestroyer.DestroyProjectiles(projectileObject.ProjectileGameObjects());
+            }
         }
     }
 }

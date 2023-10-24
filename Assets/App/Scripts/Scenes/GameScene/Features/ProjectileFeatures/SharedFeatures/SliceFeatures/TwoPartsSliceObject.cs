@@ -5,15 +5,17 @@ using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeatures
 {
-    public class SliceObject : MonoBehaviour
+    public class TwoPartsSliceObject : MonoBehaviour, IFullSliceObject
     {
         [SerializeField]
         private Transform _leftPartTransform;
         [SerializeField]
         private Transform _rightsPartTransform;
         [field: SerializeField] 
-        public ProjectileType ProjectileType;
-        
+        public ProjectileType ProjectileType { get; private set; }
+        [field: SerializeField] 
+        public ProjectileObject ProjectileObject { get; private set; }
+
         private IDestroyTrigger _destroyTrigger;
         private ISliced _leftObject;
         private ISliced _rightObject;
@@ -21,6 +23,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         private Func<ISliced> _leftPartSpawnMethod;
         private Func<ISliced> _rightPartSpawnMethod;
         private ISlicable _slicable;
+        private ProjectileType _projectileType;
 
         public void Construct(Func<ISliced> leftPartSpawnMethod, Func<ISliced> rightPartSpawnMethod, ISlicable slicable, IDestroyTrigger destroyTrigger)
         {
@@ -29,6 +32,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
             _leftPartSpawnMethod = leftPartSpawnMethod;
             _rightPartSpawnMethod = rightPartSpawnMethod;
         }
+
 
         public void Slice(Mover mover, float sliceForce)
         {
@@ -56,7 +60,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         
         private void DestroyFruit()
         {
-            _destroyTrigger.TriggerGroup(transform);
+            _destroyTrigger.TriggerGroup(GetComponent<ProjectileObject>());
         }
 
         private void SetVelocity(Mover mover, float sliceForce)

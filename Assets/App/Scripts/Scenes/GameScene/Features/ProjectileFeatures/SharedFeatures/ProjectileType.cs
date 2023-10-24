@@ -3,4 +3,5 @@
     Fruit,
     Bomb,
     Heart,
+    Magnet,
 }

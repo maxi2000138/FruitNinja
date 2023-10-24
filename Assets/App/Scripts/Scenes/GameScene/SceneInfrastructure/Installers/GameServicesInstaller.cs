@@ -2,7 +2,6 @@ using App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsProvide
 using App.Scripts.Scenes.GameScene.Features.InputFeatures;
 using App.Scripts.Scenes.GameScene.Features.ParticleFeatures;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures;
-using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileContainer;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.DestroyTrigger;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.ProjectileDestroyer;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileFactory;
@@ -38,14 +37,14 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         private ParticleSystemPlayer _particleSystemPlayer;
         [SerializeField]
         private SpawnAreasContainer _spawnAreasContainer;
-        [SerializeField] 
-        private ProjectileContainer _projectileContainer;
-        [SerializeField] 
-        private ComboContainer _comboContainer;
+        [FormerlySerializedAs("_nameprojectilesParenter")] [FormerlySerializedAs("_projectilesSpawnParent")] [SerializeField] 
+        private ProjectilesParenter _projectilesParenter;
+        [FormerlySerializedAs("_namecomboParenter")] [FormerlySerializedAs("_comboContainer")] [SerializeField] 
+        private ComboParenter _comboParenter;
         [SerializeField]
         private ConfigsContainer _configsContainer;
-        [SerializeField] 
-        private ShadowContainer _shadowContainer;
+        [FormerlySerializedAs("_shadowContainer")] [SerializeField] 
+        private ShadowParenter _shadowParenter;
         [SerializeField]
         private Slicer _slicer;
         [SerializeField] 
@@ -80,6 +79,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         private GameStateObserver _gameStateObserver;
         private HealthSystem _healthSystem;
         private HealthOverLoosePolicy _healthOverLoosePolicy;
+        private ProjectileContainer _projectileContainer;
 
         public override void OnInstallBindings(MonoBehaviourSimulator monoBehaviourSimulator, ProjectInstaller projectInstaller)
         {
@@ -88,7 +88,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             ProjectileDestroyer = new ProjectileDestroyer();
             _sliceCollidersController = new SliceCollidersController();
             _gameStateObserver = new GameStateObserver();
-            
+            _projectileContainer = new ProjectileContainer();
+
             _loosePanelView.Construct(projectInstaller.TweenCore);
             _scoreView.Construct(projectInstaller.TweenCore);
             _highScoreView.Construct(projectInstaller.TweenCore);
@@ -96,12 +97,12 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             
             _physicalFlightCalculator = new PhysicalFlightCalculator(_screenSettingsProvider, _configsContainer.PhysicsConfig);
             _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController, _configsContainer.ShootConfig);
-            DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, ProjectileDestroyer, _configsContainer.ShootConfig);
+            DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, _projectileContainer, ProjectileDestroyer, _configsContainer.ShootConfig);
             _healthSystem = new HealthSystem(_configsContainer.HealthConfig, _healthController, projectInstaller.TweenCore);
-            ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectileContainer, _shadowContainer,
+            ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectilesParenter, _shadowParenter,
                 _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
                 , _configsContainer.ProjectileConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig,
-                _healthSystem);
+                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer);
             ShootPolicy = new WavesSpawnPolicy(_configsContainer.SpawnConfig);
             Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ShootConfig
                 ,_configsContainer.ShadowConfig , _configsContainer.ProjectileConfig, _configsContainer.PhysicsConfig, _configsContainer.SpawnConfig);
@@ -110,7 +111,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             ScoreSystem = new ScoreSystem(projectInstaller.ScoreStateContainer, _slicer, _currentScoreView,
                 _highScoreView, _configsContainer.ScoreConfig); 
             _gameEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
-            ComboSystem comboSystem = new ComboSystem(_slicer, _configsContainer.ComboConfig, _comboContainer, _screenSettingsProvider, ScoreSystem, _configsContainer.ScoreConfig);
+            ComboSystem comboSystem = new ComboSystem(_slicer, _configsContainer.ComboConfig, _comboParenter, _screenSettingsProvider, ScoreSystem, _configsContainer.ScoreConfig);
 
             PauseController pauseController = new PauseController(_configsContainer.PhysicsConfig);
             RestartGameButton restartGameButton = new RestartGameButton(projectInstaller.SceneLoaderWithCurtains);
