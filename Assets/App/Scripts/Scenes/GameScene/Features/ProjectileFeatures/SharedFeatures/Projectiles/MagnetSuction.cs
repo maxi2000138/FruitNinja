@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class MagnetSuction : MonoBehaviour
+public class MagnetSuction : MonoBehaviour, ILooseGameListener
 {
     private bool _isActive;
     private readonly List<Vector2> _positions = new();
@@ -14,10 +14,12 @@ public class MagnetSuction : MonoBehaviour
     private float _distance;
     private float _force;
     private bool _setupedApplier;
+    private TokenController _tokenController;
 
 
     public void Construct(ProjectileContainer projectileContainer, BonusesConfig bonusesConfig)
     {
+        _tokenController = new TokenController();
         _projectileContainer = projectileContainer;
         _bonusesConfig = bonusesConfig;
         _isActive = false;
@@ -35,7 +37,7 @@ public class MagnetSuction : MonoBehaviour
         {
             if(_activeProjectile[i].ProjectilePart != ProjectilePartEnum.Whole)
                 return;
-
+            
             _setupedApplier = false;
             
             for (int j = 0; j < _positions.Count; j++)
@@ -79,11 +81,12 @@ public class MagnetSuction : MonoBehaviour
         _activeProjectile[i].GravitationApplier.Enable();
     }
     
-    public async void StartSuction(Vector2 position, int activeMillisecondsTime)
+    public async void StartSuction(Vector2 position, float activeSecondsTime)
     {
         _positions.Add(position);
         _isActive = true;
-        await UniTask.Delay(activeMillisecondsTime, DelayType.DeltaTime);
+        await UniTask.Delay((int)(activeSecondsTime*1000), DelayType.DeltaTime
+            , PlayerLoopTiming.Update, _tokenController.CreateCancellationToken());
         _positions.Remove(position);
         TryStopSuction();
     }
@@ -101,5 +104,10 @@ public class MagnetSuction : MonoBehaviour
                     ClearSuctionApplier(i, indexOf);
             }
         }
+    }
+
+    public void OnLooseGame()
+    {
+        _tokenController.CancelTokens();
     }
 }

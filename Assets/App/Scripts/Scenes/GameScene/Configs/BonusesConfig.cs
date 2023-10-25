@@ -8,12 +8,10 @@ using UnityEngine.Serialization;
 public class BonusesConfig : SerializedScriptableObject
 {
     [Header("Magnet")] 
-    public MagnetSuction MagnetSuction;
     public float MagnetTime = 5f;
+    public float SuctionEndTime = 0.5f;
     public float FarthestMagnetDistance = 30f;
-    public float ClosestMagnetDistance = 30f;
     public float ForceVelocity = 1f;
-    public float MaxVelocity = 1f;
     public float ScaleFactor = 10000f;
     public float StopingDistance = 1f;
     public float DirectionScaleFactor = 0.1f;

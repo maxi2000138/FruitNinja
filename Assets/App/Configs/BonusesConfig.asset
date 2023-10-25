@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BonusesConfig
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -21,12 +21,10 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  MagnetSuction: {fileID: 0}
   MagnetTime: 9
+  SuctionEndTime: 0.8
   FarthestMagnetDistance: 8
-  ClosestMagnetDistance: 0
   ForceVelocity: 1
-  MaxVelocity: 0
   ScaleFactor: 0.2
   StopingDistance: 4
   DirectionScaleFactor: 0.07
