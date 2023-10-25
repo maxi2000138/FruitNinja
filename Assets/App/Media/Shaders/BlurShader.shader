@@ -1,95 +1,94 @@
-Shader "Custom/UIBlurSurfaceShader"
+Shader "Custom/SoftBlur"
 {
     Properties
     {
-        _MainTex ("Base (RGB)", 2D) = "white" { }
-        _BlurAmount ("Blur Amount", Range (0, 20)) = 15.0
-        _TintColor ("Tint Color", Color) = (.5, .5, .5, 1)
-        _Brightness ("Brightness", Range (0, 10)) = 1.0
-        _Intensity ("Intensity", Range(0, 5)) = 1.0
+        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+        _Color ("Tint", Color) = (1, 1, 1, 1)
+        [MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
+        _BlurSize("Blur Size", Range(0.0, 0.1)) = 0.05
+        _TintColor ("Tint Color", Color) = (1, 1, 1, 1)
     }
 
     SubShader
     {
-        Tags { "Queue" = "Overlay" }
-        CGPROGRAM
-        #pragma surface surf Lambert
-
-        struct Input
-        {
-            float2 uv_MainTex;
-        };
-
-        sampler2D _MainTex;
-        fixed _BlurAmount;
-        fixed4 _TintColor;
-        fixed _Brightness;
-        fixed _Intensity;
-
-        // Функция для вычисления весов Гауссовского размытия
-        fixed GaussianWeight(fixed x, fixed sigma)
-        {
-            return exp(-(x * x) / (2 * sigma * sigma));
+        Tags
+        { 
+            "Queue"="Overlay" 
+            "RenderType"="Transparent" 
+            "IgnoreProjector"="True" 
+            "PreviewType"="Plane"
+            "CanUseSpriteAtlas"="True"
         }
 
-        // Гауссовское размытие с двухпроходным подходом
-        fixed4 GaussianBlur(sampler2D tex, float2 uv, float2 texelSize)
+        Cull Off
+        Lighting Off
+        ZWrite Off
+        Blend One OneMinusSrcAlpha
+
+        Pass
         {
-            fixed4 colorSum = 0;
-
-            // Стандартное отклонение Гауссиана
-            fixed sigma = _BlurAmount;
-
-            // Вычисление весов Гауссовского размытия для горизонтального прохода
-            fixed weightsH[201];
-            fixed totalWeightH = 0;
-            for (int i = 0; i < 201; i++)
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile _ PIXELSNAP_ON
+            #include "UnityCG.cginc"
+            
+            struct appdata_t
             {
-                weightsH[i] = GaussianWeight(fixed(i) - 100, sigma);
-                totalWeightH += weightsH[i];
+                float4 vertex   : POSITION;
+                float4 color    : COLOR;
+                float2 texcoord : TEXCOORD0;
+            };
+
+            struct v2f
+            {
+                float4 pos      : POSITION;
+                fixed4 color    : COLOR;
+                float2 uv       : TEXCOORD0;
+            };
+            
+            fixed4 _Color;
+            fixed4 _TintColor;
+
+            v2f vert(appdata_t IN)
+            {
+                v2f OUT;
+                OUT.pos = UnityObjectToClipPos(IN.vertex);
+                OUT.uv = IN.texcoord;
+                OUT.color = IN.color * _Color;
+                #ifdef PIXELSNAP_ON
+                OUT.pos = UnityPixelSnap (OUT.pos);
+                #endif
+
+                return OUT;
             }
 
-            // Горизонтальный проход
-            for (int i = 0; i < 201; i++)
-            {
-                fixed2 offsetH = texelSize * (fixed(i) - 100);
-                colorSum += tex2D(tex, uv + offsetH) * (weightsH[i] / totalWeightH);
-            }
+            sampler2D _MainTex;
+            float _BlurSize;
 
-            // Вычисление весов Гауссовского размытия для вертикального прохода
-            fixed weightsV[201];
-            fixed totalWeightV = 0;
-            for (int i = 0; i < 201; i++)
+            fixed4 frag(v2f i) : SV_Target
             {
-                weightsV[i] = GaussianWeight(fixed(i) - 100, sigma);
-                totalWeightV += weightsV[i];
-            }
+                fixed4 sum = fixed4(0.0, 0.0, 0.0, 0.0);
+                float weightSum = 0.0;
 
-            // Вертикальный проход
-            colorSum = 0;
-            for (int i = 0; i < 201; i++)
-            {
-                fixed2 offsetV = texelSize * (fixed(i) - 100);
-                colorSum += tex2D(tex, uv + offsetV) * (weightsV[i] / totalWeightV);
-            }
+                // Gaussian weights for softer blur
+                float weights[9] = {0.03, 0.07, 0.12, 0.18, 0.2, 0.18, 0.12, 0.07, 0.03};
 
-            return colorSum;
+                for (int j = -4; j <= 4; j++)
+                {
+                    float weight = weights[j + 4];
+                    sum += tex2D(_MainTex, i.uv + float2(0, j * _BlurSize)) * weight;
+                    weightSum += weight;
+                }
+
+                sum /= weightSum;
+
+                // Apply tint color
+                sum.rgb *= _TintColor.rgb;
+
+                return sum;
+            }
+            ENDCG
         }
-
-        void surf(Input IN, inout SurfaceOutput o)
-        {
-            fixed4 col = tex2D(_MainTex, IN.uv_MainTex);
-            fixed2 texelSize = 1.0 / _ScreenParams.xy;
-
-            fixed4 sum = GaussianBlur(_MainTex, IN.uv_MainTex, texelSize);
-
-            // Применение цвета, яркости и интенсивности
-            col.rgb = lerp(col.rgb, sum.rgb, _Intensity) * _TintColor.rgb * _Brightness;
-            col.a = sum.a;
-
-            o.Albedo = col.rgb;
-            o.Alpha = col.a;
-        }
-        ENDCG
     }
 }

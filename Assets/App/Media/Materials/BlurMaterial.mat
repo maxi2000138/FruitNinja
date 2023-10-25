@@ -9,7 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: BlurMaterial
   m_Shader: {fileID: 4800000, guid: 301eb47eeb6b3b94fbb02329d19b03e1, type: 3}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - PIXELSNAP_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -58,12 +59,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - PixelSnap: 0
+    - PixelSnap: 1
     - _BlurAmount: 8.3
     - _BlurAmountX: 6.31
     - _BlurAmountY: 6.96
     - _BlurAngle: 0
-    - _BlurSize: 0.0043
+    - _BlurSize: 0.004
+    - _BlurStrength: 0.23
     - _Brightness: 4.75
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -104,5 +106,5 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MultiplyColor: {r: 1, g: 1, b: 1, a: 1}
     - _OpVector: {r: 1, g: -1, b: 0, a: 0}
-    - _TintColor: {r: 1, g: 0.7901693, b: 0.5981132, a: 1}
+    - _TintColor: {r: 0.9622642, g: 0.79597723, b: 0.64816666, a: 1}
   m_BuildTextureStacks: []
