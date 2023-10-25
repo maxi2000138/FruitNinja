@@ -1,5 +1,6 @@
 using System;
 using App.Scripts.Scenes.GameScene.Configs;
+using App.Scripts.Scenes.GameScene.Features.InputFeatures;
 using App.Scripts.Scenes.GameScene.Features.ParticleFeatures;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ColliderFeatures;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures.Enum;
@@ -8,7 +9,6 @@ using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehavio
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeatures;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeatures;
 using App.Scripts.Scenes.GameScene.Features.ResourceFeatures;
-using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -23,6 +23,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly ParticleSystemPlayer _particleSystemPlayer;
         private readonly BonusesConfig _bonusesConfig;
         private readonly ProjectileContainer _projectileContainer;
+        private readonly Slicer _slicer;
         private readonly ShadowParenter _shadowParenter;
         private readonly IDestroyTrigger _destroyTrigger;
         private readonly ResourcesConfig _resourcesConfig;
@@ -33,7 +34,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
         public ProjectileFactory(IDestroyTrigger destroyTrigger, ProjectilesParenter projectileParenter, ShadowParenter shadowParenter, SliceCollidersController sliceCollidersController
             , ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer, ProjectileConfig projectileConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig
-            , HealthSystem healthSystem, BonusesConfig bonusesConfig, ProjectileContainer projectileContainer)
+            , HealthSystem healthSystem, BonusesConfig bonusesConfig, ProjectileContainer projectileContainer, Slicer slicer)
         {
             _destroyTrigger = destroyTrigger;
             _projectileParenter = projectileParenter;
@@ -47,13 +48,20 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _healthSystem = healthSystem;
             _bonusesConfig = bonusesConfig;
             _projectileContainer = projectileContainer;
+            _slicer = slicer;
         }
         
+        
+        public Brick CreateBrick(Vector2 position, Vector2 magnetSclae, Vector2 shadowScale, out Shadow shadow)
+        {
+            Brick brick = InstantiateBrickAndConstruct(ProjectilePartEnum.Whole, position, magnetSclae, shadowScale, out shadow);
+            return brick;
+        }
         
         public Magnet CreateMagnet(Vector2 position, Vector2 magnetSclae, Vector2 shadowScale, out Shadow shadow)
         {
             Magnet magnet = InstantiateMagnetAndConstruct(ProjectilePartEnum.Whole, position, magnetSclae, shadowScale, out shadow);
-            magnet.GetComponent<DestroySliceObject>().Construct(magnet, _destroyTrigger);
+            magnet.GetComponent<DestroySliceObject>().Construct(_destroyTrigger);
             return magnet;
         }
 
@@ -66,7 +74,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             fruit.GetComponent<TwoPartsSliceObject>().Construct(
                 () => InstantiateFruitAndConstruct(ProjectilePartEnum.Left, fruitType, position, fruitScale, shadowScale, out _).GetComponent<ISliced>()
                 ,() => InstantiateFruitAndConstruct(ProjectilePartEnum.Right, fruitType, position, fruitScale, shadowScale, out _).GetComponent<ISliced>()
-                , fruit, _destroyTrigger);
+                , _destroyTrigger);
             
             return fruit;
         }
@@ -77,8 +85,8 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
             bomb.GetComponent<TwoPartsSliceObject>().Construct(
                 () => InstantiateBombAndConstruct(ProjectilePartEnum.Left, position, fruitScale, shadowScale, out _).GetComponent<ISliced>(), 
-                () => InstantiateBombAndConstruct(ProjectilePartEnum.Right, position, fruitScale, shadowScale, out _).GetComponent<ISliced>(), 
-                bomb, _destroyTrigger);
+                () => InstantiateBombAndConstruct(ProjectilePartEnum.Right, position, fruitScale, shadowScale, out _).GetComponent<ISliced>()
+                , _destroyTrigger);
             
             return bomb;
         }
@@ -89,8 +97,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
             heart.GetComponent<TwoPartsSliceObject>().Construct(
                 () => InstantiateHeartAndConstruct(ProjectilePartEnum.Left, position, fruitScale, shadowScale, out _).GetComponent<ISliced>(), 
-                () => InstantiateHeartAndConstruct(ProjectilePartEnum.Right, position, fruitScale, shadowScale, out _).GetComponent<ISliced>(), 
-                heart, _destroyTrigger);
+                () => InstantiateHeartAndConstruct(ProjectilePartEnum.Right, position, fruitScale, shadowScale, out _).GetComponent<ISliced>(), _destroyTrigger);
             
             return heart;
         }
@@ -104,6 +111,17 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             
             fruit.Construct(_projectileConfig.FruitDictionary[fruitType].SliceColor, _particleSystemPlayer);
             return fruit;
+        }
+        
+        private Brick InstantiateBrickAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
+        {
+            Brick brick = CreatePart<Brick>(ProjectileType.Brick, projectilePartEnum,
+                _projectileConfig.BonusesDictionary[BonusesType.Brick].SpriteData, position, fruitScale, shadowScale,
+                out createdShadow);
+            
+            brick.Construct(_slicer, _particleSystemPlayer);
+            return brick;
         }
         
         private Magnet InstantiateMagnetAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,

@@ -13,8 +13,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         private Transform _rightsPartTransform;
         [field: SerializeField] 
         public ProjectileType ProjectileType { get; private set; }
-        [field: SerializeField] 
-        public ProjectileObject ProjectileObject { get; private set; }
+        public ISlicable Slicable { get; private set; }
 
         private IDestroyTrigger _destroyTrigger;
         private ISliced _leftObject;
@@ -22,12 +21,15 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         
         private Func<ISliced> _leftPartSpawnMethod;
         private Func<ISliced> _rightPartSpawnMethod;
-        private ISlicable _slicable;
         private ProjectileType _projectileType;
-
-        public void Construct(Func<ISliced> leftPartSpawnMethod, Func<ISliced> rightPartSpawnMethod, ISlicable slicable, IDestroyTrigger destroyTrigger)
+        
+        private void Awake()
         {
-            _slicable = slicable;
+            Slicable = GetComponent<ISlicable>();
+        }
+
+        public void Construct(Func<ISliced> leftPartSpawnMethod, Func<ISliced> rightPartSpawnMethod, IDestroyTrigger destroyTrigger)
+        {
             _destroyTrigger = destroyTrigger;
             _leftPartSpawnMethod = leftPartSpawnMethod;
             _rightPartSpawnMethod = rightPartSpawnMethod;
@@ -41,7 +43,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
             SetupSlicedPart(_rightObject ,_rightsPartTransform.position, transform.eulerAngles, transform.localScale);
             SetVelocity(mover, sliceForce);
             DestroyFruit();
-            _slicable.OnSlice();
+            Slicable.OnSlice();
         }
 
         private void SpawnParts()

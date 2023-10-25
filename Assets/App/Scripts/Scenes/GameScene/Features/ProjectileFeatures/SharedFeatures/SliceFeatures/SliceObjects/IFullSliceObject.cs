@@ -5,7 +5,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
     public interface IFullSliceObject
     {
         public ProjectileType ProjectileType { get;  }
-        public ProjectileObject ProjectileObject { get; }
+        public ISlicable Slicable { get;  }
         void Slice(Mover mover, float sliceForce);
     }
 }

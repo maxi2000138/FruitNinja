@@ -20,17 +20,14 @@ namespace App.Scripts.Scenes.GameScene.Features.ParticleFeatures
             _tokenController = new TokenController();
         }
 
-        public void PlayHeartParticles(Vector2 position)
-        {
+
+        public void PlayBrickParticles(Vector2 position) =>
+            PlayParticles(_projectileParticles[ProjectileType.Brick], position);
+        public void PlayHeartParticles(Vector2 position) => 
             PlayParticles(_projectileParticles[ProjectileType.Heart], position);
-        }
-        
-        public void PlayBombSliceParticles(Vector2 position)
-        {
-            //_cfxrEffect.enabled = false;
-            //_cfxrEffect.enabled = true;
+
+        public void PlayBombSliceParticles(Vector2 position) => 
             PlayParticles(_projectileParticles[ProjectileType.Bomb], position);
-        }
 
         public void PlayFruitSliceParticles(Vector2 position, Color color)
         {

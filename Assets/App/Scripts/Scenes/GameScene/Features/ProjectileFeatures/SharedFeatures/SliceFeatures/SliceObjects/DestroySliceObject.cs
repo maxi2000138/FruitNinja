@@ -1,3 +1,4 @@
+using System;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.DestroyTrigger;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeatures;
@@ -7,22 +8,27 @@ public class DestroySliceObject : MonoBehaviour, IFullSliceObject
 {
     [field: SerializeField] 
     public ProjectileType ProjectileType { get; private set; }
+    [field: SerializeField]
+    public ISlicable Slicable { get; private set; }
     [field: SerializeField] 
     public ProjectileObject ProjectileObject { get; private set; }
 
-    private ISlicable _slicable;
     private IDestroyTrigger _destroyTrigger;
 
-    public void Construct(ISlicable slicable, IDestroyTrigger destroyTrigger)
+    private void Awake()
+    {
+        Slicable = GetComponent<ISlicable>();
+    }
+
+    public void Construct(IDestroyTrigger destroyTrigger)
     {
         _destroyTrigger = destroyTrigger;
-        _slicable = slicable;
     }
 
     
     public void Slice(Mover mover, float sliceForce)
     {
-        _slicable.OnSlice();
+        Slicable.OnSlice();
         _destroyTrigger.TriggerGroup(ProjectileObject);
     }
 }

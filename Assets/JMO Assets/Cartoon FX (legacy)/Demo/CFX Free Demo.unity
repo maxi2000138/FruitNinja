@@ -886,7 +886,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -210, y: -9.03}
+  m_AnchoredPosition: {x: -210, y: -9.030029}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &248783021
@@ -3934,7 +3934,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &1658907789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4330,15 +4330,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
       propertyPath: randomSeed
-      value: 2027633633
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19800002, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
       propertyPath: randomSeed
-      value: -1059085447
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19800004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
       propertyPath: randomSeed
-      value: -1999784513
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
