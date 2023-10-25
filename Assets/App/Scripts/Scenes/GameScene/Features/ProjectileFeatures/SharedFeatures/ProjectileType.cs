@@ -4,4 +4,5 @@
     Bomb,
     Heart,
     Magnet,
+    Brick,
 }

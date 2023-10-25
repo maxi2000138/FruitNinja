@@ -16,12 +16,12 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 21300000, guid: 6b0cf2b7f23677a4e8baa9259c3a41a2, type: 3}
     - {fileID: 21300000, guid: 9bdd50df161de3642a2ec23bb57647a2, type: 3}
     - {fileID: 21300000, guid: 1951639280e87d946ab0d143c453d729, type: 3}
-    - {fileID: 21300000, guid: f40ae5b989187ad459deed0a3595d49c, type: 3}
+    - {fileID: 21300000, guid: 22db70db3c06af24ab9b23827eb278d5, type: 3}
     - {fileID: 21300000, guid: 69e2baa6de4490a45a8fd56ab7033082, type: 3}
     - {fileID: 21300000, guid: fd8980eeb40a2e048afad998b9de9ffa, type: 3}
+    - {fileID: 21300000, guid: f40ae5b989187ad459deed0a3595d49c, type: 3}
     - {fileID: 21300000, guid: 42103ed247ea26c42ae85807b66ddd08, type: 3}
     - {fileID: 21300000, guid: 8f8b8584815189d4da3f6b1774ce6bd9, type: 3}
     - {fileID: 21300000, guid: 5f11137c5e8f79341a0885a85ca4f217, type: 3}
@@ -85,16 +85,34 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 2|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
-    - Name: FullSprite
-      Entry: 10
-      Data: 0
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpriteData
+      Entry: 7
+      Data: 3|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
     - Name: PartSprites
       Entry: 7
-      Data: 3|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 4|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 4|System.Collections.Generic.EnumEqualityComparer`1[[ProjectilePartEnum,
+      Data: 5|System.Collections.Generic.EnumEqualityComparer`1[[ProjectilePartEnum,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -116,31 +134,31 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -150,21 +168,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: SliceColor
-      Entry: 7
-      Data: UnityEngine.Color, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -182,62 +185,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 5|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
-    - Name: FullSprite
-      Entry: 10
-      Data: 3
-    - Name: PartSprites
-      Entry: 7
-      Data: 6|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
-        UnityEngine.CoreModule]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 4
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 10
-      Data: 4
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 10
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 6|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
@@ -256,6 +204,64 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SpriteData
+      Entry: 7
+      Data: 7|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
+    - Name: PartSprites
+      Entry: 7
+      Data: 8|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -270,20 +276,50 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 7|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
-    - Name: FullSprite
-      Entry: 10
-      Data: 6
+      Data: 9|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.129903823
+    - Name: 
+      Entry: 4
+      Data: 0.8396226
+    - Name: 
+      Entry: 4
+      Data: 0.2501811
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpriteData
+      Entry: 7
+      Data: 10|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
     - Name: PartSprites
       Entry: 7
-      Data: 8|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 11|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 12
       Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: 
@@ -309,6 +345,61 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 12|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.7528591
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpriteData
+      Entry: 7
+      Data: 13|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
+    - Name: PartSprites
+      Entry: 7
+      Data: 14|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 5
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
       Entry: 7
       Data: 
     - Name: $k
@@ -316,62 +407,10 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 10
-      Data: 6
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: SliceColor
-      Entry: 7
-      Data: UnityEngine.Color, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.129903823
-    - Name: 
-      Entry: 4
-      Data: 0.8396226
-    - Name: 
-      Entry: 4
-      Data: 0.2501811
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 3
-    - Name: $v
-      Entry: 7
-      Data: 9|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
-    - Name: FullSprite
-      Entry: 10
       Data: 9
-    - Name: PartSprites
-      Entry: 7
-      Data: 10|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
-        UnityEngine.CoreModule]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 4
     - Name: 
-      Entry: 12
-      Data: 3
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: 
@@ -397,32 +436,38 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 9
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 15|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
     - Name: SliceColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 0.9622642
     - Name: 
       Entry: 4
-      Data: 0.7528591
+      Data: 0.104187034
     - Name: 
       Entry: 4
       Data: 0
@@ -432,34 +477,31 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SpriteData
+      Entry: 7
+      Data: 16|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
+    - Name: PartSprites
+      Entry: 7
+      Data: 17|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 5
     - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 12
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 3
-      Data: 4
+      Data: 2
     - Name: $v
-      Entry: 7
-      Data: 11|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
-    - Name: FullSprite
       Entry: 10
       Data: 12
-    - Name: PartSprites
-      Entry: 7
-      Data: 12|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
-        UnityEngine.CoreModule]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 4
     - Name: 
-      Entry: 12
-      Data: 3
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: 
@@ -485,38 +527,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 12
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: SliceColor
-      Entry: 7
-      Data: UnityEngine.Color, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.9622642
-    - Name: 
-      Entry: 4
-      Data: 0.104187034
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -534,20 +549,50 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: 13|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
-    - Name: FullSprite
-      Entry: 10
-      Data: 15
+      Data: 18|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.6577568
+    - Name: 
+      Entry: 4
+      Data: 0.9245283
+    - Name: 
+      Entry: 4
+      Data: 0.587860465
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpriteData
+      Entry: 7
+      Data: 19|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
     - Name: PartSprites
       Entry: 7
-      Data: 14|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 20|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 12
       Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: 
@@ -573,38 +618,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: SliceColor
-      Entry: 7
-      Data: UnityEngine.Color, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.6577568
-    - Name: 
-      Entry: 4
-      Data: 0.9245283
-    - Name: 
-      Entry: 4
-      Data: 0.587860465
-    - Name: 
-      Entry: 4
-      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -622,20 +640,50 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: 15|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
-    - Name: FullSprite
-      Entry: 10
-      Data: 18
+      Data: 21|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.236917049
+    - Name: 
+      Entry: 4
+      Data: 0.5188679
+    - Name: 
+      Entry: 4
+      Data: 0.241445944
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpriteData
+      Entry: 7
+      Data: 22|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
     - Name: PartSprites
       Entry: 7
-      Data: 16|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 23|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 12
       Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 18
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: 
@@ -661,38 +709,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 18
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: SliceColor
-      Entry: 7
-      Data: UnityEngine.Color, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.236917049
-    - Name: 
-      Entry: 4
-      Data: 0.5188679
-    - Name: 
-      Entry: 4
-      Data: 0.241445944
-    - Name: 
-      Entry: 4
-      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -710,20 +731,50 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: 17|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
-    - Name: FullSprite
-      Entry: 10
-      Data: 21
+      Data: 24|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.9433962
+    - Name: 
+      Entry: 4
+      Data: 0.881596744
+    - Name: 
+      Entry: 4
+      Data: 0.145959347
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpriteData
+      Entry: 7
+      Data: 25|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
     - Name: PartSprites
       Entry: 7
-      Data: 18|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 26|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 12
       Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 21
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: 
@@ -749,38 +800,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 21
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: SliceColor
-      Entry: 7
-      Data: UnityEngine.Color, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 0.9433962
-    - Name: 
-      Entry: 4
-      Data: 0.881596744
-    - Name: 
-      Entry: 4
-      Data: 0.145959347
-    - Name: 
-      Entry: 4
-      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -798,20 +822,50 @@ MonoBehaviour:
       Data: 8
     - Name: $v
       Entry: 7
-      Data: 19|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
-    - Name: FullSprite
-      Entry: 10
-      Data: 24
+      Data: 27|App.Scripts.Scenes.GameScene.Configs.FruitData, Assembly-CSharp
+    - Name: SliceColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.952966332
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: SpriteData
+      Entry: 7
+      Data: 28|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
     - Name: PartSprites
       Entry: 7
-      Data: 20|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 29|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 12
       Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 24
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: 
@@ -837,38 +891,11 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 24
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-    - Name: SliceColor
-      Entry: 7
-      Data: UnityEngine.Color, UnityEngine.CoreModule
-    - Name: 
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 4
-      Data: 0.952966332
-    - Name: 
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 4
-      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -886,11 +913,11 @@ MonoBehaviour:
       Data: 
     - Name: BonusesDictionary
       Entry: 7
-      Data: 21|System.Collections.Generic.Dictionary`2[[BonusesType, Assembly-CSharp],[App.Scripts.Scenes.GameScene.Configs.BonusData,
+      Data: 30|System.Collections.Generic.Dictionary`2[[BonusesType, Assembly-CSharp],[App.Scripts.Scenes.GameScene.Configs.BonusData,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 22|System.Collections.Generic.EnumEqualityComparer`1[[BonusesType, Assembly-CSharp]],
+      Data: 31|System.Collections.Generic.EnumEqualityComparer`1[[BonusesType, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -912,24 +939,17 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 23|App.Scripts.Scenes.GameScene.Configs.BonusData, Assembly-CSharp
+      Data: 32|App.Scripts.Scenes.GameScene.Configs.BonusData, Assembly-CSharp
+    - Name: SpriteData
+      Entry: 7
+      Data: 33|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
     - Name: PartSprites
       Entry: 7
-      Data: 24|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 34|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
-      Entry: 7
-      Data: 25|System.Collections.Generic.EnumEqualityComparer`1[[ProjectilePartEnum,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 9
+      Data: 5
     - Name: 
       Entry: 12
       Data: 3
@@ -982,6 +1002,9 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
       Data: 
     - Name: $k
@@ -989,14 +1012,17 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 26|App.Scripts.Scenes.GameScene.Configs.BonusData, Assembly-CSharp
+      Data: 35|App.Scripts.Scenes.GameScene.Configs.BonusData, Assembly-CSharp
+    - Name: SpriteData
+      Entry: 7
+      Data: 36|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
     - Name: PartSprites
       Entry: 7
-      Data: 27|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 37|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 9
-      Data: 25
+      Data: 5
     - Name: 
       Entry: 12
       Data: 3
@@ -1049,6 +1075,9 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 7
       Data: 
     - Name: $k
@@ -1056,24 +1085,17 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 28|App.Scripts.Scenes.GameScene.Configs.BonusData, Assembly-CSharp
+      Data: 38|App.Scripts.Scenes.GameScene.Configs.BonusData, Assembly-CSharp
+    - Name: SpriteData
+      Entry: 7
+      Data: 39|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
     - Name: PartSprites
       Entry: 7
-      Data: 29|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+      Data: 40|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
-      Entry: 7
-      Data: 30|System.Collections.Generic.EnumEqualityComparer`1[[ProjectilePartEnum,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 9
+      Data: 5
     - Name: 
       Entry: 12
       Data: 1
@@ -1102,6 +1124,9 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -1109,11 +1134,11 @@ MonoBehaviour:
       Data: 
     - Name: ProjectileScales
       Entry: 7
-      Data: 31|System.Collections.Generic.Dictionary`2[[ProjectileType, Assembly-CSharp],[App.Scripts.Scenes.GameScene.Configs.ScaleData,
+      Data: 41|System.Collections.Generic.Dictionary`2[[ProjectileType, Assembly-CSharp],[App.Scripts.Scenes.GameScene.Configs.ScaleData,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 32|System.Collections.Generic.EnumEqualityComparer`1[[ProjectileType,
+      Data: 42|System.Collections.Generic.EnumEqualityComparer`1[[ProjectileType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -1135,7 +1160,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 33|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 43|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1162,7 +1187,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 34|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 44|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1189,7 +1214,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 35|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 45|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1216,7 +1241,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: 36|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 46|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule

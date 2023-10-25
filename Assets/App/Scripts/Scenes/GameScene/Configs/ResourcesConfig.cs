@@ -7,10 +7,7 @@ namespace App.Scripts.Scenes.GameScene.Configs
     [CreateAssetMenu(fileName = "new ResourcesConfig", menuName = "Configs/Resources Config")]
     public class ResourcesConfig : SerializedScriptableObject
     {
-        public Dictionary<ProjectilePartEnum, string> FruitsPartPath;
-        public Dictionary<ProjectilePartEnum, string> BombPartPath;
-        public Dictionary<ProjectilePartEnum, string> HeartPartPath;
-        public Dictionary<ProjectilePartEnum, string> MagnetPartPath;
+        public Dictionary<ProjectileType, Dictionary<ProjectilePartEnum, string>> PartPathes;
         public string ShadowPath = "Prefabs/Shadow";
     }
 }

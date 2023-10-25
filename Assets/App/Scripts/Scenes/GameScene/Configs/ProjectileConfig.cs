@@ -14,16 +14,22 @@ namespace App.Scripts.Scenes.GameScene.Configs
         public Dictionary<ProjectileType, ScaleData> ProjectileScales;
     }
 
+
     [Serializable]
     public class FruitData
     {
-        public Sprite FullSprite;
-        public Dictionary<ProjectilePartEnum, Sprite> PartSprites;
         public Color SliceColor;
+        public SpriteData SpriteData;
     }
-    
+
     [Serializable]
     public class BonusData
+    {
+        public SpriteData SpriteData;
+    }
+
+    [Serializable]
+    public class SpriteData
     {
         public Dictionary<ProjectilePartEnum, Sprite> PartSprites;
     }

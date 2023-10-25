@@ -44,14 +44,13 @@ public class MagnetSuction : MonoBehaviour, ILooseGameListener
             {
                 _distance = Vector2.Distance(_activeProjectile[i].transform.position, _positions[j]);
                 if (_distance > _bonusesConfig.FarthestMagnetDistance)
-                    return;
+                    continue;
 
                 if (!_suctionProjectile.Contains(_activeProjectile[i]))
                 {
                     CreateSuctionApplier(i, j);
                     break;
                 }
-                
             }
             
             if(!_setupedApplier && _suctionProjectile.Contains(_activeProjectile[i]))

@@ -65,14 +65,14 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
             Disable();
         }
         
-        private void StartSlicing()
+        public void StartSlicing()
         {
             _trailRenderer.Clear();
             _trailRenderer.enabled = true;
             _isSlicing = true;
         }
 
-        private void EndSlicing()
+        public void EndSlicing()
         {
             _isSlicing = false;
             _trailRenderer.enabled = false;

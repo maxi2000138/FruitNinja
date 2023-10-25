@@ -42,9 +42,9 @@ public class LoosePanelView : PanelBehaviour
         _PopupGroup.alpha = 0f;
         _canvasInfoGroup.alpha = 0f;
         _scoreGroup.alpha = 0f;
-        await _tweenCore.TweenByTime(SetCanvasPopupAlpha, 0f, 1f, 1f, CustomEase.OutQuad, _tokenController.CreateCancellationToken());
+        await _tweenCore.TweenByTime(SetCanvasPopupAlpha, 0f, 1f, 0.8f, CustomEase.OutQuad, _tokenController.CreateCancellationToken());
         MakeInteractiveButtons();
-        await _tweenCore.TweenByTime(SetCanvasInfoALpha, 0f, 1f, 0.8f, CustomEase.OutQuad, _tokenController.CreateCancellationToken());
+        await _tweenCore.TweenByTime(SetCanvasInfoALpha, 0f, 1f, 0.6f, CustomEase.OutQuad, _tokenController.CreateCancellationToken());
         _tweenCore.TweenByTime(SetCanvasScoreAlpha, 0f, 1f, 1f, CustomEase.OutQuad, _tokenController.CreateCancellationToken());
 
         if (_currentScore != 0)

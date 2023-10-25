@@ -1,23 +1,25 @@
+using App.Scripts.Scenes.GameScene.Features.InputFeatures;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeatures;
 using UnityEngine;
 
-public class NothingHappendSliceObject : IFullSliceObject
+public class SlicerBreakerSliceObject : MonoBehaviour, IFullSliceObject
 {
     [field: SerializeField] 
     public ProjectileType ProjectileType { get; private set; }
     [field: SerializeField] 
     public ProjectileObject ProjectileObject { get; private set; }
 
-    private ISlicable _slicable;
 
-    public void Construct(ISlicable slicable)
+    private Slicer _slicer;
+
+    public void Construct(Slicer slicer)
     {
-        _slicable = slicable;
+        _slicer = slicer;
     }
     
     public void Slice(Mover mover, float sliceForce)
     {
-        _slicable.OnSlice();       
+        _slicer.EndSlicing();
     }
 }
