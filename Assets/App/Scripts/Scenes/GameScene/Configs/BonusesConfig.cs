@@ -17,5 +17,8 @@ public class BonusesConfig : SerializedScriptableObject
     public float DirectionScaleFactor = 0.1f;
     public float scaleLitleFactor = 1f;
     public float ScaleFactorDistance = 1f;
+    [Header("Frozen")] 
+    public float FrozenTimeScale = 0.5f;
+    public float FrozenTime = 8f;
 }
 

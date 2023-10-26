@@ -4,7 +4,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Rota
 {
     public interface IRotater
     {
-        public Vector3 Rotate(float deltaTime);
+        public Vector3 Rotate(float deltaTime, float timeScale);
         public void Clear();
     }
 }

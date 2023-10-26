@@ -297,3 +297,4 @@ MonoBehaviour:
   <SpriteRenderer>k__BackingField: {fileID: 8988167893080911641}
   <ScaleByTimeApplier>k__BackingField: {fileID: 3521300081488703509}
   <OffsetByTimeApplier>k__BackingField: {fileID: 3582187527697598645}
+  _physicsForcesOrder: {fileID: 4650677641648878503}

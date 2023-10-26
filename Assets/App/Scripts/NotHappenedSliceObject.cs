@@ -10,17 +10,20 @@ public class NotHappenedSliceObject : MonoBehaviour, IFullSliceObject
     public ProjectileType ProjectileType { get; private set; }
     [field: SerializeField] 
     public ISlicable Slicable { get; private set; }
+
     [field: SerializeField] 
     public ProjectileObject ProjectileObject { get; private set; }
 
-    
+
     private void Awake()
     {
         Slicable = GetComponent<ISlicable>();
     }
 
-    public void Slice(Mover mover, float sliceForce)
+    public void Slice(Mover mover, float sliceForces, out bool disableColliderOnSlice)
     {
         Slicable.OnSlice();
+        disableColliderOnSlice = false;
     }
+
 }

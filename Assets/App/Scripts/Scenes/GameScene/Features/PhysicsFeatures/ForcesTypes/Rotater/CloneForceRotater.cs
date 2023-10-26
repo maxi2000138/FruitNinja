@@ -12,7 +12,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Rota
             _cloneObject = cloneObject;
         }
 
-        public override void ExecuteOperation(GameObject physicsObject, float deltaTime)
+        public override void ExecuteOperation(GameObject physicsObject, float deltaTime, float timeScale)
         {
             if (_cloneObject != null)
             {

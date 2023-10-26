@@ -1,0 +1,8 @@
+
+…csharpsquid:S1450O"hRemove the field '_sliceCollidersController' and declare it as a local variable in the relevant methods.(ğ§¨
+…csharpsquid:S1450P"hRemove the field '_physicalFlightCalculator' and declare it as a local variable in the relevant methods.(²›˜À
+~csharpsquid:S1450Q"aRemove the field '_gameStateObserver' and declare it as a local variable in the relevant methods.(·¾‚¦
+ycsharpsquid:S1450R"\Remove the field '_healthSystem' and declare it as a local variable in the relevant methods.(é»À¼
+‡csharpsquid:S1450S"eRemove the field '_healthOverLoosePolicy' and declare it as a local variable in the relevant methods.(ëÀ¸Ûúÿÿÿÿ
+…csharpsquid:S1450T"cRemove the field '_projectileContainer' and declare it as a local variable in the relevant methods.(©”¿şÿÿÿÿ
+Qcsharpsquid:S1481t"/Remove the unused local variable 'comboSystem'.(¢ÿ÷úÿÿÿÿ

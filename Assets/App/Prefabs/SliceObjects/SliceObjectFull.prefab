@@ -351,6 +351,7 @@ MonoBehaviour:
   ShadowCloneRotater: {fileID: 3130353344283311927}
   Mover: {fileID: 8976041037518006046}
   GravitationApplier: {fileID: 5892379175246256098}
+  _physicsForcesOrder: {fileID: 7501482004418162440}
   _spriteRenderer: {fileID: 6093624603544318279}
 --- !u!114 &8876249635012475864
 MonoBehaviour:
@@ -382,7 +383,6 @@ MonoBehaviour:
   _leftPartTransform: {fileID: 6722138447275389989}
   _rightsPartTransform: {fileID: 4856010670053284055}
   <ProjectileType>k__BackingField: 0
-  <ProjectileObject>k__BackingField: {fileID: 6285487841706855841}
 --- !u!114 &1432272586602424981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,6 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _physicsObject: {fileID: 3858916285223650550}
+  _physicsConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
   _physicOperations:
   - {fileID: 8976041037518006046}
   - {fileID: 1802437889937852349}

@@ -5,4 +5,5 @@
     Heart,
     Magnet,
     Brick,
+    Ice,
 }

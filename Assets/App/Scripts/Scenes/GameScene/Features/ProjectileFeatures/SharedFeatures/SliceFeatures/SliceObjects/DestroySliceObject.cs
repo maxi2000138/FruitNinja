@@ -25,10 +25,11 @@ public class DestroySliceObject : MonoBehaviour, IFullSliceObject
         _destroyTrigger = destroyTrigger;
     }
 
-    
-    public void Slice(Mover mover, float sliceForce)
+
+    public void Slice(Mover mover, float sliceForces, out bool disableColliderOnSlice)
     {
         Slicable.OnSlice();
+        disableColliderOnSlice = true;
         _destroyTrigger.TriggerGroup(ProjectileObject);
     }
 }

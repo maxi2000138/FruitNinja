@@ -4,7 +4,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Move
 {
     public interface IMover
     {
-        public Vector2 Move(Vector2 movementVector, float deltaTime);
+        public Vector2 Move(Vector2 movementVector, float deltaTime, float timeSclae);
         public void Clear();
     }
 }

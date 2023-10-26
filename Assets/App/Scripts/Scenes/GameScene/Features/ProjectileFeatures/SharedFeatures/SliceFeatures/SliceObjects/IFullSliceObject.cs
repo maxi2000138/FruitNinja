@@ -6,6 +6,6 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
     {
         public ProjectileType ProjectileType { get;  }
         public ISlicable Slicable { get;  }
-        void Slice(Mover mover, float sliceForce);
+        void Slice(Mover mover, float sliceForces, out bool disableColliderOnSlice);
     }
 }

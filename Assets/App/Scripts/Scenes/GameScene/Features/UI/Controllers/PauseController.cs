@@ -1,22 +1,21 @@
-using App.Scripts.Scenes.GameScene.Configs;
-using UnityEngine;
-
 public class PauseController
 {
-    private readonly PhysicsConfig _physicsConfig;
+    private readonly TimeScaleService _timeScaleService;
 
-    public PauseController(PhysicsConfig physicsConfig)
+    public PauseController(TimeScaleService timeScaleService)
     {
-        _physicsConfig = physicsConfig;
+        _timeScaleService = timeScaleService;
     }
     
     public void PauseGame()
     {
-        Time.timeScale = 0f;
+        _timeScaleService.NullifyUnityTimeScale();
+        _timeScaleService.NullifyPhysicTimeScale();
     }
 
     public void ResumeGame()
     {
-        Time.timeScale = 1f;
+        _timeScaleService.ResetPhysicTimeScale();
+        _timeScaleService.ResetUnityTimeScale();
     }
 }

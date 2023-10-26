@@ -1,0 +1,7 @@
+
+Rcsharpsquid:S1172‚"/Remove this unused method parameter 'maxScale'.(£·‹şøÿÿÿÿ
+Wcsharpsquid:S2259Q"5'shootObject' is null on at least one execution path.(ã®úœøÿÿÿÿ
+fcsharpsquid:S107"EConstructor has 9 parameters, which is greater than the 7 authorized.(÷ºÚîúÿÿÿÿ
+Scsharpsquid:S1144"1Remove the unused private field '_highestYValue'.(½•æÿÿÿÿÿ
+ucsharpsquid:S4487"XRemove this unread private field '_physicsConfig' or refactor the code to use its value.(Öª¶Ì
+Kcsharpsquid:S14816")Remove the unused local variable 'value'.(ÚÈ£¯şÿÿÿÿ

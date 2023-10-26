@@ -5,7 +5,6 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
 {
     public class VelocityApplier : MonoBehaviour, IMover
     {
-        private const float FORCE_APPLY_TIME = 1/60f;
         private Vector2 _velocityVector;
 
         public void AddVelocity(Vector2 forceVector)
@@ -13,11 +12,11 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
              _velocityVector += forceVector;
         }
 
-        public Vector2 Move(Vector2 movementVector, float deltaTime)
+        public Vector2 Move(Vector2 movementVector, float deltaTime, float timeScale)
         {
             if (_velocityVector != Vector2.zero)
             {
-                Vector2 forceVector = _velocityVector * FORCE_APPLY_TIME;
+                Vector2 forceVector = _velocityVector * (Mathf.Sqrt(timeScale) * deltaTime);
                 Clear();
                 return forceVector;
             }

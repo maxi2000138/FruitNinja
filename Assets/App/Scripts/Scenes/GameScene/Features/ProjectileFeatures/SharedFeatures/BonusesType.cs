@@ -4,4 +4,5 @@ public enum BonusesType
     Heart,
     Magnet,
     Brick,
+    Ice,
 }

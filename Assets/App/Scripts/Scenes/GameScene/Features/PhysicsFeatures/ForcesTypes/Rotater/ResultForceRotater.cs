@@ -13,15 +13,15 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Rota
             _rotaters.AddRange(GetComponents<IRotater>());
         }
     
-        public override void ExecuteOperation(GameObject physicsObject, float deltaTime)
+        public override void ExecuteOperation(GameObject physicsObject, float deltaTime, float timeScale)
         {
             Vector3 rotationVector = Vector3.zero;
             foreach (IRotater mover in _rotaters)
             {
-                rotationVector += mover.Rotate(deltaTime);
+                rotationVector += mover.Rotate(deltaTime, timeScale);
             }
 
-            physicsObject.transform.Rotate(rotationVector, Space.World);
+            physicsObject.transform.Rotate(rotationVector * timeScale, Space.World);
         }
     }
 }

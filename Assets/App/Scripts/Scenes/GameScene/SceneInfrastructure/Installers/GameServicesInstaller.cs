@@ -51,6 +51,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         private GameEntryPoint _gameEntryPoint;
         [SerializeField] 
         private MagnetSuction _magnetSuction;
+        [SerializeField] 
+        private FrozerService _frozerService;
 
         [Header("Views")] 
         [SerializeField]
@@ -101,10 +103,11 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController, _configsContainer.ShootConfig);
             DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, _projectileContainer, ProjectileDestroyer, _configsContainer.ShootConfig);
             _healthSystem = new HealthSystem(_configsContainer.HealthConfig, _healthController, projectInstaller.TweenCore);
+            TimeScaleService timeScaleService = new TimeScaleService(_configsContainer.BonusesConfig);
             ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectilesParenter, _shadowParenter,
                 _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
                 , _configsContainer.ProjectileConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig,
-                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer, _slicer);
+                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer, _slicer, timeScaleService, _frozerService);
             ShootPolicy = new WavesSpawnPolicy(_configsContainer.SpawnConfig);
             Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ShootConfig
                 ,_configsContainer.ShadowConfig , _configsContainer.ProjectileConfig, _configsContainer.PhysicsConfig, _configsContainer.SpawnConfig);
@@ -115,8 +118,9 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             _gameEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
             ComboSystem comboSystem = new ComboSystem(_slicer, _configsContainer.ComboConfig, _comboParenter, _screenSettingsProvider, ScoreSystem, _configsContainer.ScoreConfig);
             _magnetSuction.Construct(_projectileContainer, _configsContainer.BonusesConfig);
+            _frozerService.Construct(timeScaleService);
 
-            PauseController pauseController = new PauseController(_configsContainer.PhysicsConfig);
+            PauseController pauseController = new PauseController(timeScaleService);
             RestartGameButton restartGameButton = new RestartGameButton(projectInstaller.SceneLoaderWithCurtains);
             _restartButton.Construct(restartGameButton, projectInstaller.TweenCore);
             _looseExitMenuButton.Construct(new ExitToMenuButton(projectInstaller.SceneLoaderWithCurtains), projectInstaller.TweenCore);

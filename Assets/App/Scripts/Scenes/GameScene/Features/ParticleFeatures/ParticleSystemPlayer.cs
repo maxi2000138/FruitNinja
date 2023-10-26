@@ -20,7 +20,8 @@ namespace App.Scripts.Scenes.GameScene.Features.ParticleFeatures
             _tokenController = new TokenController();
         }
 
-
+        public void PlayIceParticles(Vector2 position) =>
+            PlayParticles(_projectileParticles[ProjectileType.Ice], position);
         public void PlayBrickParticles(Vector2 position) =>
             PlayParticles(_projectileParticles[ProjectileType.Brick], position);
         public void PlayHeartParticles(Vector2 position) => 

@@ -11,6 +11,15 @@ public class TokenController
         _cancellationTokens.Add(cts);
         return cts.Token;
     }
+    
+    public void CancelToken(CancellationToken cancellationToken)
+    {
+        for (int i = 0; i < _cancellationTokens.Count; i++)
+        {
+            if(_cancellationTokens[i].Token == cancellationToken)
+                _cancellationTokens[i].Cancel();
+        }
+    }
 
     public void CancelTokens()
     {

@@ -1,6 +1,7 @@
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Rotater;
+using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.PhysicsFramework;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeatures;
 using UnityEngine;
 
@@ -14,13 +15,15 @@ public class ProjectileObject : MonoBehaviour
     [field: SerializeField] public CloneForceRotater ShadowCloneRotater;
     [field: SerializeField] public Mover Mover;
     [field: SerializeField] public GravitationApplier GravitationApplier;
+    [field: SerializeField] private PhysicsForcesOrder _physicsForcesOrder;
     
     [SerializeField] private SpriteRenderer _spriteRenderer;
     
     private Shadow _shadow;
 
-    public void Construct(ProjectilePartEnum projectilePart, Shadow shadow)
+    public void Construct(ProjectilePartEnum projectilePart, Shadow shadow, TimeScaleService timeScaleService)
     {
+        _physicsForcesOrder.Construct(timeScaleService);
         ProjectilePart = projectilePart;
         _shadow = shadow;
     }

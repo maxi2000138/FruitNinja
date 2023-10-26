@@ -362,6 +362,7 @@ MonoBehaviour:
   ShadowCloneRotater: {fileID: 3130353344283311927}
   Mover: {fileID: 8976041037518006046}
   GravitationApplier: {fileID: 5892379175246256098}
+  _physicsForcesOrder: {fileID: 7501482004418162440}
   _spriteRenderer: {fileID: 6093624603544318279}
 --- !u!1 &5663910126908756341
 GameObject:
@@ -410,6 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _physicsObject: {fileID: 3858916285223650550}
+  _physicsConfig: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
   _physicOperations:
   - {fileID: 8976041037518006046}
   - {fileID: 1802437889937852349}

@@ -1,4 +1,5 @@
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier;
+using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.PhysicsFramework;
 using UnityEngine;
 
 namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeatures
@@ -10,7 +11,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeature
         [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
         [field: SerializeField] public ScaleByTimeApplier ScaleByTimeApplier { get; private set; }
         [field: SerializeField] public OffsetByTimeApplier OffsetByTimeApplier { get; private set; }
-    
+        [SerializeField] private PhysicsForcesOrder _physicsForcesOrder;
+
+
+        public void Construct(TimeScaleService timeScaleService)
+        {
+            _physicsForcesOrder.Construct(timeScaleService);
+        }
     
         public void SetSpriteWithOffsetAndScale(Sprite sprite, Vector2 offsetVector, Vector2 scale)
         {

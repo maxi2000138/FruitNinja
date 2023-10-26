@@ -31,9 +31,9 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
             
         }
     
-        public Vector2 Move(Vector2 movementVector, float deltaTime)
+        public Vector2 Move(Vector2 movementVector, float deltaTime, float timeScale)
         {
-            return new Vector3(0f, _gravityValue * deltaTime * deltaTime, 0f);
+            return new Vector3(0f, _gravityValue * deltaTime * deltaTime * timeScale, 0f);
         }
     }
 }

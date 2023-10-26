@@ -17,9 +17,9 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
             _torque = Vector3.zero;
         }
     
-        public Vector3 Rotate(float deltaTime)
+        public Vector3 Rotate(float deltaTime, float timeScale)
         {
-            return _torque * deltaTime;
+            return _torque * (deltaTime * timeScale);
         }
     }
 }

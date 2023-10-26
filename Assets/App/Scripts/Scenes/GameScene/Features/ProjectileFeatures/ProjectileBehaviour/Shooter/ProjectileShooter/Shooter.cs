@@ -72,6 +72,9 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 case(ProjectileType.Brick):
                     shootObject = _projectileFactory.CreateBrick(position, scale, scale, out shadow).GetComponent<ShootObject>();
                     break;    
+                case(ProjectileType.Ice):
+                    shootObject = _projectileFactory.CreateIce(position, scale, scale, out shadow).GetComponent<ShootObject>();
+                    break;    
             }
             
             Vector2 finalScale = GetLongestScale(scale, _projectileConfig.ProjectileScales[projectileType].Scale);

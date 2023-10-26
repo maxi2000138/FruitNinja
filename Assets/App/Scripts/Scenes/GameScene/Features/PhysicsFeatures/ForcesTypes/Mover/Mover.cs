@@ -26,14 +26,14 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Move
             _movers.Remove(mover);
         }
     
-        public override void ExecuteOperation(GameObject physicsObject, float deltaTime)
+        public override void ExecuteOperation(GameObject physicsObject, float deltaTime, float timeScale)
         {
             foreach (IMover mover in _movers)
             {
-                MovementVector += mover.Move(MovementVector, deltaTime);
+                MovementVector += mover.Move(MovementVector, deltaTime, timeScale);
             }
             
-            physicsObject.transform.Translate(MovementVector * Time.timeScale, Space.World);
+            physicsObject.transform.Translate(MovementVector * timeScale, Space.World);
         }
     }
 }

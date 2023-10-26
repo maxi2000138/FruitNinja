@@ -14,7 +14,7 @@ public class MagnetSuctionApplier : IMover
         _bonusesConfig = bonusesConfig;
     }
     
-    public Vector2 Move(Vector2 movementVector, float deltaTime)
+    public Vector2 Move(Vector2 movementVector, float deltaTime, float timeScale)
     {
         Vector2 directionVector = _magnetPosition - (Vector2)_projectileObject.transform.position;
         float distance = directionVector.magnitude;

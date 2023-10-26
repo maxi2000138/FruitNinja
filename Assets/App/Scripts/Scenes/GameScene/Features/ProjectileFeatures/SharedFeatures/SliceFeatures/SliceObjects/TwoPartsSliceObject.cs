@@ -16,13 +16,17 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         public ISlicable Slicable { get; private set; }
 
         private IDestroyTrigger _destroyTrigger;
+
         private ISliced _leftObject;
+
         private ISliced _rightObject;
-        
+
         private Func<ISliced> _leftPartSpawnMethod;
+
         private Func<ISliced> _rightPartSpawnMethod;
+
         private ProjectileType _projectileType;
-        
+
         private void Awake()
         {
             Slicable = GetComponent<ISlicable>();
@@ -36,16 +40,16 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         }
 
 
-        public void Slice(Mover mover, float sliceForce)
+        public void Slice(Mover mover, float sliceForces, out bool disableColliderOnSlice)
         {
             SpawnParts(); 
             SetupSlicedPart(_leftObject,_leftPartTransform.position, transform.eulerAngles, transform.localScale);
             SetupSlicedPart(_rightObject ,_rightsPartTransform.position, transform.eulerAngles, transform.localScale);
-            SetVelocity(mover, sliceForce);
+            SetVelocity(mover, sliceForces);
+            disableColliderOnSlice = true;
             DestroyFruit();
-            Slicable.OnSlice();
+            Slicable.OnSlice();   
         }
-
         private void SpawnParts()
         {
             _leftObject = _leftPartSpawnMethod?.Invoke();
@@ -59,7 +63,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
             slicePart.Transform.localScale = scale;
             slicePart.Transform.gameObject.SetActive(true);
         }
-        
+
         private void DestroyFruit()
         {
             _destroyTrigger.TriggerGroup(GetComponent<ProjectileObject>());

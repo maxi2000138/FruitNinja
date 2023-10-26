@@ -1,0 +1,6 @@
+
+3csharpsquid:S3168S"Return 'Task' instead.(Ð¶¿›
+tcsharpsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(é¼”²þÿÿÿÿ
+Icsharpsquid:S3903",Move 'MagnetSuction' into a named namespace.(ü˜Æ‡
+ucsharpsquid:S1450"XRemove the field '_distance' and declare it as a local variable in the relevant methods.(Þ®Èƒ
+{csharpsquid:S1450"^Remove the field '_setupedApplier' and declare it as a local variable in the relevant methods.(€‡•›
