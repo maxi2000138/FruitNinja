@@ -1504,8 +1504,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <PhysicsConfig>k__BackingField: {fileID: 11400000, guid: 0c986f91e5711354fa6cb371b497e380, type: 2}
-  <ProjectileConfig>k__BackingField: {fileID: 11400000, guid: fbdaac5f59f6e0945be96859e0eaf2ef, type: 2}
-  <ShootConfig>k__BackingField: {fileID: 11400000, guid: 3c3be518458482d41a8eb79aee7551bf, type: 2}
+  <ProjectileConfig>k__BackingField: {fileID: 11400000, guid: 5ca5f4393d0b7d0479d57da14ec38cb8, type: 2}
+  <ShootConfig>k__BackingField: {fileID: 11400000, guid: 89fa26342841bd14e8db94c893e6eea2, type: 2}
   <ResourcesConfig>k__BackingField: {fileID: 11400000, guid: 85c09d42a2ac05c42a5d5dce811ec051, type: 2}
   <ShadowConfig>k__BackingField: {fileID: 11400000, guid: 88f21b2fd2fad1648998f0b5b985fe41, type: 2}
   <HealthConfig>k__BackingField: {fileID: 11400000, guid: a23b2528b09f0f149a6319084e27a509, type: 2}
