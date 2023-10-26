@@ -25,8 +25,9 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly ProjectileConfig _projectileConfig;
         private const float _spriteHeightOffset = 2f;
 
-        public Shooter(IProjectileFactory projectileFactory, PhysicalFlightCalculator physicalFlightCalculator, SpawnAreasContainer spawnAreasContainer, IScreenSettingsProvider screenSettingsProvider
-            , ShootConfig shootConfig, ShadowConfig shadowConfig, ProjectileConfig projectileConfig, PhysicsConfig physicsConfig, SpawnConfig spawnConfig)
+        public Shooter(IProjectileFactory projectileFactory, PhysicalFlightCalculator physicalFlightCalculator
+            , SpawnAreasContainer spawnAreasContainer, IScreenSettingsProvider screenSettingsProvider, ShootConfig shootConfig
+            , ShadowConfig shadowConfig, ProjectileConfig projectileConfig, PhysicsConfig physicsConfig, SpawnConfig spawnConfig)
         {
             _projectileFactory = projectileFactory;
             _physicalFlightCalculator = physicalFlightCalculator;
@@ -48,34 +49,16 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
         private void SpawnProjectileAndShootByAngle(SpawnAreaData areaData, float angle)
         {
-
-            ShootObject shootObject = null;
-            Shadow shadow = null;
-            var (projectileType, value) = _spawnConfig.ProjectileSpawnProbability.GetRandomItemByProbability(data => data.Value);
-            GetRandomScaleAndPosition(areaData, projectileType,_projectileConfig ,out var position, out var scale);
-
-            switch (projectileType)
+            var (projectileType,_) = _spawnConfig.ProjectileSpawnProbability.GetRandomItemByProbability(data =>
             {
-                case(ProjectileType.Fruit):
-                    var type = _spawnConfig.ActiveFruitTypes.GetRandomItem();
-                    shootObject = _projectileFactory.CreateFruit(type, position, scale, scale, out shadow).GetComponent<ShootObject>();
-                    break;
-                case(ProjectileType.Bomb):
-                    shootObject = _projectileFactory.CreateBomb(position, scale, scale, out shadow).GetComponent<ShootObject>();
-                    break;                    
-                case(ProjectileType.Heart):
-                    shootObject = _projectileFactory.CreateHeart(position, scale, scale, out shadow).GetComponent<ShootObject>();
-                    break;       
-                case(ProjectileType.Magnet):
-                    shootObject = _projectileFactory.CreateMagnet(position, scale, scale, out shadow).GetComponent<ShootObject>();
-                    break;    
-                case(ProjectileType.Brick):
-                    shootObject = _projectileFactory.CreateBrick(position, scale, scale, out shadow).GetComponent<ShootObject>();
-                    break;    
-                case(ProjectileType.Ice):
-                    shootObject = _projectileFactory.CreateIce(position, scale, scale, out shadow).GetComponent<ShootObject>();
-                    break;    
-            }
+                if (_spawnConfig.ActiveProjectileTypes.Contains(data.Key))
+                    return data.Value;
+                
+                return 0;
+            });
+            
+            ShootObject shootObject = _projectileFactory.SpawnProjectileByTypeAndAreaData(areaData, projectileType, out var position, out var scale, out var shadow).GetComponent<ShootObject>();
+            
             
             Vector2 finalScale = GetLongestScale(scale, _projectileConfig.ProjectileScales[projectileType].Scale);
 
@@ -139,15 +122,6 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         {
             VelocityApplier velocityApplier = shootObject.VelocityApplier;
             velocityApplier.AddVelocity(moveVector);
-        }
-
-        private void GetRandomScaleAndPosition(SpawnAreaData areaData, ProjectileType projectileType, ProjectileConfig projectileConfig, out Vector2 position, out Vector2 scale)
-        {
-            position = _screenSettingsProvider
-                .ViewportToWorldPosition((areaData.ViewportLeftPosition, areaData.ViewportRightPosition)
-                    .GetRandomPointBetween());
-            float randomScaleValue = projectileConfig.ProjectileScales[projectileType].Scale.GetRandomBound();
-            scale = new Vector2(randomScaleValue, randomScaleValue);
         }
 
         private Vector2 GetRandomMovementVector(SpawnAreaData areaData, float angle)

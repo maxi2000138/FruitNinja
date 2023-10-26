@@ -9,8 +9,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 {
     public class DestroyTrigger : IInitializable, IUpdatable, IDestroyTrigger
     {
-        public int DestroyGropCount =>
-            _destroyListeners.Count;
+        public int DestroyGroupCount => _destroyListeners.Count;
         
         private float _yDestroyValue;
         private readonly IScreenSettingsProvider _screenSettingsProvider;

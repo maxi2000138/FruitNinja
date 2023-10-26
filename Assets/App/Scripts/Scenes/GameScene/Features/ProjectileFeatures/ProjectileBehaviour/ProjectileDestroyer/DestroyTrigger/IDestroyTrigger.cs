@@ -6,6 +6,6 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
     {
         void AddDestroyTriggerListeners(ProjectileObject projectileObject);
         void TriggerGroup(ProjectileObject projectileObject);
-        int DestroyGropCount { get; }
+        int DestroyGroupCount { get; }
     }
 }

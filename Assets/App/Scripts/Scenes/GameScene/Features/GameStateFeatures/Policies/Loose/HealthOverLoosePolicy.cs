@@ -27,7 +27,7 @@ public class HealthOverLoosePolicy : ILoosePolicy, IRestartGameListener, IUpdata
             _looseInvoked = true;
         }
 
-        if (_looseInvoked && !_lateLooseInvoked && _destroyTrigger.DestroyGropCount == 0)
+        if (_looseInvoked && !_lateLooseInvoked && _destroyTrigger.DestroyGroupCount == 0)
         {
             NeedLateLoose?.Invoke();
             _lateLooseInvoked = true;

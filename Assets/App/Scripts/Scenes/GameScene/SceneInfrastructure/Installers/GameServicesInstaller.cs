@@ -107,7 +107,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectilesParenter, _shadowParenter,
                 _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
                 , _configsContainer.ProjectileConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig,
-                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer, _slicer, timeScaleService, _frozerService);
+                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer, _slicer, timeScaleService, _frozerService, _screenSettingsProvider, _configsContainer.SpawnConfig);
             ShootPolicy = new WavesSpawnPolicy(_configsContainer.SpawnConfig);
             Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ShootConfig
                 ,_configsContainer.ShadowConfig , _configsContainer.ProjectileConfig, _configsContainer.PhysicsConfig, _configsContainer.SpawnConfig);

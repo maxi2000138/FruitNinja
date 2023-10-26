@@ -35,31 +35,37 @@ public class MagnetSuction : MonoBehaviour, ILooseGameListener
         
         for (int i = 0; i < _activeProjectile.Count; i++)
         {
-            if(_activeProjectile[i].ProjectilePart != ProjectilePartEnum.Whole)
-                return;
-            
-            _setupedApplier = false;
-            
-            for (int j = 0; j < _positions.Count; j++)
-            {
-                _distance = Vector2.Distance(_activeProjectile[i].transform.position, _positions[j]);
-                if (_distance > _bonusesConfig.FarthestMagnetDistance)
-                    continue;
-
-                if (!_suctionProjectile.Contains(_activeProjectile[i]))
-                {
-                    CreateSuctionApplier(i, j);
-                    break;
-                }
-            }
-            
-            if(!_setupedApplier && _suctionProjectile.Contains(_activeProjectile[i]))
-            {
-                int indexOf = _suctionProjectile.IndexOf(_activeProjectile[i]);
-                ClearSuctionApplier(i, indexOf);
-            }
+            IterateAllSuctionPositionsAndAddSuctionIfInRange(i);
+            ClearSuctionIfOutOfRange(i);
         }
         
+    }
+
+    private void ClearSuctionIfOutOfRange(int i)
+    {
+        if (!_setupedApplier && _suctionProjectile.Contains(_activeProjectile[i]))
+        {
+            int indexOf = _suctionProjectile.IndexOf(_activeProjectile[i]);
+            ClearSuctionApplier(i, indexOf);
+        }
+    }
+
+    private void IterateAllSuctionPositionsAndAddSuctionIfInRange(int i)
+    {
+        _setupedApplier = false;
+
+        for (int j = 0; j < _positions.Count; j++)
+        {
+            _distance = Vector2.Distance(_activeProjectile[i].transform.position, _positions[j]);
+            if (_distance > _bonusesConfig.FarthestMagnetDistance)
+                continue;
+
+            if (!_suctionProjectile.Contains(_activeProjectile[i]))
+            {
+                CreateSuctionApplier(i, j);
+                break;
+            }
+        }
     }
 
     private void CreateSuctionApplier(int i, int j)
