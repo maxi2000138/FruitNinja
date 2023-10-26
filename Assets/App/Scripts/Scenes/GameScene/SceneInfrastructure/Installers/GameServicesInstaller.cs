@@ -146,6 +146,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             _gameStateObserver.AddObserver(_healthSystem);
             _gameStateObserver.AddObserver(ScoreSystem);
             _gameStateObserver.AddObserver(_healthOverLoosePolicy);
+            _gameStateObserver.AddObserver(_frozerService);
+            _gameStateObserver.AddObserver(_magnetSuction);
             
             _gameStateObserver.AddPolicy(restartGameButton);
             _gameStateObserver.AddPolicy(_healthOverLoosePolicy);

@@ -16,7 +16,7 @@ namespace App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesApplier
         {
             if (_velocityVector != Vector2.zero)
             {
-                Vector2 forceVector = _velocityVector * (Mathf.Sqrt(timeScale) * deltaTime);
+                Vector2 forceVector = _velocityVector * deltaTime;
                 Clear();
                 return forceVector;
             }

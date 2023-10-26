@@ -1,10 +1,9 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class FrozerService : MonoBehaviour
+public class FrozerService : MonoBehaviour, ILooseGameListener
 {
     [SerializeField] private GameObject _frozePanel;
     
@@ -18,6 +17,12 @@ public class FrozerService : MonoBehaviour
         _timeScaleService = timeScaleService;
     }
 
+    public void OnLooseGame()
+    {
+        _tokenController.CancelTokens();
+        RemoveFrozen();
+    }
+
     private void OnDestroy()
     {
         _tokenController.CancelTokens();
@@ -28,9 +33,10 @@ public class FrozerService : MonoBehaviour
         _tokenController.CancelToken(_currentToken);
         SetFrozen();
         _currentToken = _tokenController.CreateCancellationToken();
-        await UniTask.Delay((int)(secondsTime * 1000), DelayType.Realtime, PlayerLoopTiming.Update, _currentToken);
+        await UniTask.Delay((int)(secondsTime * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, _currentToken);
         RemoveFrozen();
     }
+
     private void SetFrozen()
     {        
         _frozePanel.SetActive(true);

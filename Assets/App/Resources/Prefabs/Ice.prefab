@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1432272586602424981, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
+      propertyPath: _colliderRadiusOffset
+      value: 0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 3858916285223650547, guid: 148e9d542b49121429001ea5e80af46e, type: 3}
       propertyPath: m_RootOrder
       value: 0
