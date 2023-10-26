@@ -58,7 +58,10 @@ public class TweenCore
             setAction?.Invoke(interpolatable.Interpolate(startValue, endValue, normalizedValue));
 
             startTime = Time.realtimeSinceStartup;
-            await UniTask.Delay(_deltaTime, true, PlayerLoopTiming.Update, token);
+            bool isCanceled = await UniTask.Delay(_deltaTime, true, PlayerLoopTiming.Update, token).SuppressCancellationThrow();
+            if(isCanceled)
+                return;
+            
             currentTime += Time.realtimeSinceStartup - startTime;
         }
     }

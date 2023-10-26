@@ -23,9 +23,6 @@ public class HeartView : MonoBehaviour
 
     public async void DestroyView()
     {
-        if(transform == null)
-            return;
-        
         float startValue = transform.position.y;
         await _tweenCore.TweenByTime(PositionYTween, startValue, startValue + _healtUpDistance, 1f, CustomEase.OutQuad, _tokenController.CreateCancellationToken());
         _tokenController.CancelTokens();

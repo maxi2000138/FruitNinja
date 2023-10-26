@@ -63,7 +63,8 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
                 if(token.IsCancellationRequested)
                     return;
-                await UniTask.Delay((int)(groupSpawnDelayRange * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, token);
+                await UniTask.Delay((int)(groupSpawnDelayRange * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, token)
+                    .SuppressCancellationThrow();
                 fruitsAmountRange = Mathf.Lerp(_spawnConfig.BlocksAmountRange.x, _spawnConfig.BlocksAmountRange.y
                     ,(float)groupNumber / _spawnConfig.AverageAmountSpawnGroups);
                 fruitsInGroupSpawnDelay = Mathf.Lerp(_spawnConfig.BlocksInGroupSpawnDelayRange.y, _spawnConfig.BlocksInGroupSpawnDelayRange.x

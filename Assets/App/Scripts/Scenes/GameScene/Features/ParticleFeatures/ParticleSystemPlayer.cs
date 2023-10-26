@@ -36,11 +36,9 @@ namespace App.Scripts.Scenes.GameScene.Features.ParticleFeatures
             SetColor(particles, color);
         }
 
-        public async void PlayMagnetSliceParticlesTime(Vector2 position, float milisecPlayTime)
+        public GameObject PlayMagnetSliceParticlesTime(Vector2 position, float milisecPlayTime)
         {
-            ParticleSystem particles = PlayParticles(_projectileParticles[ProjectileType.Magnet], position);
-            await UniTask.Delay((int)(milisecPlayTime*1000), false, PlayerLoopTiming.Update, _tokenController.CreateCancellationToken());
-            StopParticles(particles);
+            return PlayParticles(_projectileParticles[ProjectileType.Magnet], position).gameObject;
         }
 
         private ParticleSystem PlayParticles(ParticleSystem particles, Vector2 position) => 

@@ -33,7 +33,8 @@ public class FrozerService : MonoBehaviour, ILooseGameListener
         _tokenController.CancelToken(_currentToken);
         SetFrozen();
         _currentToken = _tokenController.CreateCancellationToken();
-        await UniTask.Delay((int)(secondsTime * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, _currentToken);
+        await UniTask.Delay((int)(secondsTime * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, _currentToken)
+            .SuppressCancellationThrow();
         RemoveFrozen();
     }
 

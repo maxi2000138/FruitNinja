@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -86,17 +88,18 @@ public class MagnetSuction : MonoBehaviour, ILooseGameListener
         _activeProjectile[i].GravitationApplier.Enable();
     }
     
-    public async void StartSuction(Vector2 position, float activeSecondsTime)
+    public async void StartSuction(Vector2 position, float activeSecondsTime, GameObject suctionGameobject)
     {
         _positions.Add(position);
         _isActive = true;
         await UniTask.Delay((int)(activeSecondsTime*1000), DelayType.DeltaTime
-            , PlayerLoopTiming.Update, _tokenController.CreateCancellationToken());
+            , PlayerLoopTiming.Update, _tokenController.CreateCancellationToken()).SuppressCancellationThrow();
         _positions.Remove(position);
-        TryStopSuction();
+        StopSuctions();
+        Destroy(suctionGameobject);
     }
-
-    private void TryStopSuction()
+    
+    private void StopSuctions()
     {
         if (_positions.Count == 0)
         {

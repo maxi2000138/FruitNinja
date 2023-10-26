@@ -38,6 +38,7 @@ public class ScoreSystem : IRestartGameListener, IDestroyable
 
     public void OnRestartGame()
     {
+        _previousScore = 0;
         CurrentScore = 0;
         ResetScores();
     }
