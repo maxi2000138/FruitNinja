@@ -21,6 +21,7 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
         private Coroutine _sliceCoroutine;
         private Vector2 _lastWorldPosition;
         private bool _isSlicing;
+        private PhysicalFlightCalculator _physicalFlightCalculator;
 
         public void Construct(InputReader inputReader, ScreenSettingsProvider screenSettingsProvider, SliceCollidersController sliceCollidersController, ShootConfig shootConfig)
         {

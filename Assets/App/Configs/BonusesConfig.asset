@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BonusesConfig
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
+    SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -30,3 +30,10 @@ MonoBehaviour:
   DirectionScaleFactor: 0.07
   scaleLitleFactor: 0.1
   ScaleFactorDistance: 0.6
+  FrozenTimeScale: 0.5
+  FrozenTime: 8
+  ProjectileTypes: 
+  ChangeTime: 1
+  StringBagFruitsAmount: 5
+  StringBagFruitsAngleRange: 15
+  StringBagInivisibleTime: 0.3

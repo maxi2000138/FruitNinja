@@ -5,4 +5,5 @@ public enum BonusesType
     Magnet,
     Brick,
     Ice,
+    StringBag,
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   ShootVelocityRange: {x: 9.413612, y: 10.6701565}
   TorqueVelocityRange: {x: -206.97678, y: 211.62784}
   DestroyTriggerOffset: -2
-  SliceForce: 7
+  SliceForce: 8

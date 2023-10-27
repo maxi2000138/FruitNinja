@@ -104,14 +104,15 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, _projectileContainer, ProjectileDestroyer, _configsContainer.ShootConfig);
             _healthSystem = new HealthSystem(_configsContainer.HealthConfig, _healthController, projectInstaller.TweenCore);
             TimeScaleService timeScaleService = new TimeScaleService(_configsContainer.BonusesConfig);
+            Shooter = new Shooter(_physicalFlightCalculator,_configsContainer.ShootConfig, _configsContainer.ShadowConfig , _configsContainer.ProjectileConfig);
+            ShootPolicy = new WavesSpawnPolicy(_configsContainer.SpawnConfig);
             ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectilesParenter, _shadowParenter,
                 _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
                 , _configsContainer.ProjectileConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig,
-                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer, _slicer, timeScaleService, _frozerService, _screenSettingsProvider, _configsContainer.SpawnConfig);
-            ShootPolicy = new WavesSpawnPolicy(_configsContainer.SpawnConfig);
-            Shooter = new Shooter(ProjectileFactory, _physicalFlightCalculator, _spawnAreasContainer, _screenSettingsProvider,_configsContainer.ShootConfig
-                ,_configsContainer.ShadowConfig , _configsContainer.ProjectileConfig, _configsContainer.PhysicsConfig, _configsContainer.SpawnConfig);
-            ShootSystem = new ShootSystem(Shooter, ShootPolicy);
+                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer, _slicer, timeScaleService, _frozerService
+                , _screenSettingsProvider, _configsContainer.SpawnConfig,Shooter);
+            ShootSystem = new  ShootSystem(ProjectileFactory, _spawnAreasContainer,Shooter, ShootPolicy, _configsContainer.SpawnConfig, _configsContainer.ProjectileConfig,
+                _configsContainer.ShootConfig);
             _healthOverLoosePolicy = new HealthOverLoosePolicy(_healthSystem, DestroyTrigger);
             ScoreSystem = new ScoreSystem(projectInstaller.ScoreStateContainer, _slicer, _currentScoreView,
                 _highScoreView, _configsContainer.ScoreConfig); 

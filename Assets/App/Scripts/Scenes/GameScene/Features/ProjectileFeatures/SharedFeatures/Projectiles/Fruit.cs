@@ -11,11 +11,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures
         private ParticleSystemPlayer _particleSystemPlayer;
         private Color _sliceColor;
         private bool _sliced;
+        private bool _isMimik;
 
-        public void Construct(Color sliceColor, ParticleSystemPlayer particleSystemPlayer)
+        public void Construct(Color sliceColor, ParticleSystemPlayer particleSystemPlayer, bool isMimik = false)
         {
             _sliceColor = sliceColor;
             _particleSystemPlayer = particleSystemPlayer;
+            _isMimik = isMimik;
         }
 
         public void OnSlice()
@@ -26,7 +28,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.FruitFeatures
         
         private void OnDestroy()
         {
-            if(!_sliced)
+            if(!_sliced && !_isMimik)
                 DestroyNotSliced?.Invoke();
         }
     }

@@ -31,6 +31,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly FrozerService _frozerService;
         private readonly ScreenSettingsProvider _screenSettingsProvider;
         private readonly SpawnConfig _spawnConfig;
+        private readonly Shooter.ProjectileShooter.Shooter _shooter;
         private readonly ShadowParenter _shadowParenter;
         private readonly IDestroyTrigger _destroyTrigger;
         private readonly ResourcesConfig _resourcesConfig;
@@ -42,7 +43,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             , SliceCollidersController sliceCollidersController, ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer
             , ProjectileConfig projectileConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig, HealthSystem healthSystem
             , BonusesConfig bonusesConfig, ProjectileContainer projectileContainer, Slicer slicer, TimeScaleService timeScaleService
-            , FrozerService frozerService, ScreenSettingsProvider screenSettingsProvider, SpawnConfig _spawnConfig)
+            , FrozerService frozerService, ScreenSettingsProvider screenSettingsProvider, SpawnConfig _spawnConfig, Shooter.ProjectileShooter.Shooter shooter)
         {
             _destroyTrigger = destroyTrigger;
             _projectileParenter = projectileParenter;
@@ -61,12 +62,12 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _frozerService = frozerService;
             _screenSettingsProvider = screenSettingsProvider;
             this._spawnConfig = _spawnConfig;
+            _shooter = shooter;
         }
 
 
-        public ProjectileObject SpawnProjectileByTypeAndAreaData(SpawnAreaData areaData, ProjectileType projectileType, out Vector2 position, out Vector2 scale, out Shadow shadow)
+        public ProjectileObject SpawnProjectileByType(ProjectileType projectileType, Vector2 position, Vector2 scale, out Shadow shadow)
         {
-            GetRandomScaleAndPositionInConfigRange(areaData, projectileType,_projectileConfig ,out position, out scale);
             ProjectileObject projectileObject = null;
             shadow = null; 
             switch (projectileType)
@@ -80,7 +81,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                     break;                    
                 case(ProjectileType.Heart):
                     projectileObject = CreateHeart(position, scale, scale, out shadow).GetComponent<ProjectileObject>();
-                    break;       
+                    break;    
                 case(ProjectileType.Magnet):
                     projectileObject = CreateMagnet(position, scale, scale, out shadow).GetComponent<ProjectileObject>();
                     break;    
@@ -89,12 +90,25 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                     break;    
                 case(ProjectileType.Ice):
                     projectileObject = CreateIce(position, scale, scale, out shadow).GetComponent<ProjectileObject>();
-                    break;    
+                    break;  
+                case(ProjectileType.StringBag):
+                    projectileObject = CreateStringBag(position, scale, scale, out shadow).GetComponent<ProjectileObject>();
+                    break;  
             }
 
             return projectileObject;
         }
         
+
+        public StringBag CreateStringBag(Vector2 position, Vector2 iceScale, Vector2 shadowScale, out Shadow shadow)
+        {
+            StringBag stringBag = InstantiateStringBagAndConstruct(ProjectilePartEnum.Whole, position, iceScale, shadowScale, out shadow);
+            stringBag.GetComponent<TwoPartsSliceObject>().Construct(
+                () => InstantiateStringBagAndConstruct(ProjectilePartEnum.Left, position, iceScale, shadowScale, out _).GetComponent<ISliced>()
+                ,() => InstantiateStringBagAndConstruct(ProjectilePartEnum.Right, position, iceScale, shadowScale, out _).GetComponent<ISliced>()
+                , _destroyTrigger);
+            return stringBag;
+        }
 
         public Ice CreateIce(Vector2 position, Vector2 iceScale, Vector2 shadowScale, out Shadow shadow)
         {
@@ -152,6 +166,19 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             return heart;
         }
         
+        public void GetRandomScaleInConfigRange(ProjectileType projectileType, ProjectileConfig projectileConfig, out Vector2 scale)
+        {
+            float randomScaleValue = projectileConfig.ProjectileScales[projectileType].Scale.GetRandomBound();
+            scale = new Vector2(randomScaleValue, randomScaleValue);
+        }
+        
+        public void GetRandomPositionInConfigRange(SpawnAreaData areaData, out Vector2 position)
+        {
+            position = _screenSettingsProvider
+                .ViewportToWorldPosition((areaData.ViewportLeftPosition, areaData.ViewportRightPosition)
+                    .GetRandomPointBetween());
+        }
+        
         private Fruit InstantiateFruitAndConstruct(ProjectilePartEnum projectilePartEnum, FruitType fruitType, Vector2 position,
             Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
         {
@@ -163,6 +190,20 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             fruit.Construct(_projectileConfig.FruitDictionary[fruitType].SliceColor, _particleSystemPlayer);
             return fruit;
         }
+        
+        private StringBag InstantiateStringBagAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
+        {
+            StringBag stringBag = CreatePart<StringBag>(ProjectileType.StringBag, projectilePartEnum,
+                _projectileConfig.BonusesDictionary[BonusesType.StringBag].SpriteData, position, fruitScale, shadowScale,
+                out createdShadow);
+            
+            if(projectilePartEnum == ProjectilePartEnum.Whole)
+                stringBag.Construct(_shooter, this, _projectileConfig, _spawnConfig, _bonusesConfig);
+            
+            return stringBag;
+        }
+        
         private Ice InstantiateIceAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
             Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
         {
@@ -256,15 +297,6 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             shadow.TurnIntoShadow();
         }
         
-        private void GetRandomScaleAndPositionInConfigRange(SpawnAreaData areaData, ProjectileType projectileType, ProjectileConfig projectileConfig, out Vector2 position, out Vector2 scale)
-        {
-            position = _screenSettingsProvider
-                .ViewportToWorldPosition((areaData.ViewportLeftPosition, areaData.ViewportRightPosition)
-                    .GetRandomPointBetween());
-            float randomScaleValue = projectileConfig.ProjectileScales[projectileType].Scale.GetRandomBound();
-            scale = new Vector2(randomScaleValue, randomScaleValue);
-        }
-
         private T SpawnProjectile<T>(ProjectileType projectileType, ProjectilePartEnum projectilePart, Vector2 position, Vector2 scale, Transform parent) where T : MonoBehaviour => 
             SpawnObjectFromResources<T>(_resourcesConfig.PartPathes[projectileType][projectilePart], position, scale, parent);
 

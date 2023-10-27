@@ -6,4 +6,5 @@
     Magnet,
     Brick,
     Ice,
+    StringBag,
 }

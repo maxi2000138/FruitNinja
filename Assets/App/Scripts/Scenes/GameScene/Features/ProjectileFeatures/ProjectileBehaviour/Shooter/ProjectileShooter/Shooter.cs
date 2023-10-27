@@ -14,80 +14,50 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
     public class Shooter : IShooter
     {
         private float _highestYValue;
-        private readonly IScreenSettingsProvider _screenSettingsProvider;
-        private readonly SpawnAreasContainer _spawnAreasContainer;
-        private readonly IProjectileFactory _projectileFactory;
         private readonly PhysicalFlightCalculator _physicalFlightCalculator;
-        private readonly PhysicsConfig _physicsConfig;
-        private readonly SpawnConfig _spawnConfig;
         private readonly ShootConfig _shootConfig;
         private readonly ShadowConfig _shadowConfig;
         private readonly ProjectileConfig _projectileConfig;
         private const float _spriteHeightOffset = 2f;
 
-        public Shooter(IProjectileFactory projectileFactory, PhysicalFlightCalculator physicalFlightCalculator
-            , SpawnAreasContainer spawnAreasContainer, IScreenSettingsProvider screenSettingsProvider, ShootConfig shootConfig
-            , ShadowConfig shadowConfig, ProjectileConfig projectileConfig, PhysicsConfig physicsConfig, SpawnConfig spawnConfig)
+        public Shooter(PhysicalFlightCalculator physicalFlightCalculator, ShootConfig shootConfig
+            , ShadowConfig shadowConfig, ProjectileConfig projectileConfig)
         {
-            _projectileFactory = projectileFactory;
             _physicalFlightCalculator = physicalFlightCalculator;
-            _spawnAreasContainer = spawnAreasContainer;
-            _screenSettingsProvider = screenSettingsProvider;
             _shootConfig = shootConfig;
             _shadowConfig = shadowConfig;
             _projectileConfig = projectileConfig;
-            _physicsConfig = physicsConfig;
-            _spawnConfig = spawnConfig;
         }
         
-        public void Shoot()
+        public void SetScalingAndShootByAngle(ProjectileType projectileType, ShootObject shootObject, Shadow shadow, Vector2 position, Vector2 scale, Vector2 moveVector)
         {
-            SpawnAreaData areaData = _spawnAreasContainer.SpawnAreaHandlers.GetRandomItemByProbability(data => data.Probability);
-            float angle = (areaData.ShootMinAngle, areaData.ShootMaxAngle).GetRandomFloatBetween();
-            SpawnProjectileAndShootByAngle(areaData, angle);
-        }
-
-        private void SpawnProjectileAndShootByAngle(SpawnAreaData areaData, float angle)
-        {
-            var (projectileType,_) = _spawnConfig.ProjectileSpawnProbability.GetRandomItemByProbability(data =>
-            {
-                if (_spawnConfig.ActiveProjectileTypes.Contains(data.Key))
-                    return data.Value;
-                
-                return 0;
-            });
-            
-            ShootObject shootObject = _projectileFactory.SpawnProjectileByTypeAndAreaData(areaData, projectileType, out var position, out var scale, out var shadow).GetComponent<ShootObject>();
-            
-            
             Vector2 finalScale = GetLongestScale(scale, _projectileConfig.ProjectileScales[projectileType].Scale);
 
 
             float flyTime = _physicalFlightCalculator.GetFlyTimeFromYPosition(position.y);
-            shootObject.ScaleByTimeApplier.StartScaling(scale,finalScale, flyTime);
-            
-            SetShadowOffseting(shadow,finalScale/scale, flyTime);
-            SetShadowScaling(shadow, finalScale/scale, flyTime);
-            
+            shootObject.ScaleByTimeApplier.StartScaling(scale, finalScale, flyTime);
+
+            SetShadowOffseting(shadow, finalScale / scale, flyTime);
+            SetShadowScaling(shadow, finalScale / scale, flyTime);
+
             RotateProjectile(shootObject);
-            
-            ShootProjectile(areaData, angle, shootObject, finalScale.x > scale.x ? finalScale.x : scale.x);
+
+            float maxScale = finalScale.x > scale.x ? finalScale.x : scale.x;
+            ShootProjectileByVector(moveVector, shootObject, maxScale);
         }
 
-        private void ShootProjectile(SpawnAreaData areaData, float angle, ShootObject shootObject, float maxScale)
+        private void ShootProjectileByVector(Vector2 moveVector, ShootObject shootObject, float maxScale)
         {
-            Vector2 moveVector = GetRandomMovementVector(areaData, angle);
             moveVector = _physicalFlightCalculator.ConstrainSpeed(FruitSpriteHeight(shootObject, maxScale), moveVector);
             ShootProjectile(shootObject, moveVector);
         }
-        
-        
+
         private void RotateProjectile(ShootObject shootObject)
         {
             float torqueValue = _shootConfig.TorqueVelocityRange.GetRandomFloatBetween();
             shootObject.TorqueApplier.AddTorque(torqueValue);
         }
-        
+
         private void SetShadowScaling(Shadow shadow, Vector2 scaleRatio, float flyTime)
         {
             Vector2 startOffset = shadow.transform.localScale;
@@ -118,21 +88,12 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             return shootObject.transform.position.y + _spriteHeightOffset;
         }
 
-        public void ShootProjectile(ShootObject shootObject, Vector2 moveVector)
+        private void ShootProjectile(ShootObject shootObject, Vector2 moveVector)
         {
             VelocityApplier velocityApplier = shootObject.VelocityApplier;
             velocityApplier.AddVelocity(moveVector);
         }
 
-        private Vector2 GetRandomMovementVector(SpawnAreaData areaData, float angle)
-        {
-            Vector2 moveVector = new Vector2(1, 1);
-            moveVector.x *= Mathf.Cos(Mathf.Deg2Rad * (areaData.LineAngle + angle));
-            moveVector.y *= Mathf.Sin(Mathf.Deg2Rad * (areaData.LineAngle + angle));
-            moveVector *= _shootConfig.ShootVelocityRange.GetRandomFloatBetween();
-            return moveVector;
-        }
-    
 
         private Vector2 GetLongestScale(Vector2 currentScale, Vector2 scaleRange)
         {

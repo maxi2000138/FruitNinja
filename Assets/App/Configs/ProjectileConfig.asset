@@ -52,6 +52,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: e561e5e7b19c3cb44b48a1f7b3341b1d, type: 3}
     - {fileID: 21300000, guid: beca05e2d3462364196f97fe528d6927, type: 3}
     - {fileID: 21300000, guid: faa25c362a2c5db42a3530a4153ea447, type: 3}
+    - {fileID: 21300000, guid: 3741453dc8ff79d4b92998165d2e6d39, type: 3}
+    - {fileID: 21300000, guid: cc4cd27aa74b3f149a3b9fc1ac52898e, type: 3}
+    - {fileID: 21300000, guid: fe2038c7ba15a484181b9330e7aaf459, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -932,7 +935,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 5
+      Data: 6
     - Name: 
       Entry: 7
       Data: 
@@ -1247,18 +1250,24 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ProjectileScales
       Entry: 7
-      Data: 49|System.Collections.Generic.Dictionary`2[[ProjectileType, Assembly-CSharp],[App.Scripts.Scenes.GameScene.Configs.ScaleData,
-        Assembly-CSharp]], mscorlib
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: 49|App.Scripts.Scenes.GameScene.Configs.BonusData, Assembly-CSharp
+    - Name: SpriteData
+      Entry: 7
+      Data: 50|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
+    - Name: PartSprites
+      Entry: 7
+      Data: 51|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 50|System.Collections.Generic.EnumEqualityComparer`1[[ProjectileType,
+      Data: 52|System.Collections.Generic.EnumEqualityComparer`1[[ProjectilePartEnum,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -1271,7 +1280,84 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 6
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 36
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 37
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 38
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ProjectileScales
+      Entry: 7
+      Data: 53|System.Collections.Generic.Dictionary`2[[ProjectileType, Assembly-CSharp],[App.Scripts.Scenes.GameScene.Configs.ScaleData,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 54|System.Collections.Generic.EnumEqualityComparer`1[[ProjectileType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 7
     - Name: 
       Entry: 7
       Data: 
@@ -1280,7 +1366,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 51|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 55|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1307,7 +1393,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 52|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 56|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1334,7 +1420,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 53|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 57|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1361,7 +1447,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: 54|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 58|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1388,7 +1474,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: 55|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 59|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1415,7 +1501,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: 56|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 60|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1425,6 +1511,33 @@ MonoBehaviour:
     - Name: 
       Entry: 4
       Data: 0.3810419
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: 61|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+    - Name: Scale
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.3229754
+    - Name: 
+      Entry: 4
+      Data: 0.495702654
     - Name: 
       Entry: 8
       Data: 

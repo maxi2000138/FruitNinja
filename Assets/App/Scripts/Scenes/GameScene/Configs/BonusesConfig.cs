@@ -20,5 +20,13 @@ public class BonusesConfig : SerializedScriptableObject
     [Header("Frozen")] 
     public float FrozenTimeScale = 0.5f;
     public float FrozenTime = 8f;
+    [Header("Mimik")] 
+    public List<ProjectileType> ProjectileTypes;
+    public float ChangeTime = 1f;
+    [Header("StringBag")] 
+    public float StringBagFruitsAmount = 5f;
+    public float StringBagFruitsAngleRange = 15f;
+    public float StringBagInivisibleTime = 1f;
+    public float StringBagFruitForce = 25f;
 }
 
