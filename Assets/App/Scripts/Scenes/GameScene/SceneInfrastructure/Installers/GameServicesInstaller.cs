@@ -51,8 +51,8 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         private GameEntryPoint _gameEntryPoint;
         [SerializeField] 
         private MagnetSuction _magnetSuction;
-        [SerializeField] 
-        private FrozerService _frozerService;
+        [FormerlySerializedAs("_namefrozer")] [FormerlySerializedAs("_frozerService")] [SerializeField] 
+        private Freezer _namefreezer;
 
         [Header("Views")] 
         [SerializeField]
@@ -109,7 +109,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectilesParenter, _shadowParenter,
                 _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
                 , _configsContainer.ProjectileConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig,
-                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer, _slicer, timeScaleService, _frozerService
+                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer, _slicer, timeScaleService, _namefreezer
                 , _screenSettingsProvider, _configsContainer.SpawnConfig,Shooter);
             ShootSystem = new  ShootSystem(ProjectileFactory, _spawnAreasContainer,Shooter, ShootPolicy, _configsContainer.SpawnConfig, _configsContainer.ProjectileConfig,
                 _configsContainer.ShootConfig);
@@ -119,7 +119,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             _gameEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
             ComboSystem comboSystem = new ComboSystem(_slicer, _configsContainer.ComboConfig, _comboParenter, _screenSettingsProvider, ScoreSystem, _configsContainer.ScoreConfig);
             _magnetSuction.Construct(_projectileContainer, _configsContainer.BonusesConfig);
-            _frozerService.Construct(timeScaleService);
+            _namefreezer.Construct(timeScaleService);
 
             PauseController pauseController = new PauseController(timeScaleService);
             RestartGameButton restartGameButton = new RestartGameButton(projectInstaller.SceneLoaderWithCurtains);
@@ -147,7 +147,7 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             _gameStateObserver.AddObserver(_healthSystem);
             _gameStateObserver.AddObserver(ScoreSystem);
             _gameStateObserver.AddObserver(_healthOverLoosePolicy);
-            _gameStateObserver.AddObserver(_frozerService);
+            _gameStateObserver.AddObserver(_namefreezer);
             _gameStateObserver.AddObserver(_magnetSuction);
             
             _gameStateObserver.AddPolicy(restartGameButton);

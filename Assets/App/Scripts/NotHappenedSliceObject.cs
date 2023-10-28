@@ -1,3 +1,4 @@
+using System;
 using App.Scripts.Scenes.GameScene.Features.InputFeatures;
 using App.Scripts.Scenes.GameScene.Features.PhysicsFeatures.ForcesTypes.Mover;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeatures;
@@ -6,6 +7,8 @@ using UnityEngine;
 
 public class NotHappenedSliceObject : MonoBehaviour, IFullSliceObject
 {
+    public event Action OnSliceEvent;
+
     [field: SerializeField] 
     public ProjectileType ProjectileType { get; private set; }
     [field: SerializeField] 
@@ -22,6 +25,7 @@ public class NotHappenedSliceObject : MonoBehaviour, IFullSliceObject
 
     public void Slice(Mover mover, float sliceForces, out bool disableColliderOnSlice)
     {
+        OnSliceEvent?.Invoke();
         Slicable.OnSlice();
         disableColliderOnSlice = false;
     }

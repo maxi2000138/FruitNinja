@@ -48,7 +48,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
         private void ShootProjectileByVector(Vector2 moveVector, ShootObject shootObject, float maxScale)
         {
-            moveVector = _physicalFlightCalculator.ConstrainSpeed(FruitSpriteHeight(shootObject, maxScale), moveVector);
+            moveVector = _physicalFlightCalculator.ConstrainSpeed(FruitSpriteHeight(shootObject, maxScale), moveVector*50f);
             ShootProjectile(shootObject, moveVector);
         }
 

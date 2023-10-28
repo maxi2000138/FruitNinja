@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class DestroySliceObject : MonoBehaviour, IFullSliceObject
 {
+    public event Action OnSliceEvent;
+
     [field: SerializeField] 
     public ProjectileType ProjectileType { get; private set; }
     [field: SerializeField]
@@ -28,6 +30,7 @@ public class DestroySliceObject : MonoBehaviour, IFullSliceObject
 
     public void Slice(Mover mover, float sliceForces, out bool disableColliderOnSlice)
     {
+        OnSliceEvent?.Invoke();
         Slicable.OnSlice();
         disableColliderOnSlice = true;
         _destroyTrigger.TriggerGroup(ProjectileObject);

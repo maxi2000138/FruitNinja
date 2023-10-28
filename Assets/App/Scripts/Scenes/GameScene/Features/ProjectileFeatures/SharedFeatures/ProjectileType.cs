@@ -7,4 +7,5 @@
     Brick,
     Ice,
     StringBag,
+    Mimik,
 }

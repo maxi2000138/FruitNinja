@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using App.Scripts.Scenes.GameScene.Features.CameraFeatures.ScreenSettingsProvider;
 using App.Scripts.Scenes.GameScene.Features.InputFeatures;
+using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -78,9 +79,11 @@ public class ComboSystem
 
     private async Task ComboCountdown(int combo, CancellationToken cancellationToken)
     {
-        await Task.Delay((int)(_comboConfig.DelayComboDestroy*1000), cancellationToken);
-        
-        if(cancellationToken.IsCancellationRequested)
+        bool canceled = await UniTask
+            .Delay((int)(_comboConfig.DelayComboDestroy * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update,
+                cancellationToken).SuppressCancellationThrow();
+
+        if(canceled)
             return;
         
         _comboStarted = false;

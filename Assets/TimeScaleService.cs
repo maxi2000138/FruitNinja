@@ -14,7 +14,6 @@ public class TimeScaleService
         ResetAllScales();
     }
 
-
     public void SetPhysicFrozenTimeScale() => PhysicTimeScale = _bonusesConfig.FrozenTimeScale;
     public void NullifyUnityTimeScale() => Time.timeScale = 0f;
     public void NullifyPhysicTimeScale() => PhysicTimeScale = 0f;

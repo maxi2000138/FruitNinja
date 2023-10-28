@@ -28,7 +28,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly ProjectileContainer _projectileContainer;
         private readonly Slicer _slicer;
         private readonly TimeScaleService _timeScaleService;
-        private readonly FrozerService _frozerService;
+        private readonly Freezer _freezer;
         private readonly ScreenSettingsProvider _screenSettingsProvider;
         private readonly SpawnConfig _spawnConfig;
         private readonly Shooter.ProjectileShooter.Shooter _shooter;
@@ -43,7 +43,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             , SliceCollidersController sliceCollidersController, ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer
             , ProjectileConfig projectileConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig, HealthSystem healthSystem
             , BonusesConfig bonusesConfig, ProjectileContainer projectileContainer, Slicer slicer, TimeScaleService timeScaleService
-            , FrozerService frozerService, ScreenSettingsProvider screenSettingsProvider, SpawnConfig _spawnConfig, Shooter.ProjectileShooter.Shooter shooter)
+            , Freezer freezer, ScreenSettingsProvider screenSettingsProvider, SpawnConfig _spawnConfig, Shooter.ProjectileShooter.Shooter shooter)
         {
             _destroyTrigger = destroyTrigger;
             _projectileParenter = projectileParenter;
@@ -59,14 +59,14 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _projectileContainer = projectileContainer;
             _slicer = slicer;
             _timeScaleService = timeScaleService;
-            _frozerService = frozerService;
+            _freezer = freezer;
             _screenSettingsProvider = screenSettingsProvider;
             this._spawnConfig = _spawnConfig;
             _shooter = shooter;
         }
 
 
-        public ProjectileObject SpawnProjectileByType(ProjectileType projectileType, Vector2 position, Vector2 scale, out Shadow shadow)
+        public ProjectileObject SpawnProjectileByType(ProjectileType projectileType, Vector2 position, Vector2 scale, out Shadow shadow, Transform parent = null)
         {
             ProjectileObject projectileObject = null;
             shadow = null; 
@@ -74,25 +74,28 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             {
                 case(ProjectileType.Fruit):
                     var type = _spawnConfig.ActiveFruitTypes.GetRandomItem();
-                    projectileObject = CreateFruit(type, position, scale, scale, out shadow).GetComponent<ProjectileObject>();
+                    projectileObject = CreateFruit(type, position, scale, scale, out shadow, parent).GetComponent<ProjectileObject>();
                     break;
                 case(ProjectileType.Bomb):
-                    projectileObject = CreateBomb(position, scale, scale, out shadow).GetComponent<ProjectileObject>();
+                    projectileObject = CreateBomb(position, scale, scale, out shadow, parent).GetComponent<ProjectileObject>();
                     break;                    
                 case(ProjectileType.Heart):
-                    projectileObject = CreateHeart(position, scale, scale, out shadow).GetComponent<ProjectileObject>();
+                    projectileObject = CreateHeart(position, scale, scale, out shadow, parent).GetComponent<ProjectileObject>();
                     break;    
                 case(ProjectileType.Magnet):
-                    projectileObject = CreateMagnet(position, scale, scale, out shadow).GetComponent<ProjectileObject>();
+                    projectileObject = CreateMagnet(position, scale, scale, out shadow, parent).GetComponent<ProjectileObject>();
                     break;    
                 case(ProjectileType.Brick):
-                    projectileObject = CreateBrick(position, scale, scale, out shadow).GetComponent<ProjectileObject>();
+                    projectileObject = CreateBrick(position, scale, scale, out shadow, parent).GetComponent<ProjectileObject>();
                     break;    
                 case(ProjectileType.Ice):
-                    projectileObject = CreateIce(position, scale, scale, out shadow).GetComponent<ProjectileObject>();
+                    projectileObject = CreateIce(position, scale, scale, out shadow, parent).GetComponent<ProjectileObject>();
                     break;  
                 case(ProjectileType.StringBag):
-                    projectileObject = CreateStringBag(position, scale, scale, out shadow).GetComponent<ProjectileObject>();
+                    projectileObject = CreateStringBag(position, scale, scale, out shadow, parent).GetComponent<ProjectileObject>();
+                    break;  
+                case(ProjectileType.Mimik):
+                    projectileObject = CreateMimik(position, scale, scale, out shadow, parent).GetComponent<ProjectileObject>();
                     break;  
             }
 
@@ -100,9 +103,23 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         }
         
 
-        public StringBag CreateStringBag(Vector2 position, Vector2 iceScale, Vector2 shadowScale, out Shadow shadow)
+        public ProjectileObject CreateMimik(Vector2 position, Vector2 iceScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
         {
-            StringBag stringBag = InstantiateStringBagAndConstruct(ProjectilePartEnum.Whole, position, iceScale, shadowScale, out shadow);
+            ProjectileType type = ProjectileType.Mimik;
+            while(type == ProjectileType.Mimik)
+                type = _spawnConfig.ActiveProjectileTypes.GetRandomItem();
+            
+            GetRandomScaleInConfigRange(type, _projectileConfig, out Vector2 scale);
+            ProjectileObject projectileObject = SpawnProjectileByType(type, position, scale , out shadow, parent);
+            MimikController mimikController = new MimikController(this, _shooter, _destroyTrigger
+                , projectileObject, _bonusesConfig, _spawnConfig, _projectileConfig);
+            mimikController.StartMimikBehaviour();
+            return projectileObject;
+        }
+        
+        public StringBag CreateStringBag(Vector2 position, Vector2 iceScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
+        {
+            StringBag stringBag = InstantiateStringBagAndConstruct(ProjectilePartEnum.Whole, position, iceScale, shadowScale, out shadow, parent);
             stringBag.GetComponent<TwoPartsSliceObject>().Construct(
                 () => InstantiateStringBagAndConstruct(ProjectilePartEnum.Left, position, iceScale, shadowScale, out _).GetComponent<ISliced>()
                 ,() => InstantiateStringBagAndConstruct(ProjectilePartEnum.Right, position, iceScale, shadowScale, out _).GetComponent<ISliced>()
@@ -110,29 +127,29 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             return stringBag;
         }
 
-        public Ice CreateIce(Vector2 position, Vector2 iceScale, Vector2 shadowScale, out Shadow shadow)
+        public Ice CreateIce(Vector2 position, Vector2 iceScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
         {
-            Ice ice = InstantiateIceAndConstruct(ProjectilePartEnum.Whole, position, iceScale, shadowScale, out shadow);
+            Ice ice = InstantiateIceAndConstruct(ProjectilePartEnum.Whole, position, iceScale, shadowScale, out shadow, parent);
             ice.GetComponent<DestroySliceObject>().Construct(_destroyTrigger);
             return ice;
         }
 
-        public Brick CreateBrick(Vector2 position, Vector2 magnetScale, Vector2 shadowScale, out Shadow shadow)
+        public Brick CreateBrick(Vector2 position, Vector2 magnetScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
         {
-            Brick brick = InstantiateBrickAndConstruct(ProjectilePartEnum.Whole, position, magnetScale, shadowScale, out shadow);
+            Brick brick = InstantiateBrickAndConstruct(ProjectilePartEnum.Whole, position, magnetScale, shadowScale, out shadow, parent);
             return brick;
         }
         
-        public Magnet CreateMagnet(Vector2 position, Vector2 magnetSclae, Vector2 shadowScale, out Shadow shadow)
+        public Magnet CreateMagnet(Vector2 position, Vector2 magnetSclae, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
         {
-            Magnet magnet = InstantiateMagnetAndConstruct(ProjectilePartEnum.Whole, position, magnetSclae, shadowScale, out shadow);
+            Magnet magnet = InstantiateMagnetAndConstruct(ProjectilePartEnum.Whole, position, magnetSclae, shadowScale, out shadow, parent);
             magnet.GetComponent<DestroySliceObject>().Construct(_destroyTrigger);
             return magnet;
         }
 
-        public Fruit CreateFruit(FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow)
+        public Fruit CreateFruit(FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
         {
-            Fruit fruit = InstantiateFruitAndConstruct(ProjectilePartEnum.Whole, fruitType, position, fruitScale, shadowScale, out shadow);
+            Fruit fruit = InstantiateFruitAndConstruct(ProjectilePartEnum.Whole, fruitType, position, fruitScale, shadowScale, out shadow, parent);
             fruit.DestroyNotSliced += _healthSystem.LooseLife;
             
             fruit.GetComponent<TwoPartsSliceObject>().Construct(
@@ -143,9 +160,9 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             return fruit;
         }
         
-        public Bomb CreateBomb(Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow)
+        public Bomb CreateBomb(Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
         {
-            Bomb bomb = InstantiateBombAndConstruct(ProjectilePartEnum.Whole, position, fruitScale, shadowScale, out shadow);
+            Bomb bomb = InstantiateBombAndConstruct(ProjectilePartEnum.Whole, position, fruitScale, shadowScale, out shadow, parent);
 
             bomb.GetComponent<TwoPartsSliceObject>().Construct(
                 () => InstantiateBombAndConstruct(ProjectilePartEnum.Left, position, fruitScale, shadowScale, out _).GetComponent<ISliced>(), 
@@ -155,9 +172,9 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             return bomb;
         }
         
-        public Heart CreateHeart(Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow)
+        public Heart CreateHeart(Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
         {
-            Heart heart = InstantiateHeartAndConstruct(ProjectilePartEnum.Whole, position, fruitScale, shadowScale, out shadow);
+            Heart heart = InstantiateHeartAndConstruct(ProjectilePartEnum.Whole, position, fruitScale, shadowScale, out shadow, parent);
 
             heart.GetComponent<TwoPartsSliceObject>().Construct(
                 () => InstantiateHeartAndConstruct(ProjectilePartEnum.Left, position, fruitScale, shadowScale, out _).GetComponent<ISliced>(), 
@@ -180,11 +197,11 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         }
         
         private Fruit InstantiateFruitAndConstruct(ProjectilePartEnum projectilePartEnum, FruitType fruitType, Vector2 position,
-            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow, Transform parent = null)
         {
             Fruit fruit = CreatePart<Fruit>(ProjectileType.Fruit, projectilePartEnum,
                 _projectileConfig.FruitDictionary[fruitType].SpriteData, position, fruitScale, shadowScale,
-                out createdShadow);
+                out createdShadow, parent);
             
             _projectileContainer.AddToDictionary(ProjectileType.Fruit, fruit.GetComponent<ProjectileObject>());
             fruit.Construct(_projectileConfig.FruitDictionary[fruitType].SliceColor, _particleSystemPlayer);
@@ -192,11 +209,11 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         }
         
         private StringBag InstantiateStringBagAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
-            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow, Transform parent = null)
         {
             StringBag stringBag = CreatePart<StringBag>(ProjectileType.StringBag, projectilePartEnum,
                 _projectileConfig.BonusesDictionary[BonusesType.StringBag].SpriteData, position, fruitScale, shadowScale,
-                out createdShadow);
+                out createdShadow, parent);
             
             if(projectilePartEnum == ProjectilePartEnum.Whole)
                 stringBag.Construct(_shooter, this, _projectileConfig, _spawnConfig, _bonusesConfig);
@@ -205,45 +222,45 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         }
         
         private Ice InstantiateIceAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
-            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow, Transform parent = null)
         {
             Ice ice = CreatePart<Ice>(ProjectileType.Ice, projectilePartEnum,
                 _projectileConfig.BonusesDictionary[BonusesType.Ice].SpriteData, position, fruitScale, shadowScale,
-                out createdShadow);
+                out createdShadow, parent);
             
-            ice.Construct(_particleSystemPlayer, _frozerService,_bonusesConfig);
+            ice.Construct(_particleSystemPlayer, _freezer,_bonusesConfig);
             return ice;
         }
 
         
         private Brick InstantiateBrickAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
-            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow, Transform parent = null)
         {
             Brick brick = CreatePart<Brick>(ProjectileType.Brick, projectilePartEnum,
                 _projectileConfig.BonusesDictionary[BonusesType.Brick].SpriteData, position, fruitScale, shadowScale,
-                out createdShadow);
+                out createdShadow, parent);
             
             brick.Construct(_slicer, _particleSystemPlayer);
             return brick;
         }
         
         private Magnet InstantiateMagnetAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
-            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow, Transform parent = null)
         {
             Magnet magnet = CreatePart<Magnet>(ProjectileType.Magnet, projectilePartEnum,
                 _projectileConfig.BonusesDictionary[BonusesType.Magnet].SpriteData, position, fruitScale, shadowScale,
-                out createdShadow);
+                out createdShadow, parent);
             
             magnet.Construct(_particleSystemPlayer, _bonusesConfig);
             return magnet;
         }
         
         private Bomb InstantiateBombAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
-            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow, Transform parent = null)
         {
             Bomb bomb = CreatePart<Bomb>(ProjectileType.Bomb, projectilePartEnum,
                 _projectileConfig.BonusesDictionary[BonusesType.Bomb].SpriteData, position, fruitScale, shadowScale,
-                out createdShadow);
+                out createdShadow, parent);
             
             bomb.Construct(_particleSystemPlayer, _healthSystem);
             return bomb;
@@ -251,21 +268,24 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
 
         private Heart InstantiateHeartAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
-            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow)
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow, Transform parent = null)
         {
             Heart heart = CreatePart<Heart>(ProjectileType.Heart, projectilePartEnum,
                 _projectileConfig.BonusesDictionary[BonusesType.Heart].SpriteData, position, fruitScale, shadowScale,
-                out createdShadow);
+                out createdShadow, parent);
             
             heart.Construct(_particleSystemPlayer, _healthSystem);
             return heart;
         }
         
         private T CreatePart<T>(ProjectileType projectileType, ProjectilePartEnum projectilePart, SpriteData spriteData, Vector2 position,
-            Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow)
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
             where T : MonoBehaviour
         {
-            T part = SpawnProjectile<T>(projectileType, projectilePart, position, fruitScale, _projectileParenter.transform);
+            if (parent == null)
+                parent = _projectileParenter.transform;
+            
+            T part = SpawnProjectile<T>(projectileType, projectilePart, position, fruitScale, parent);
             ProjectileObject projectileObject = part.GetComponent<ProjectileObject>();
             _projectileContainer.AddToDictionary(ProjectileType.Magnet, projectileObject);
             shadow = SpawnShadowAndConstructProjectileObject(projectileObject, projectilePart, position, fruitScale);

@@ -7,10 +7,10 @@ using UnityEngine;
 public class MagnetSuction : MonoBehaviour, ILooseGameListener
 {
     private bool _isActive;
-    private readonly List<Vector2> _positions = new();
     private ProjectileContainer _projectileContainer;
     private BonusesConfig _bonusesConfig;
-    private List<ProjectileObject> _activeProjectile;
+    private List<ProjectileObject> _activeProjectile = new();
+    private readonly List<Vector2> _positions = new();
     private readonly List<ProjectileObject> _suctionProjectile = new();
     private readonly List<MagnetSuctionApplier> _suctionMagnet = new();
     private float _distance;

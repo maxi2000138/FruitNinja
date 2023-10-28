@@ -3,47 +3,69 @@ using App.Scripts.Scenes.GameScene.Configs;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileDestroyer.DestroyTrigger;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileFactory;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.Shooter.ProjectileShooter;
-using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeatures;
+using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ShadowFeatures;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class MimikController : MonoBehaviour
+public class MimikController
 {
-    private ProjectileFactory _projectileFactory;
-    private IFullSliceObject _currentProjectile;
-    private DestroyTrigger _destroyTrigger;
+    private ProjectileObject _projectileObject;
+    private TokenController _tokenController;
     private BonusesConfig _bonusesConfig;
-    private SpawnConfig _spawnConfig;
-    private IShooter _shooter;
+    private readonly ProjectileFactory _projectileFactory;
+    private readonly IShooter _shooter;
+    private readonly IDestroyTrigger _destroyTrigger;
+    private readonly SpawnConfig _spawnConfig;
+    private readonly ProjectileConfig _projectileConfig;
 
-    public void Construct(ProjectileFactory projectileFactory, DestroyTrigger destroyTrigger, IShooter shooter, SpawnConfig spawnConfig, BonusesConfig bonusesConfig)
+    public MimikController(ProjectileFactory projectileFactory, IShooter shooter, IDestroyTrigger destroyTrigger
+        , ProjectileObject startProjectileObject,BonusesConfig bonusesConfig, SpawnConfig spawnConfig, ProjectileConfig projectileConfig)
     {
+        _tokenController = new TokenController();
         _bonusesConfig = bonusesConfig;
-        _shooter = shooter;
         _spawnConfig = spawnConfig;
-        _destroyTrigger = destroyTrigger;
+        _projectileConfig = projectileConfig;
         _projectileFactory = projectileFactory;
+        _shooter = shooter;
+        _destroyTrigger = destroyTrigger;
+        _projectileObject = startProjectileObject;
     }
 
-    public async UniTaskVoid StartChanging()
+    public void StartMimikBehaviour()
+    {
+        ChangingAsyncMethod();
+        _projectileObject.OnDestroyEvent += StopMimikBehavior;
+    }
+    
+    public void StopMimikBehavior()
+    {
+        _tokenController.CancelTokens();
+    }
+
+    public async UniTaskVoid ChangingAsyncMethod()
     {
         while (true)
         {
+            bool isCanceled = await UniTask.Delay((int)(_bonusesConfig.ChangeTime * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update,
+                _tokenController.CreateCancellationToken()).SuppressCancellationThrow();
+        
+            if(isCanceled)
+                return;
+        
             ChangeProjectile();
-            await UniTask.Delay((int)(1000f*_bonusesConfig.ChangeTime), DelayType.DeltaTime).SuppressCancellationThrow();
         }
     }
-
+    
     public void ChangeProjectile()
     {
-        ProjectileType projectileType = _spawnConfig.ActiveProjectileTypes.GetRandomItem();
-        ProjectileObject projectileObject = _projectileFactory.SpawnProjectileByType(projectileType, _currentProjectile.ProjectileObject.transform.position,
-            _currentProjectile.ProjectileObject.Scale, out var shadow);
-        
-        _shooter.SetScalingAndShootByAngle(projectileType, projectileObject.GetComponent<ShootObject>(), shadow, _currentProjectile.ProjectileObject.transform.position
-            ,_currentProjectile.ProjectileObject.Scale, _currentProjectile.ProjectileObject.Mover.MovementVector);
-        
-        _destroyTrigger.TriggerGroup(_currentProjectile.ProjectileObject);
-        _currentProjectile = projectileObject.GetComponent<IFullSliceObject>();
+        ProjectileType type = _spawnConfig.ActiveProjectileTypes.GetRandomItem();
+        _projectileFactory.GetRandomScaleInConfigRange(type, _projectileConfig, out Vector2 scale);
+        Vector2 position = _projectileObject.transform.position;
+        ProjectileObject projectileObject = _projectileFactory.SpawnProjectileByType(type, position, scale, out Shadow shadow);
+        projectileObject.OnDestroyEvent += StopMimikBehavior;
+        _projectileObject.OnDestroyEvent -= StopMimikBehavior;
+        _shooter.SetScalingAndShootByAngle(type, projectileObject.GetComponent<ShootObject>(), shadow, position, scale, _projectileObject.Mover.MovementVector);
+        _destroyTrigger.TriggerGroup(_projectileObject);
+        _projectileObject = projectileObject;
     }
 }

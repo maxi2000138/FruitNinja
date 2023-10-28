@@ -13,6 +13,8 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
         private Transform _rightsPartTransform;
         [field: SerializeField]
         public ProjectileObject ProjectileObject { get; private set; }
+        public event Action OnSliceEvent;
+
         [field: SerializeField] 
         public ProjectileType ProjectileType { get; private set; }
 
@@ -45,6 +47,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
 
         public void Slice(Mover mover, float sliceForces, out bool disableColliderOnSlice)
         {
+            OnSliceEvent?.Invoke();
             SpawnParts(); 
             SetupSlicedPart(_leftObject,_leftPartTransform.position, transform.eulerAngles, transform.localScale);
             SetupSlicedPart(_rightObject ,_rightsPartTransform.position, transform.eulerAngles, transform.localScale);

@@ -6,4 +6,5 @@ public enum BonusesType
     Brick,
     Ice,
     StringBag,
+    Mimik,
 }

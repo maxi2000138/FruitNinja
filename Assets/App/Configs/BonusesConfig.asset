@@ -33,7 +33,8 @@ MonoBehaviour:
   FrozenTimeScale: 0.5
   FrozenTime: 8
   ProjectileTypes: 
-  ChangeTime: 1
+  ChangeTime: 0.5
   StringBagFruitsAmount: 5
-  StringBagFruitsAngleRange: 15
+  StringBagFruitsAngleRange: 30
   StringBagInivisibleTime: 0.3
+  StringBagFruitForce: 15

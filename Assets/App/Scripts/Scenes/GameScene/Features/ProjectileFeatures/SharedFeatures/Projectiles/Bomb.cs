@@ -15,10 +15,6 @@ public class Bomb : MonoBehaviour, ISlicable
     
     public void OnSlice()
     {
-    }
-
-    public void OnSlice(Vector2 movementVector)
-    {
         _healthSystem.LooseLife();
         _particleSystemPlayer.PlayBombSliceParticles(transform.position);
     }
