@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class Freezer : MonoBehaviour, ILooseGameListener
+public class FreezeController : MonoBehaviour, ILooseGameListener
 {
-    [SerializeField] private GameObject _frozePanel;
+    [SerializeField] private FreezeView _freezeView;
     
     private TimeScaleService _timeScaleService;
     private TokenController _tokenController;
@@ -42,13 +42,13 @@ public class Freezer : MonoBehaviour, ILooseGameListener
 
     private void SetFrozen()
     {        
-        _frozePanel.SetActive(true);
+        _freezeView.Show();
         _timeScaleService.SetPhysicFrozenTimeScale();
     }
 
     private void RemoveFrozen()
     {
-        _frozePanel.SetActive(false);
+        _freezeView.Hide();
         _timeScaleService.ResetPhysicTimeScale();
     }
 }

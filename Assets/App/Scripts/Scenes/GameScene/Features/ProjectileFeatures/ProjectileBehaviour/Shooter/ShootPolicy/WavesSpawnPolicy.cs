@@ -1,8 +1,6 @@
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using App.Scripts.Scenes.GameScene.Configs;
-using App.Scripts.Scenes.Infrastructure.MonoInterfaces;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -11,17 +9,25 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
     public class WavesSpawnPolicy : IShootPolicy
     {
         private CancellationTokenSource cts;
+        private float _fruitsIncreaseValue = 1f;
+        private float _packDeltaTimeDecreaseValue = 1f;
         private readonly SpawnConfig _spawnConfig;
+        private readonly TokenController _tokenController;
+        private CancellationToken _groupToken;
+        private int _groupNumber;
+        private int _lastGroupNumber;
+
+        public event Action NeedShoot;
 
         public WavesSpawnPolicy(SpawnConfig spawnConfig)
         {
             _spawnConfig = spawnConfig;
+            _tokenController = new TokenController();
         }
-        public event Action NeedShoot;
+
         public void StartWorking()
         {
-            cts = new CancellationTokenSource();
-            ShootTask(cts.Token);
+            ShootTask();
         }
 
         public void StopWorking()
@@ -30,47 +36,55 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 cts.Cancel();
         }
 
-        public void OnWinGame()
+        public void SetIncreasedValues(float fruitIncreaseValue, float packDeltaTimeDecreaseValue)
         {
-            StopWorking();   
+            if(Math.Abs(_fruitsIncreaseValue - fruitIncreaseValue) > 0.01f)
+                _lastGroupNumber = _groupNumber;
+            _fruitsIncreaseValue = fruitIncreaseValue;
+            _packDeltaTimeDecreaseValue = packDeltaTimeDecreaseValue;
+            _tokenController.CancelTokens();
+        }
+        
+        public void ResetIncreasedValues()
+        {
+            _fruitsIncreaseValue = 1f;
+            _packDeltaTimeDecreaseValue = 1f;
+            _groupNumber = _lastGroupNumber;
+            _tokenController.CancelTokens();
         }
 
-        public void OnLooseGame()
+        private async UniTask ShootTask()
         {
-            StopWorking();   
-        }
-
-        private async Task ShootTask(CancellationToken token)
-        {
+            
             float fruitsAmountRange = _spawnConfig.BlocksAmountRange.x;
             float fruitsInGroupSpawnDelay = _spawnConfig.BlocksInGroupSpawnDelayRange.y;
             float groupSpawnDelayRange = _spawnConfig.GroupSpawnDelayRange.y;
 
-            int groupNumber = 0;
+            _groupNumber = 0;
         
             while (true)
             {
-                groupNumber++;
+                _groupNumber++;
                 int spawnAmount = (int)fruitsAmountRange;
                 for (int i = 0; i < spawnAmount; i++)
                 {
-                    if(token.IsCancellationRequested)
-                        return;
-                    
                     NeedShoot?.Invoke();
-                    await UniTask.Delay((int)(fruitsInGroupSpawnDelay * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, cts.Token);
+                    bool cancellationThrow = await UniTask.Delay((int)(fruitsInGroupSpawnDelay * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, _tokenController.CreateCancellationToken())
+                        .SuppressCancellationThrow();
+                    
+                    if(cancellationThrow)
+                        break;
                 }
 
-                if(token.IsCancellationRequested)
-                    return;
-                await UniTask.Delay((int)(groupSpawnDelayRange * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, token)
+                await UniTask.Delay((int)(groupSpawnDelayRange * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, _tokenController.CreateCancellationToken())
                     .SuppressCancellationThrow();
+
                 fruitsAmountRange = Mathf.Lerp(_spawnConfig.BlocksAmountRange.x, _spawnConfig.BlocksAmountRange.y
-                    ,(float)groupNumber / _spawnConfig.AverageAmountSpawnGroups);
+                    ,(float)_groupNumber / _spawnConfig.AverageAmountSpawnGroups) * _fruitsIncreaseValue;
                 fruitsInGroupSpawnDelay = Mathf.Lerp(_spawnConfig.BlocksInGroupSpawnDelayRange.y, _spawnConfig.BlocksInGroupSpawnDelayRange.x
-                    ,(float)groupNumber / _spawnConfig.AverageAmountSpawnGroups);
+                    ,(float)_groupNumber / _spawnConfig.AverageAmountSpawnGroups) / _packDeltaTimeDecreaseValue;
                 groupSpawnDelayRange = Mathf.Lerp(_spawnConfig.GroupSpawnDelayRange.y, _spawnConfig.GroupSpawnDelayRange.x
-                    ,(float)groupNumber / _spawnConfig.AverageAmountSpawnGroups);
+                    ,(float)_groupNumber / _spawnConfig.AverageAmountSpawnGroups) / _packDeltaTimeDecreaseValue;
             }
         }
     }

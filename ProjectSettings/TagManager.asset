@@ -51,6 +51,9 @@ TagManager:
   - name: FXUnderFruits
     uniqueID: 3530528809
     locked: 0
+  - name: Panels
+    uniqueID: 288549315
+    locked: 0
   - name: Fruits
     uniqueID: 3960523479
     locked: 0

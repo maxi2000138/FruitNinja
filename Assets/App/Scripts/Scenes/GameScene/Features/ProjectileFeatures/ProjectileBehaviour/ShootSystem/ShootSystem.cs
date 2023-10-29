@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using App.Scripts.ListExtensions;
 using App.Scripts.Scenes.GameScene.Configs;
 using App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBehaviour.ProjectileFactory;
@@ -11,16 +12,18 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 {
     public class ShootSystem : IInitializable, ILooseGameListener, IRestartGameListener
     {
-        private readonly IProjectileFactory _projectileFactory;
         private readonly IShootPolicy _shootPolicy;
+        private readonly IProjectileFactory _projectileFactory;
         private readonly SpawnAreasContainer _spawnAreasContainer;
         private readonly IShooter _shooter;
         private readonly SpawnConfig _spawnConfig;
         private readonly ProjectileConfig _projectileConfig;
         private readonly ShootConfig _shootConfig;
+        private readonly ActiveProjectileTypesContainer _activeProjectileTypesContainer;
 
         public ShootSystem(IProjectileFactory projectileFactory,SpawnAreasContainer spawnAreasContainer, IShooter shooter
-            , IShootPolicy shootPolicy, SpawnConfig spawnConfig, ProjectileConfig projectileConfig, ShootConfig shootConfig)
+            , IShootPolicy shootPolicy, SpawnConfig spawnConfig, ProjectileConfig projectileConfig, ShootConfig shootConfig
+            , ActiveProjectileTypesContainer activeProjectileTypesContainer)
         {
             _spawnAreasContainer = spawnAreasContainer;
             _projectileFactory = projectileFactory;
@@ -28,11 +31,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _shooter = shooter;
             _shootPolicy = shootPolicy;
             _shootConfig = shootConfig;
+            _activeProjectileTypesContainer = activeProjectileTypesContainer;
             _spawnConfig = spawnConfig;
         }
 
         public void Initialize()
         {
+            _activeProjectileTypesContainer.RestActiveProjectile();
             StartShooting();
         }
 
@@ -58,12 +63,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _shootPolicy.StopWorking();
             _shootPolicy.NeedShoot -= SpawnAndShoot;
         }
+        
 
         public void SpawnAndShoot()
         {
             var (projectileType,_) = _spawnConfig.ProjectileSpawnProbability.GetRandomItemByProbability(data =>
             {
-                if (_spawnConfig.ActiveProjectileTypes.Contains(data.Key))
+                if (_activeProjectileTypesContainer.ProjectileTypes.Contains(data.Key))
                     return data.Value;
                 
                 return 0;

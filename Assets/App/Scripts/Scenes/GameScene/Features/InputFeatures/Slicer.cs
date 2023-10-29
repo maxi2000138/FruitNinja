@@ -22,6 +22,7 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
         private Vector2 _lastWorldPosition;
         private bool _isSlicing;
         private PhysicalFlightCalculator _physicalFlightCalculator;
+        private Vector2 _startPosition = new Vector2(-100, -100);
 
         public void Construct(InputReader inputReader, ScreenSettingsProvider screenSettingsProvider, SliceCollidersController sliceCollidersController, ShootConfig shootConfig)
         {
@@ -36,9 +37,22 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
         {
             if(!_isSlicing)
                 return;
-        
-            Vector3 worldPosition = _screenSettingsProvider.ScreenToWorldPosition(_inputReader.TouchPosition);
+
+            Vector3 worldPosition = GetTouchPosition();
             worldPosition.z = _zPosition;
+            _trailRenderer.transform.position = worldPosition;
+
+            if (_lastWorldPosition == _startPosition)
+            {
+                _lastWorldPosition = worldPosition;
+                return;
+            }
+        
+            if (((_lastWorldPosition - (Vector2)worldPosition).magnitude / Time.deltaTime) < _shootConfig.MinSliceSpeed)
+            {
+                _lastWorldPosition = worldPosition;
+                return;
+            }
         
             if (_sliceCollidersController.TryGetIntersectionCollider(worldPosition, out Mover forceMover, out SliceCircleCollider collider))
             {
@@ -48,7 +62,6 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
                 OnSlice?.Invoke(worldPosition, collider.SliceObject.ProjectileType);
             }
         
-            _trailRenderer.transform.position = worldPosition;
             _lastWorldPosition = worldPosition;
         }
 
@@ -61,14 +74,15 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
         {
             Enable();
         }
-        
+
         public void OnLooseGame()
         {
             Disable();
         }
-        
+
         public void StartSlicing()
         {
+            _lastWorldPosition = _startPosition;
             _trailRenderer.Clear();
             _trailRenderer.enabled = true;
             _isSlicing = true;
@@ -80,13 +94,16 @@ namespace App.Scripts.Scenes.GameScene.Features.InputFeatures
             _trailRenderer.enabled = false;
         }
 
-        private void Enable()
+        private Vector2 GetTouchPosition() => 
+            _screenSettingsProvider.ScreenToWorldPosition(_inputReader.TouchPosition);
+
+        public void Enable()
         {
             _inputReader.SliceStartedEvent += StartSlicing;
             _inputReader.SliceEndedEvent += EndSlicing;
         }
 
-        private void Disable()
+        public void Disable()
         {
             _inputReader.SliceStartedEvent -= StartSlicing;
             _inputReader.SliceEndedEvent -= EndSlicing;

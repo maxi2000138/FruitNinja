@@ -1,0 +1,6 @@
+
+Lcsharpsquid:S3903	"*Move 'ComboSystem' into a named namespace.(´ë¢çþÿÿÿÿ
+Lcsharpsquid:S2933"*Make '_screenSettingsProvider' 'readonly'.(í ”Ñúÿÿÿÿ
+Ccsharpsquid:S2933"!Make '_comboParenter' 'readonly'.( åµ«ýÿÿÿÿ
+<csharpsquid:S2933"Make '_scoreSystem' 'readonly'.(ëÇÙå
+xcsharpsquid:S1450"VRemove the field '_slicer' and declare it as a local variable in the relevant methods.(ÔÅºµüÿÿÿÿ

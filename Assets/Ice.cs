@@ -4,19 +4,19 @@ using UnityEngine;
 public class Ice : MonoBehaviour, ISlicable
 {
     private ParticleSystemPlayer _particleSystemPlayer;
-    private Freezer _freezer;
+    private FreezeController _freezeController;
     private BonusesConfig _bonusesConfig;
 
-    public void Construct(ParticleSystemPlayer particleSystemPlayer, Freezer freezer, BonusesConfig bonusesConfig)
+    public void Construct(ParticleSystemPlayer particleSystemPlayer, FreezeController freezeController, BonusesConfig bonusesConfig)
     {
         _bonusesConfig = bonusesConfig;
-        _freezer = freezer;
+        _freezeController = freezeController;
         _particleSystemPlayer = particleSystemPlayer;
     }
     
     public void OnSlice()
     {
        // _particleSystemPlayer.PlayIceParticles(transform.position);
-       _freezer.SetFrozeEffect(_bonusesConfig.FrozenTime);
+       _freezeController.SetFrozeEffect(_bonusesConfig.FrozenTime);
     }
 }

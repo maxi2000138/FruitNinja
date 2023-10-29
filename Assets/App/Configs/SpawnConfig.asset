@@ -40,7 +40,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 8
+      Data: 9
     - Name: 
       Entry: 7
       Data: 
@@ -121,7 +121,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 4
-      Data: 1
+      Data: 0.5
     - Name: 
       Entry: 8
       Data: 
@@ -133,7 +133,19 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 4
-      Data: 100000
+      Data: 0.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 8
+    - Name: $v
+      Entry: 4
+      Data: 0.5
     - Name: 
       Entry: 8
       Data: 
@@ -148,4 +160,4 @@ MonoBehaviour:
   BlocksInGroupSpawnDelayRange: {x: 0.38604647, y: 0.5953488}
   AverageAmountSpawnGroups: 10
   ActiveFruitTypes: 000000000100000002000000030000000400000005000000060000000700000008000000
-  ActiveProjectileTypes: 0000000001000000020000000300000004000000050000000600000007000000
+  ActiveProjectileTypes: 000000000100000002000000030000000400000005000000060000000700000008000000

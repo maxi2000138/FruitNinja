@@ -1,4 +1,5 @@
 
 Wcsharpsquid:S3903
-".Move 'MimikController' into a named namespace.(Ñ¢…–şÿÿÿÿ8©Å¦™·1
-[csharpsquid:S2190"2Add a way to break out of this method's recursion.(è‚‰×úÿÿÿÿ8…ªˆ™·1
+".Move 'MimikController' into a named namespace.(¬›ıúÿÿÿÿ8©Å¦™·1
+Lcsharpsquid:S2933"#Make '_tokenController' 'readonly'.(©Œù‡üÿÿÿÿ8äÔò··1
+Jcsharpsquid:S2933"!Make '_bonusesConfig' 'readonly'.(ª‹ûşÿÿÿÿ8õØï··1

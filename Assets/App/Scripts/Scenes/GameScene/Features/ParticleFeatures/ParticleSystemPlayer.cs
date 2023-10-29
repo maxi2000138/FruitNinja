@@ -36,13 +36,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ParticleFeatures
             SetColor(particles, color);
         }
 
-        public GameObject PlayMagnetSliceParticlesTime(Vector2 position, float milisecPlayTime)
+        public GameObject PlayMagnetSliceParticlesTime(Vector2 position)
         {
             return PlayParticles(_projectileParticles[ProjectileType.Magnet], position).gameObject;
         }
 
         private ParticleSystem PlayParticles(ParticleSystem particles, Vector2 position) => 
-            Instantiate(particles, position, Quaternion.identity, transform);
+            Instantiate(particles, new Vector3(position.x, position.y, 0f), Quaternion.identity, transform);
 
         private void StopParticles(ParticleSystem particles) => 
             Destroy(particles.gameObject);

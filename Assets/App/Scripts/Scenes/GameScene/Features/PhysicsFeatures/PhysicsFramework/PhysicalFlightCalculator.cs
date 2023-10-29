@@ -19,7 +19,7 @@ public class PhysicalFlightCalculator : IInitializable
 
     public void Initialize()
     {
-        _highestYValue = _screenSettingsProvider.ViewportToWorldPosition(new Vector2(0, 1)).y;
+        _highestYValue = _screenSettingsProvider.ViewportToWorldPosition(new Vector2(0, 1)).y - _physicsConfig.HighestPointOffset;
     }
     
     public Vector2 ConstrainSpeed(float positionY, Vector2 moveVector)

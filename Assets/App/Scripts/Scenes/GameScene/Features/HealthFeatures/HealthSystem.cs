@@ -8,6 +8,8 @@ public class HealthSystem : IRestartGameListener
     private HealthConfig _healthConfig;
     private readonly HealthController _healthController;
     private TweenCore _tweenCore;
+    private bool _isImmortal = false;
+
 
     public HealthSystem(HealthConfig healthConfig, HealthController healthController, TweenCore tweenCore)
     {
@@ -17,17 +19,25 @@ public class HealthSystem : IRestartGameListener
 
         _healthController.Construct(_healthConfig, _tweenCore);
         OnRestartGame();
+        SetNonImmortal();
     }
+
+    public void SetImmortal() => 
+        _isImmortal = true;
+
+    public void SetNonImmortal() => 
+        _isImmortal = false;
 
     public void OnRestartGame()
     {
         Health = _healthConfig.Health;
         _healthController.SetupHealth(Health);
+        SetNonImmortal();
     }
 
     public void LooseLife()
     {
-        if(Health == 0)
+        if(Health == 0 || _isImmortal)
             return;
 
         if(Health > 0)

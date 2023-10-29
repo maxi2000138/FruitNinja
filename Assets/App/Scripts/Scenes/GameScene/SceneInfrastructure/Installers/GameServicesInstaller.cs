@@ -51,8 +51,10 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
         private GameEntryPoint _gameEntryPoint;
         [SerializeField] 
         private MagnetSuction _magnetSuction;
-        [FormerlySerializedAs("_namefrozer")] [FormerlySerializedAs("_frozerService")] [SerializeField] 
-        private Freezer _namefreezer;
+        [FormerlySerializedAs("_freezer")] [SerializeField] 
+        private FreezeController _namefreezeController;
+        [SerializeField] 
+        private SamuraiController _samuraiController;
 
         [Header("Views")] 
         [SerializeField]
@@ -98,30 +100,31 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             _scoreView.Construct(projectInstaller.TweenCore);
             _highScoreView.Construct(projectInstaller.TweenCore);
 
-            
+            ActiveProjectileTypesContainer activeProjectileTypesContainer = new ActiveProjectileTypesContainer(_configsContainer.SpawnConfig);
             _physicalFlightCalculator = new PhysicalFlightCalculator(_screenSettingsProvider, _configsContainer.PhysicsConfig);
             _slicer.Construct(InputReader, _screenSettingsProvider, _sliceCollidersController, _configsContainer.ShootConfig);
             DestroyTrigger = new DestroyTrigger(_screenSettingsProvider, _projectileContainer, ProjectileDestroyer, _configsContainer.ShootConfig);
             _healthSystem = new HealthSystem(_configsContainer.HealthConfig, _healthController, projectInstaller.TweenCore);
             TimeScaleService timeScaleService = new TimeScaleService(_configsContainer.BonusesConfig);
             Shooter = new Shooter(_physicalFlightCalculator,_configsContainer.ShootConfig, _configsContainer.ShadowConfig , _configsContainer.ProjectileConfig);
-            ShootPolicy = new WavesSpawnPolicy(_configsContainer.SpawnConfig);
+            WavesSpawnPolicy wavesSpawnPolicy = new WavesSpawnPolicy(_configsContainer.SpawnConfig);
+            ShootPolicy = wavesSpawnPolicy;
             ProjectileFactory = new ProjectileFactory(DestroyTrigger, _projectilesParenter, _shadowParenter,
                 _sliceCollidersController, ResourceObjectsProvider, _particleSystemPlayer
                 , _configsContainer.ProjectileConfig, _configsContainer.ResourcesConfig, _configsContainer.ShadowConfig,
-                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer, _slicer, timeScaleService, _namefreezer
-                , _screenSettingsProvider, _configsContainer.SpawnConfig,Shooter);
+                _healthSystem, _configsContainer.BonusesConfig, _projectileContainer, _slicer, timeScaleService, _namefreezeController
+                , _screenSettingsProvider, _configsContainer.SpawnConfig, Shooter, _samuraiController,activeProjectileTypesContainer);
             ShootSystem = new  ShootSystem(ProjectileFactory, _spawnAreasContainer,Shooter, ShootPolicy, _configsContainer.SpawnConfig, _configsContainer.ProjectileConfig,
-                _configsContainer.ShootConfig);
+                _configsContainer.ShootConfig, activeProjectileTypesContainer);
             _healthOverLoosePolicy = new HealthOverLoosePolicy(_healthSystem, DestroyTrigger);
             ScoreSystem = new ScoreSystem(projectInstaller.ScoreStateContainer, _slicer, _currentScoreView,
                 _highScoreView, _configsContainer.ScoreConfig); 
             _gameEntryPoint.Construct(projectInstaller.SceneLoaderWithCurtains);
             ComboSystem comboSystem = new ComboSystem(_slicer, _configsContainer.ComboConfig, _comboParenter, _screenSettingsProvider, ScoreSystem, _configsContainer.ScoreConfig);
             _magnetSuction.Construct(_projectileContainer, _configsContainer.BonusesConfig);
-            _namefreezer.Construct(timeScaleService);
-
-            PauseController pauseController = new PauseController(timeScaleService);
+            _namefreezeController.Construct(timeScaleService);
+            _samuraiController.Construct(wavesSpawnPolicy, _configsContainer.BonusesConfig, activeProjectileTypesContainer, _healthSystem);
+            PauseController pauseController = new PauseController(timeScaleService, _slicer);
             RestartGameButton restartGameButton = new RestartGameButton(projectInstaller.SceneLoaderWithCurtains);
             _restartButton.Construct(restartGameButton, projectInstaller.TweenCore);
             _looseExitMenuButton.Construct(new ExitToMenuButton(projectInstaller.SceneLoaderWithCurtains), projectInstaller.TweenCore);
@@ -147,8 +150,9 @@ namespace App.Scripts.Scenes.GameScene.SceneInfrastructure.Installers
             _gameStateObserver.AddObserver(_healthSystem);
             _gameStateObserver.AddObserver(ScoreSystem);
             _gameStateObserver.AddObserver(_healthOverLoosePolicy);
-            _gameStateObserver.AddObserver(_namefreezer);
+            _gameStateObserver.AddObserver(_namefreezeController);
             _gameStateObserver.AddObserver(_magnetSuction);
+            _gameStateObserver.AddObserver(_samuraiController);
             
             _gameStateObserver.AddPolicy(restartGameButton);
             _gameStateObserver.AddPolicy(_healthOverLoosePolicy);

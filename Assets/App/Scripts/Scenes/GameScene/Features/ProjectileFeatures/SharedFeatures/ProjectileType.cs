@@ -8,4 +8,5 @@
     Ice,
     StringBag,
     Mimik,
+    Samurai,
 }

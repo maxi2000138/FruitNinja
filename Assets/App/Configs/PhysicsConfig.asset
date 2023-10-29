@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PhysicsConfig
   m_EditorClassIdentifier: 
   StartGravityValue: -7
-  PhysicsTimeScale: 0
+  HighestPointOffset: 0.5

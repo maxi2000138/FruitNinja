@@ -6,5 +6,6 @@ namespace App.Scripts.Scenes.GameScene.Configs
     public class PhysicsConfig : ScriptableObject
     {
         public float StartGravityValue = -5f;
+        public float HighestPointOffset = 1f;
     }
 }

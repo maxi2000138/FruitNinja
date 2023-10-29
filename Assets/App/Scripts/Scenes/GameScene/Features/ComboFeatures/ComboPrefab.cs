@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -23,9 +24,9 @@ public class ComboPrefab : MonoBehaviour
         _comboText.text = "x" + comboCount;
     }
 
-    private async void DestroyTask()
+    private async UniTaskVoid DestroyTask()
     {
-        await Task.Delay((int)(_comboConfig.ComboLifeTime * 1000));
+        await UniTask.Delay((int)(_comboConfig.ComboLifeTime * 1000));
         Destroy(gameObject);
     }
 }

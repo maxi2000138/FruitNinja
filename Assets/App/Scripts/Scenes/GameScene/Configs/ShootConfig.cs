@@ -14,5 +14,7 @@ namespace App.Scripts.Scenes.GameScene.Configs
         public float DestroyTriggerOffset = 2f;
         [Range(5f, 20f)] 
         public float SliceForce = 1f;
+        [Range(0.5f, 10f)]
+        public float MinSliceSpeed = 0.1f;
     }
 }

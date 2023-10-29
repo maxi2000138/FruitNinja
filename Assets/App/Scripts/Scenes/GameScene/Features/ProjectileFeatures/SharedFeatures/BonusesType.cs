@@ -7,4 +7,5 @@ public enum BonusesType
     Ice,
     StringBag,
     Mimik,
+    Samurai,
 }

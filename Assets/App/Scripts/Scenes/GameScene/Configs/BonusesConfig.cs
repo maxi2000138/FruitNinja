@@ -28,5 +28,10 @@ public class BonusesConfig : SerializedScriptableObject
     public float StringBagFruitsAngleRange = 15f;
     public float StringBagInivisibleTime = 1f;
     public float StringBagFruitForce = 25f;
+    [Header("Samurai")] 
+    public float SamuraiTime = 10f;
+    public float SamuraiAfterImmortalDelta = 1f;
+    public float FruitsIncreaseValue = 3f;
+    public float PackDeltaTimeDecreaseValue = 3f;
 }
 

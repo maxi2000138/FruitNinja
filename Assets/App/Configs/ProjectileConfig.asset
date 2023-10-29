@@ -55,6 +55,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 3741453dc8ff79d4b92998165d2e6d39, type: 3}
     - {fileID: 21300000, guid: cc4cd27aa74b3f149a3b9fc1ac52898e, type: 3}
     - {fileID: 21300000, guid: fe2038c7ba15a484181b9330e7aaf459, type: 3}
+    - {fileID: 21300000, guid: af20a4a71379c354b8d1f14c1fa087e8, type: 3}
+    - {fileID: 21300000, guid: 309c7fa9dfc8095438cffed4ac5c3eca, type: 3}
+    - {fileID: 21300000, guid: 1851c53b12c130d439b1937c75bf0f57, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -935,7 +938,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 7
+      Data: 8
     - Name: 
       Entry: 7
       Data: 
@@ -1392,18 +1395,24 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: ProjectileScales
       Entry: 7
-      Data: 57|System.Collections.Generic.Dictionary`2[[ProjectileType, Assembly-CSharp],[App.Scripts.Scenes.GameScene.Configs.ScaleData,
-        Assembly-CSharp]], mscorlib
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: 57|App.Scripts.Scenes.GameScene.Configs.BonusData, Assembly-CSharp
+    - Name: SpriteData
+      Entry: 7
+      Data: 58|App.Scripts.Scenes.GameScene.Configs.SpriteData, Assembly-CSharp
+    - Name: PartSprites
+      Entry: 7
+      Data: 59|System.Collections.Generic.Dictionary`2[[ProjectilePartEnum, Assembly-CSharp],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 58|System.Collections.Generic.EnumEqualityComparer`1[[ProjectileType,
+      Data: 60|System.Collections.Generic.EnumEqualityComparer`1[[ProjectilePartEnum,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -1416,7 +1425,84 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 8
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 39
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 40
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 41
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ProjectileScales
+      Entry: 7
+      Data: 61|System.Collections.Generic.Dictionary`2[[ProjectileType, Assembly-CSharp],[App.Scripts.Scenes.GameScene.Configs.ScaleData,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 62|System.Collections.Generic.EnumEqualityComparer`1[[ProjectileType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 9
     - Name: 
       Entry: 7
       Data: 
@@ -1425,7 +1511,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 59|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 63|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1452,7 +1538,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 60|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 64|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1479,16 +1565,16 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: 61|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 65|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.5017145
+      Data: 0.3857853
     - Name: 
       Entry: 4
-      Data: 0.646476448
+      Data: 0.51140517
     - Name: 
       Entry: 8
       Data: 
@@ -1506,7 +1592,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: 62|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 66|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1533,7 +1619,7 @@ MonoBehaviour:
       Data: 4
     - Name: $v
       Entry: 7
-      Data: 63|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 67|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1560,7 +1646,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 7
-      Data: 64|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 68|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1587,7 +1673,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 7
-      Data: 65|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 69|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
@@ -1614,16 +1700,43 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 7
-      Data: 66|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+      Data: 70|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
     - Name: Scale
       Entry: 7
       Data: UnityEngine.Vector2, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 1.02958691
+      Data: 1.04528952
     - Name: 
       Entry: 4
-      Data: 1.02958691
+      Data: 1.04528952
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 8
+    - Name: $v
+      Entry: 7
+      Data: 71|App.Scripts.Scenes.GameScene.Configs.ScaleData, Assembly-CSharp
+    - Name: Scale
+      Entry: 7
+      Data: UnityEngine.Vector2, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.900610864
+    - Name: 
+      Entry: 4
+      Data: 1.03114522
     - Name: 
       Entry: 8
       Data: 

@@ -28,10 +28,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private readonly ProjectileContainer _projectileContainer;
         private readonly Slicer _slicer;
         private readonly TimeScaleService _timeScaleService;
-        private readonly Freezer _freezer;
+        private readonly FreezeController _freezeController;
         private readonly ScreenSettingsProvider _screenSettingsProvider;
         private readonly SpawnConfig _spawnConfig;
         private readonly Shooter.ProjectileShooter.Shooter _shooter;
+        private readonly SamuraiController _samuraiController;
+        private readonly ActiveProjectileTypesContainer _activeProjectileTypesContainer;
+        private readonly ShootSystem.ShootSystem _shootSystem;
         private readonly ShadowParenter _shadowParenter;
         private readonly IDestroyTrigger _destroyTrigger;
         private readonly ResourcesConfig _resourcesConfig;
@@ -43,7 +46,8 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             , SliceCollidersController sliceCollidersController, ResourceObjectsProvider resourceObjectsProvider, ParticleSystemPlayer particleSystemPlayer
             , ProjectileConfig projectileConfig, ResourcesConfig resourcesConfig, ShadowConfig shadowConfig, HealthSystem healthSystem
             , BonusesConfig bonusesConfig, ProjectileContainer projectileContainer, Slicer slicer, TimeScaleService timeScaleService
-            , Freezer freezer, ScreenSettingsProvider screenSettingsProvider, SpawnConfig _spawnConfig, Shooter.ProjectileShooter.Shooter shooter)
+            , FreezeController freezeController, ScreenSettingsProvider screenSettingsProvider, SpawnConfig _spawnConfig, Shooter.ProjectileShooter.Shooter shooter
+            , SamuraiController samuraiController, ActiveProjectileTypesContainer activeProjectileTypesContainer)
         {
             _destroyTrigger = destroyTrigger;
             _projectileParenter = projectileParenter;
@@ -59,10 +63,12 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             _projectileContainer = projectileContainer;
             _slicer = slicer;
             _timeScaleService = timeScaleService;
-            _freezer = freezer;
+            _freezeController = freezeController;
             _screenSettingsProvider = screenSettingsProvider;
             this._spawnConfig = _spawnConfig;
             _shooter = shooter;
+            _samuraiController = samuraiController;
+            _activeProjectileTypesContainer = activeProjectileTypesContainer;
         }
 
 
@@ -96,12 +102,25 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                     break;  
                 case(ProjectileType.Mimik):
                     projectileObject = CreateMimik(position, scale, scale, out shadow, parent).GetComponent<ProjectileObject>();
+                    break;
+                case(ProjectileType.Samurai):
+                    projectileObject = CreateSamurai(position, scale, scale, out shadow, parent).GetComponent<ProjectileObject>();
                     break;  
             }
 
             return projectileObject;
         }
         
+        
+        public Samurai CreateSamurai(Vector2 position, Vector2 samuraiScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
+        {
+            Samurai samurai = InstantiateSamuraiAndConstruct(ProjectilePartEnum.Whole, position, samuraiScale, shadowScale, out shadow, parent);
+            samurai.GetComponent<TwoPartsSliceObject>().Construct(
+                () => InstantiateSamuraiAndConstruct(ProjectilePartEnum.Left, position, samuraiScale, shadowScale, out _).GetComponent<ISliced>()
+                ,() => InstantiateSamuraiAndConstruct(ProjectilePartEnum.Right, position, samuraiScale, shadowScale, out _).GetComponent<ISliced>()
+                , _destroyTrigger);
+            return samurai;
+        }
 
         public ProjectileObject CreateMimik(Vector2 position, Vector2 iceScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
         {
@@ -208,6 +227,19 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             return fruit;
         }
         
+        private Samurai InstantiateSamuraiAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
+            Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow, Transform parent = null)
+        {
+            Samurai samuraiPart = CreatePart<Samurai>(ProjectileType.Samurai, projectilePartEnum,
+                _projectileConfig.BonusesDictionary[BonusesType.Samurai].SpriteData, position, fruitScale, shadowScale,
+                out createdShadow, parent);
+            
+            if(projectilePartEnum == ProjectilePartEnum.Whole)
+                samuraiPart.Construct(_samuraiController);
+            
+            return samuraiPart;
+        }
+        
         private StringBag InstantiateStringBagAndConstruct(ProjectilePartEnum projectilePartEnum, Vector2 position,
             Vector2 fruitScale, Vector2 shadowScale, out Shadow createdShadow, Transform parent = null)
         {
@@ -228,7 +260,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 _projectileConfig.BonusesDictionary[BonusesType.Ice].SpriteData, position, fruitScale, shadowScale,
                 out createdShadow, parent);
             
-            ice.Construct(_particleSystemPlayer, _freezer,_bonusesConfig);
+            ice.Construct(_particleSystemPlayer, _freezeController,_bonusesConfig);
             return ice;
         }
 

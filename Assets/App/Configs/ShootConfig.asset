@@ -16,3 +16,4 @@ MonoBehaviour:
   TorqueVelocityRange: {x: -206.97678, y: 211.62784}
   DestroyTriggerOffset: -2
   SliceForce: 8
+  MinSliceSpeed: 1
