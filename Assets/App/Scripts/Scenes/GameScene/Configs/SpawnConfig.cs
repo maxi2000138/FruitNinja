@@ -19,6 +19,7 @@ namespace App.Scripts.Scenes.GameScene.Configs
         public int AverageAmountSpawnGroups;
         [FormerlySerializedAs("FruitTypes")] public List<FruitType> ActiveFruitTypes;
         [FormerlySerializedAs("ActiveBonusesTypes")] public List<ProjectileType> ActiveProjectileTypes;
+        public List<ProjectileType> LooseHealthProjectiles;
         public Dictionary<ProjectileType, float> ProjectileSpawnProbability;
     }
 }

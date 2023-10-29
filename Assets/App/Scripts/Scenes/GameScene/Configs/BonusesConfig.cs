@@ -21,8 +21,8 @@ public class BonusesConfig : SerializedScriptableObject
     public float FrozenTimeScale = 0.5f;
     public float FrozenTime = 8f;
     [Header("Mimik")] 
-    public List<ProjectileType> ProjectileTypes;
-    public float ChangeTime = 1f;
+    [FormerlySerializedAs("ChangeTime")] public float MimikChangeTime = 1f;
+    public float MimikBeforeChangeParticleDeltaTime = 0.5f;
     [Header("StringBag")] 
     public float StringBagFruitsAmount = 5f;
     public float StringBagFruitsAngleRange = 15f;
@@ -30,7 +30,6 @@ public class BonusesConfig : SerializedScriptableObject
     public float StringBagFruitForce = 25f;
     [Header("Samurai")] 
     public float SamuraiTime = 10f;
-    public float SamuraiAfterImmortalDelta = 1f;
     public float FruitsIncreaseValue = 3f;
     public float PackDeltaTimeDecreaseValue = 3f;
 }

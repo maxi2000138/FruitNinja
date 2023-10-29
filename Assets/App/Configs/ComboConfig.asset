@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ComboPrefab: {fileID: 8008553291520642646, guid: 6e2378398c93453449aedc61580b2383, type: 3}
   Scale: {x: 3, y: 3, z: 3}
-  DelayComboDestroy: 0.53
+  DelayComboDestroy: 0.7
   ComboLifeTime: 1

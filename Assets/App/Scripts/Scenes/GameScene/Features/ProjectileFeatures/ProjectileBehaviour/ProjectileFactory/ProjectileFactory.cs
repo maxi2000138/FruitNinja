@@ -131,7 +131,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             GetRandomScaleInConfigRange(type, _projectileConfig, out Vector2 scale);
             ProjectileObject projectileObject = SpawnProjectileByType(type, position, scale , out shadow, parent);
             MimikController mimikController = new MimikController(this, _shooter, _destroyTrigger
-                , projectileObject, _bonusesConfig, _spawnConfig, _projectileConfig);
+                , projectileObject, _bonusesConfig, _spawnConfig, _projectileConfig, _particleSystemPlayer);
             mimikController.StartMimikBehaviour();
             return projectileObject;
         }
@@ -169,7 +169,6 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         public Fruit CreateFruit(FruitType fruitType, Vector2 position, Vector2 fruitScale, Vector2 shadowScale, out Shadow shadow, Transform parent = null)
         {
             Fruit fruit = InstantiateFruitAndConstruct(ProjectilePartEnum.Whole, fruitType, position, fruitScale, shadowScale, out shadow, parent);
-            fruit.DestroyNotSliced += _healthSystem.LooseLife;
             
             fruit.GetComponent<TwoPartsSliceObject>().Construct(
                 () => InstantiateFruitAndConstruct(ProjectilePartEnum.Left, fruitType, position, fruitScale, shadowScale, out _).GetComponent<ISliced>()
@@ -235,7 +234,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                 out createdShadow, parent);
             
             if(projectilePartEnum == ProjectilePartEnum.Whole)
-                samuraiPart.Construct(_samuraiController);
+                samuraiPart.Construct(_samuraiController, _particleSystemPlayer);
             
             return samuraiPart;
         }
@@ -317,13 +316,18 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             if (parent == null)
                 parent = _projectileParenter.transform;
             
+
             T part = SpawnProjectile<T>(projectileType, projectilePart, position, fruitScale, parent);
             ProjectileObject projectileObject = part.GetComponent<ProjectileObject>();
+            
             _projectileContainer.AddToDictionary(ProjectileType.Magnet, projectileObject);
             shadow = SpawnShadowAndConstructProjectileObject(projectileObject, projectilePart, position, fruitScale);
             
             if(projectilePart == ProjectilePartEnum.Whole)
                 part.GetComponent<SliceCircleCollider>().Construct(_sliceCollidersController);
+            
+            if(_activeProjectileTypesContainer.LooseHealthProjectileTypes.Contains(projectileType) && projectilePart == ProjectilePartEnum.Whole)     
+                projectileObject.DestroyNotSliced += _healthSystem.LooseLife;
             
             SetProjectileAndShadowSprite(projectileObject, spriteData.PartSprites[projectilePart], shadow, fruitScale, shadowScale);
             _destroyTrigger.AddDestroyTriggerListeners(projectileObject);

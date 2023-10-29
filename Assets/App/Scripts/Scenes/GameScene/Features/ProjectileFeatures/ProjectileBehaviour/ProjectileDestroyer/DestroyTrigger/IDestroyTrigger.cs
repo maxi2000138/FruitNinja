@@ -5,7 +5,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
     public interface IDestroyTrigger
     {
         void AddDestroyTriggerListeners(ProjectileObject projectileObject);
-        void TriggerGroup(ProjectileObject projectileObject);
+        void TriggerGroup(ProjectileObject projectileObject, bool isSliced);
         int DestroyGroupCount { get; }
     }
 }

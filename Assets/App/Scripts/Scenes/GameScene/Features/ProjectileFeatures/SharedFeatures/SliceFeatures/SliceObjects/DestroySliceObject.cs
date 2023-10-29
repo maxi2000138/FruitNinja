@@ -33,6 +33,6 @@ public class DestroySliceObject : MonoBehaviour, IFullSliceObject
         OnSliceEvent?.Invoke();
         Slicable.OnSlice();
         disableColliderOnSlice = true;
-        _destroyTrigger.TriggerGroup(ProjectileObject);
+        _destroyTrigger.TriggerGroup(ProjectileObject, true);
     }
 }

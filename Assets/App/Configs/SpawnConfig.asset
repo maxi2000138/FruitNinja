@@ -49,7 +49,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 4
-      Data: 2
+      Data: 6
     - Name: 
       Entry: 8
       Data: 
@@ -61,7 +61,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 4
-      Data: 0.8
+      Data: 0.1
     - Name: 
       Entry: 8
       Data: 
@@ -85,7 +85,7 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 4
-      Data: 0.8
+      Data: 0.1
     - Name: 
       Entry: 8
       Data: 
@@ -121,7 +121,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 4
-      Data: 0.5
+      Data: 0.1
     - Name: 
       Entry: 8
       Data: 
@@ -133,7 +133,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 4
-      Data: 0.5
+      Data: 0.15
     - Name: 
       Entry: 8
       Data: 
@@ -145,7 +145,7 @@ MonoBehaviour:
       Data: 8
     - Name: $v
       Entry: 4
-      Data: 0.5
+      Data: 0.1
     - Name: 
       Entry: 8
       Data: 
@@ -161,3 +161,4 @@ MonoBehaviour:
   AverageAmountSpawnGroups: 10
   ActiveFruitTypes: 000000000100000002000000030000000400000005000000060000000700000008000000
   ActiveProjectileTypes: 000000000100000002000000030000000400000005000000060000000700000008000000
+  LooseHealthProjectiles: 0000000006000000

@@ -32,13 +32,12 @@ MonoBehaviour:
   ScaleFactorDistance: 0.6
   FrozenTimeScale: 0.5
   FrozenTime: 8
-  ProjectileTypes: 
-  ChangeTime: 1.5
+  MimikChangeTime: 1.5
+  MimikBeforeChangeParticleDeltaTime: 0.3
   StringBagFruitsAmount: 5
   StringBagFruitsAngleRange: 30
   StringBagInivisibleTime: 0.3
   StringBagFruitForce: 15
-  SamuraiTime: 9.9
-  SamuraiAfterImmortalDelta: 3
-  FruitsIncreaseValue: 4
-  PackDeltaTimeDecreaseValue: 6
+  SamuraiTime: 7.9
+  FruitsIncreaseValue: 2
+  PackDeltaTimeDecreaseValue: 3.5

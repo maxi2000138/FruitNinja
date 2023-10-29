@@ -13,6 +13,7 @@ public class LoosePanelView : PanelBehaviour
     private float _highScore;
     private TweenCore _tweenCore;
     private TokenController _tokenController;
+    private Vector3 _transformLocalScale;
 
     public void Construct(TweenCore tweenCore)
     {
@@ -24,6 +25,7 @@ public class LoosePanelView : PanelBehaviour
     {
         _highScore = highScore;
         _currentScore = currentScore;
+        _transformLocalScale = _resultValueText.transform.localScale;
     }
 
     private void OnDestroy()
@@ -50,8 +52,8 @@ public class LoosePanelView : PanelBehaviour
         if (_currentScore != 0)
             await _tweenCore.TweenByTime(SetScoreText, 0, _currentScore, 1f, CustomEase.OutQuad, _tokenController.CreateCancellationToken());
 
-        _tweenCore.PunchByTime(SetTextScale, _resultValueText.transform.localScale,
-            _resultValueText.transform.localScale * 1.5f, 0.5f, CustomEase.FullCosine, _tokenController.CreateCancellationToken());
+        _tweenCore.PunchByTime(SetTextScale, _transformLocalScale,
+            _transformLocalScale * 1.5f, 0.5f, CustomEase.FullCosine, _tokenController.CreateCancellationToken());
     }
 
     public void Hide()

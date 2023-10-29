@@ -33,7 +33,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         {
             Vector2 finalScale = GetLongestScale(scale, _projectileConfig.ProjectileScales[projectileType].Scale);
 
-
+            shootObject.transform.position = position;
             float flyTime = _physicalFlightCalculator.GetFlyTimeFromYPosition(position.y);
             shootObject.ScaleByTimeApplier.StartScaling(scale, finalScale, flyTime);
 

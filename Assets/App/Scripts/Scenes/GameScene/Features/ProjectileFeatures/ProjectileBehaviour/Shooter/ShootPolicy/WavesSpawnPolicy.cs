@@ -13,7 +13,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         private float _packDeltaTimeDecreaseValue = 1f;
         private readonly SpawnConfig _spawnConfig;
         private readonly TokenController _tokenController;
-        private CancellationToken _groupToken;
+        private CancellationTokenSource _groupTokenSource;
         private int _groupNumber;
         private int _lastGroupNumber;
 
@@ -23,17 +23,21 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         {
             _spawnConfig = spawnConfig;
             _tokenController = new TokenController();
+            _groupTokenSource = new CancellationTokenSource();
         }
 
         public void StartWorking()
         {
+            InitGroupNumber();
+            ResetIncreasedValues();
             ShootTask();
         }
 
         public void StopWorking()
         {
-            if(cts != null)
-                cts.Cancel();
+            _tokenController.CancelTokens();
+            _groupTokenSource.Cancel();
+            _groupTokenSource = new CancellationTokenSource();
         }
 
         public void SetIncreasedValues(float fruitIncreaseValue, float packDeltaTimeDecreaseValue)
@@ -47,21 +51,32 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
         
         public void ResetIncreasedValues()
         {
-            _fruitsIncreaseValue = 1f;
-            _packDeltaTimeDecreaseValue = 1f;
-            _groupNumber = _lastGroupNumber;
+            RestIncreasedValues();
             _tokenController.CancelTokens();
         }
 
-        private async UniTask ShootTask()
+        public void ResetGroupNumber()
         {
-            
+            _groupNumber = _lastGroupNumber;
+        }
+
+        public void InitGroupNumber()
+        {
+            _groupNumber = 0;
+        }
+
+        private void RestIncreasedValues()
+        {
+            _fruitsIncreaseValue = 1f;
+            _packDeltaTimeDecreaseValue = 1f;
+        }
+
+        private async UniTaskVoid ShootTask()
+        {
             float fruitsAmountRange = _spawnConfig.BlocksAmountRange.x;
             float fruitsInGroupSpawnDelay = _spawnConfig.BlocksInGroupSpawnDelayRange.y;
             float groupSpawnDelayRange = _spawnConfig.GroupSpawnDelayRange.y;
 
-            _groupNumber = 0;
-        
             while (true)
             {
                 _groupNumber++;
@@ -76,9 +91,12 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
                         break;
                 }
 
-                await UniTask.Delay((int)(groupSpawnDelayRange * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, _tokenController.CreateCancellationToken())
+                bool isCanceled = await UniTask.Delay((int)(groupSpawnDelayRange * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, _groupTokenSource.Token)
                     .SuppressCancellationThrow();
 
+                if(isCanceled)
+                    return;
+                
                 fruitsAmountRange = Mathf.Lerp(_spawnConfig.BlocksAmountRange.x, _spawnConfig.BlocksAmountRange.y
                     ,(float)_groupNumber / _spawnConfig.AverageAmountSpawnGroups) * _fruitsIncreaseValue;
                 fruitsInGroupSpawnDelay = Mathf.Lerp(_spawnConfig.BlocksInGroupSpawnDelayRange.y, _spawnConfig.BlocksInGroupSpawnDelayRange.x

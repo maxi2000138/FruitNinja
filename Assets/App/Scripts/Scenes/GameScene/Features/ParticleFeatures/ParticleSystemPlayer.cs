@@ -10,6 +10,9 @@ namespace App.Scripts.Scenes.GameScene.Features.ParticleFeatures
     public class ParticleSystemPlayer : SerializedMonoBehaviour
     {
         [OdinSerialize] private Dictionary<ProjectileType, ParticleSystem> _projectileParticles;
+        [Header("Mimik")]
+        [SerializeField] private ParticleSystem _mimikBeforeChagneParticles;
+        [SerializeField] private ParticleSystem _mimikAfterChangeParticles;
         
         private TokenController _tokenController;
         private BonusesConfig _bonusesConfig;
@@ -18,6 +21,30 @@ namespace App.Scripts.Scenes.GameScene.Features.ParticleFeatures
         private void Awake()
         {
             _tokenController = new TokenController();
+        }
+
+        public void PlayMimikBeforeChangeAndParent(Transform parent)
+        {
+            ParticleSystem playParticles = PlayParticles(_mimikBeforeChagneParticles, parent.transform.position);
+            playParticles.transform.SetParent(parent);
+        }
+        
+        public void PlayMimikAfterChange(Transform parent)
+        {
+            ParticleSystem particles = PlayParticles(_mimikAfterChangeParticles, parent.position);
+            particles.GetComponent<PositionController>().SetControllingTransform(parent);
+        }
+        
+        public void PlayMimikDefaultAndParent(Transform parent)
+        {
+            ParticleSystem playParticles = PlayParticles(_projectileParticles[ProjectileType.Mimik], parent.transform.position);
+            playParticles.transform.SetParent(parent);
+        }
+        
+        public void PlaySamuraiParticles(Transform parent)
+        {
+            ParticleSystem particles = PlayParticles(_projectileParticles[ProjectileType.Samurai], parent.position);
+            particles.GetComponent<PositionController>().SetControllingTransform(parent);
         }
 
         public void PlayIceParticles(Vector2 position) =>

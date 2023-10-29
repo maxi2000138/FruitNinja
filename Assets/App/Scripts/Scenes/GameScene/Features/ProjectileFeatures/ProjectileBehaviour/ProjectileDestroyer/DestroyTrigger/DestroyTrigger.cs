@@ -43,17 +43,17 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             {
                 if (IsTriggered(_destroyListeners[i]))
                 {
-                    RemoveGroup(_destroyListeners[i]);
+                    RemoveGroup(_destroyListeners[i], false);
                     i--;
                 }
             }
         }
 
 
-        public void TriggerGroup(ProjectileObject projectileObject)
+        public void TriggerGroup(ProjectileObject projectileObject, bool sliced = false)
         {
             if(_destroyListeners.Contains(projectileObject))
-                RemoveGroup(projectileObject);
+                RemoveGroup(projectileObject, sliced);
         }
         private bool IsTriggered(ProjectileObject destroyListener)
         {
@@ -65,10 +65,13 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
             return false;
         }
 
-        private void RemoveGroup(ProjectileObject projectileObject)
+        private void RemoveGroup(ProjectileObject projectileObject, bool isSliced = false)
         {
             _destroyListeners.Remove(projectileObject);
             _projectileContainer.RemoveFromDictionary(projectileObject);
+            
+            if(isSliced)
+                projectileObject.MakeSliced();
             
             if (projectileObject != null)
             {

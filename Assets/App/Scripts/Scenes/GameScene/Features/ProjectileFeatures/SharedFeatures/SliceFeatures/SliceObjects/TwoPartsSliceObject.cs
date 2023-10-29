@@ -72,7 +72,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.SharedFeature
 
         private void DestroyFruit()
         {
-            _destroyTrigger.TriggerGroup(GetComponent<ProjectileObject>());
+            _destroyTrigger.TriggerGroup(GetComponent<ProjectileObject>(), true);
         }
 
         private void SetVelocity(Mover mover, float sliceForce)

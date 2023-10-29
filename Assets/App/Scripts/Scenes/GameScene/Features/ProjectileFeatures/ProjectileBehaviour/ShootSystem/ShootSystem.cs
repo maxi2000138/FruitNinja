@@ -37,7 +37,7 @@ namespace App.Scripts.Scenes.GameScene.Features.ProjectileFeatures.ProjectileBeh
 
         public void Initialize()
         {
-            _activeProjectileTypesContainer.RestActiveProjectile();
+            _activeProjectileTypesContainer.ResetActiveProjectiles();
             StartShooting();
         }
 
